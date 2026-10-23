@@ -1,36 +1,51 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Hacktober26
 
-## Getting Started
+> **One sentence: what we solve, for whom.** _(fill in at 11:30)_
 
-First, run the development server:
+Built in one day at **Hacktoberfest Hack Day Mannheim x Q-Summit** (24 Oct 2026) with **Gemma 4**, Google's open-weight model.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## How it works
+
+```
+Photo / note ──► Capture ──► Understand (Gemma 4) ──► Act (Gemma 4 + Google Search) ──► Speak (ElevenLabs)
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Open-weight AI at the core:** every step runs on Gemma 4 (`gemma-4-26b-a4b-it` / `gemma-4-31b-it`).
+- **Runs where you want it:** Gemini API, DigitalOcean Inference, or fully local via Ollama (Gemma 4 E4B) so sensitive data never leaves the device.
+- **Multimodal:** understands photos of real-world documents, not just text.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quick start
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+cp .env.example .env.local   # MOCK=1 works without any keys
+npm run dev                  # http://localhost:3000
+npm run test:gemma           # smoke-test every configured Gemma backend
+```
 
-## Learn More
+## Project structure
 
-To learn more about Next.js, take a look at the following resources:
+| Path | What |
+|------|------|
+| `src/lib/types.ts` | Shared contract between all parts |
+| `src/lib/ai.ts` | One `ask()` function for Gemini API / DigitalOcean / Ollama |
+| `src/lib/prompts.ts` | All prompts |
+| `src/app/api/analyze` | Photo → structured analysis |
+| `src/app/api/act` | Analysis → next step (draft, explanation, deadline) |
+| `src/app/api/speak` | Text → speech (ElevenLabs, browser fallback) |
+| `src/features/*` | UI per part |
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Team
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Name | Part |
+|------|------|
+| _____ | Capture · Pitch |
+| _____ | Understand · Integration |
+| _____ | Act · Demo |
+| _____ | Speak · Design |
 
-## Deploy on Vercel
+Team docs (German): [Rollen](docs/ROLLEN.md) · [Ablauf](docs/ABLAUF.md) · [Git-Workflow](docs/GIT-WORKFLOW.md) · [Scope](docs/scope.md) · [Schnittstellen](docs/interfaces.md) · [Pitch](docs/pitch.md) · [Playbook](docs/playbook.md) · [Entscheidungen](docs/decisions.md)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## License
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+[Apache 2.0](LICENSE)
