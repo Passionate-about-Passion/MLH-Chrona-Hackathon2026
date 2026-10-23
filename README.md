@@ -39,17 +39,29 @@ npm run test:gemma           # smoke-test every configured Gemma backend
 
 **Für das Team (start here):**
 
-- 📋 **Aufgaben-Board (live, für alle synchron):** https://claude.ai/artifact/GZ59hiJNRHBN5n5o2AyCmt
 - 📄 **Team-Briefing (1 Seite, für alle):** [docs/briefing/Team-Briefing.pdf](docs/briefing/Team-Briefing.pdf)
 - 🤖 **Mit Claude arbeiten:** [CLAUDE.md](CLAUDE.md) (Routinen, Modellwahl) · [BUGS.md](BUGS.md) · [PROMPT.md](PROMPT.md) · [SKILLS.md](SKILLS.md)
+- 🔌 **Plugins (einmal pro Rechner installieren):** [PLUGINS.md](PLUGINS.md)
+- ✅ **Aufgaben (Leo, Hannes, Emil, Lenny):** [AUFGABEN.md](AUFGABEN.md)
 - 🧭 Rollen & Bereiche: [docs/ROLLEN.md](docs/ROLLEN.md) · Ablauf: [docs/ABLAUF.md](docs/ABLAUF.md)
 
-| Name | Part |
-|------|------|
-| _____ | Capture · Pitch |
-| _____ | Understand · Integration |
-| _____ | Act · Demo |
-| _____ | Speak · Design |
+**Team**
+
+| Name | Bereich (A–D) | Zusatzrolle | GitHub |
+|------|:-------------:|-------------|--------|
+| Leo | | | |
+| Hannes | | | |
+| Emil | | | |
+| Lenny | | | |
+
+**Bereiche** – jeder baut seinen Bereich vom Backend bis zum Frontend (Details: [docs/ROLLEN.md](docs/ROLLEN.md)):
+
+| Bereich | Baut | Zusatzrolle |
+|:-------:|------|-------------|
+| **A** | Erfassen – Foto/Kamera, Upload | Pitch & Teamlead |
+| **B** | Verstehen – Gemma-Analyse, Ergebnis-Karte | Integration & Deployment |
+| **C** | Handeln – Aktionen, Antwort-Entwurf | Demo-Sicherheit |
+| **D** | Sprechen & Lokal – Vorlesen, lokaler Modus | Design & Persona |
 
 Team docs (German): [Rollen](docs/ROLLEN.md) · [Ablauf](docs/ABLAUF.md) · [Git-Workflow](docs/GIT-WORKFLOW.md) · [Scope](docs/scope.md) · [Schnittstellen](docs/interfaces.md) · [Pitch](docs/pitch.md) · [Playbook](docs/playbook.md) · [Entscheidungen](docs/decisions.md)
 
