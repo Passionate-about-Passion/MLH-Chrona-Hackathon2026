@@ -1,7 +1,7 @@
 # Hackathon-Projekt – Regeln für Claude
 
 Ziel: Den Hackathon gewinnen. Die Jury entscheidet nach Pitch und Demo, nicht nach Code.
-Lies bei jedem Start: dieses File, `docs/scope.md`, `docs/decisions.md`, `docs/interfaces.md`, `docs/ROLLEN.md`.
+Lies bei jedem Start: dieses File, `docs/scope.md`, `docs/decisions.md`, `docs/interfaces.md`, `docs/ROLLEN.md`, `BUGS.md` (offene P0/P1) und `PROMPT.md` (offene Aufgaben).
 Hintergrundwissen (Jury, Pitch, Zeitplan): `docs/playbook.md`, `docs/ABLAUF.md` – nur bei Bedarf lesen.
 
 ## Projekt (vom Team auszufüllen, in der ersten Stunde)
@@ -37,3 +37,36 @@ Jede Person baut ihren Bereich vom Backend bis zum Frontend (Details: `docs/ROLL
 10. Nach dem Scope-Freeze (14:00, siehe `docs/scope.md`): nur noch Bugfixes und Demo-Stabilität, keine neuen Features.
 11. Solange keine Keys da sind: `MOCK=1` in `.env.local`. Frontend gegen die Mock-Antworten in `src/lib/mocks.ts` bauen. Vor der Demo `MOCK=0`.
 12. Alle KI-Aufrufe laufen über `ask()` in `src/lib/ai.ts`. Keine direkten SDK-Aufrufe in Routen oder Komponenten.
+13. Neue Aufgaben schreibst du als Prompt in `PROMPT.md` (Vorlage dort, oder `/new-task`). Gefundene Bugs gehören in `BUGS.md`, nicht nur in den Chat.
+
+## Routinen
+
+| Wann | Was | Wie | Wer |
+|---|---|---|---|
+| **alle 30 Min.** | Bug-Check: Lint, Typecheck, Build, Änderungen prüfen → `BUGS.md`, offene P0/P1 → `PROMPT.md` | `/loop 30m /bugcheck` einmal starten | **nur Bereich B** (Integration), damit keine doppelten Einträge entstehen |
+| vor jeder Aufgabe | `git pull`, nächste Aufgabe holen | `/next-task <A-D>` | alle |
+| neue Idee / Wunsch | als Prompt festhalten statt sofort bauen | `/new-task <text>` | alle |
+| vor jedem Commit | Check muss grün sein | `bash scripts/check.sh` | alle |
+| zu jeder vollen Stunde | eigenen Branch in `main` mergen | siehe `docs/GIT-WORKFLOW.md` | alle |
+| 14:00 | Scope-Freeze: `task-writer` lehnt ab hier Feature-Aufgaben ab | – | A sagt es an |
+| ab 15:30 | `/bugcheck` alle 15 Min., nur noch P0/P1 fixen | `/loop 15m /bugcheck` | B |
+
+P0-Bugs (Demo kaputt) sofort im Team-Chat melden, nicht auf den nächsten Check warten.
+
+## Modellwahl (abgestuft)
+
+Nimm das kleinste Modell, das die Aufgabe sicher schafft. Jede Aufgabe in `PROMPT.md` nennt ihr Modell.
+
+| Modell | Wofür | Beispiele |
+|---|---|---|
+| **Opus** (Hauptsession) | Schwer & riskant | Vertrag `types.ts` ändern, mehrere Bereiche betroffen, Gemma-Prompts entwerfen, unklarer P0, Merge-Konflikte |
+| **Sonnet** (mittel) | Normale Arbeit in einem Bereich | Komponente bauen, API-Route erweitern, P1/P2-Bug fixen, Bug-Analyse (`bug-hunter`), Umsetzung (`slice-builder`) |
+| **Haiku** (einfach) | Mechanisch & klein | Checks laufen lassen (`check-runner`), Aufgaben/Bugs eintragen (`task-writer`), Texte, Docs, Umbenennen |
+
+Subagents mit festem Modell liegen in `.claude/agents/`, Befehle in `.claude/commands/`. Delegiere Haiku- und Sonnet-Arbeit an diese Subagents statt sie in einer Opus-Session selbst zu machen.
+
+## Skills
+Projekt-Skills liegen in `.claude/skills/` (Übersicht: `SKILLS.md`). Pflicht:
+- Bugs: `systematic-debugging` · vor „fertig“: `verification-before-completion`
+- UI: `frontend-design`, bei Browser-APIs/CSS zuerst `modern-web-guidance`
+- Aufgaben über mehr als 2 Dateien: `writing-plans` (Plan kurz, Ergebnis als Aufgaben in `PROMPT.md`)

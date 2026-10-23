@@ -9,3 +9,6 @@ Format: `- JJJJ-MM-TT HH:MM | Entscheidung | Grund | von wem`
 - 2026-10-23 20:00 | Mock-Modus (`MOCK=1`) als Standard bis Keys da sind | Keys/Tokens kommen erst Samstag früh | Team
 - 2026-10-23 20:00 | Lizenz Apache 2.0 | Gleiche Lizenz wie Gemma 4, Open-Source-Challenge | Team
 - 2026-10-23 20:00 | System-Schriften statt Google Fonts | Build darf nicht am WLAN vor Ort scheitern | Team
+- 2026-10-23 21:00 | Bug-Routine alle 30 Min. (`/loop 30m /bugcheck`), nur Bereich B startet sie; Bugs in `BUGS.md`, Aufgaben als Prompts in `PROMPT.md` | Fehler früh finden, keine doppelten Einträge, Aufgaben übergabefertig | Team
+- 2026-10-23 21:00 | Abgestufte Modelle: Opus schwer, Sonnet mittel, Haiku einfach – feste Subagents in `.claude/agents/` | Schneller und günstiger, Opus nur wo nötig | Team
+- 2026-10-23 21:00 | Projekt-Skills in `.claude/skills/` (frontend-design, modern-web-guidance, 4× superpowers); brainstorming bewusst weggelassen | Gleiche Arbeitsweise für alle; brainstorming zu langsam für einen Tag | Team
