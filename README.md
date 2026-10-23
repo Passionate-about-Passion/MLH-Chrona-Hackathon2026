@@ -37,6 +37,12 @@ npm run test:gemma           # smoke-test every configured Gemma backend
 
 ## Team
 
+**Für das Team (start here):**
+
+- 📋 **Aufgaben-Board (live, für alle synchron):** https://claude.ai/artifact/GZ59hiJNRHBN5n5o2AyCmt
+- 📄 **Briefing-Sheets (1 Seite für alle + 1 pro Rolle):** [docs/briefing/](docs/briefing/)
+- 🧭 Rollen & Bereiche: [docs/ROLLEN.md](docs/ROLLEN.md) · Ablauf: [docs/ABLAUF.md](docs/ABLAUF.md)
+
 | Name | Part |
 |------|------|
 | _____ | Capture · Pitch |

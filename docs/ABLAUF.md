@@ -3,7 +3,8 @@
 ## Heute Abend (alle)
 
 - [ ] Repo klonen, `npm install`, `cp .env.example .env.local`, `npm run dev` läuft
-- [ ] Jeder öffnet seinen Ordner in `src/features/` und versteht seinen Bereich (`docs/ROLLEN.md`)
+- [ ] Eigenes Briefing-Sheet in `docs/briefing/` lesen und den eigenen Ordner in `src/features/` ansehen
+- [ ] Aufgaben-Board öffnen: https://claude.ai/artifact/GZ59hiJNRHBN5n5o2AyCmt
 - [ ] Person 1: Deck-Vorlage anlegen (Persona-Story wie Janus/Minerva)
 - [ ] Person 4: grobe Farb- und Stilidee
 - [ ] Laptops laden, Ladekabel und Mehrfachstecker einpacken
