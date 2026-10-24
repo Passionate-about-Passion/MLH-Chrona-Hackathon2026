@@ -1,0 +1,11 @@
+{
+  "name": "hacktober26-team",
+  "description": "Team skills for the Hacktober26 hackathon project (modern web guidance for frontend work).",
+  "version": "1.0.0",
+  "author": {
+    "name": "Hacktober26 Team"
+  },
+  "repository": "https://github.com/Passionate-about-Passion/Hacktober26",
+  "license": "Apache-2.0",
+  "keywords": ["hackathon", "frontend", "web"]
+}

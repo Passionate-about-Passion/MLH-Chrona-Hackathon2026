@@ -14,6 +14,17 @@ Photo / note ──► Capture ──► Understand (Gemma 4) ──► Act (Gem
 - **Runs where you want it:** Gemini API, DigitalOcean Inference, or fully local via Ollama (Gemma 4 E4B) so sensitive data never leaves the device.
 - **Multimodal:** understands photos of real-world documents, not just text.
 
+## Setup
+
+Installiert alle Claude-Code-Plugins und Skills des Teams mit einem Befehl (mehrfach ausführbar):
+
+```bash
+bash setup.sh
+```
+
+Windows: in **Git Bash** oder **WSL** ausführen. Vor dem Merge auf `main`: `bash setup.sh --local`. Danach Claude Code neu starten.
+Einzeln geht auch: `/plugin install hacktober26-team --marketplace Passionate-about-Passion/Hacktober26`
+
 ## Quick start
 
 ```bash

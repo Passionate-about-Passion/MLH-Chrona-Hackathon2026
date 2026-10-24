@@ -66,7 +66,7 @@ Nimm das kleinste Modell, das die Aufgabe sicher schafft. Jede Aufgabe in `PROMP
 Subagents mit festem Modell liegen in `.claude/agents/`, Befehle in `.claude/commands/`. Delegiere Haiku- und Sonnet-Arbeit an diese Subagents statt sie in einer Opus-Session selbst zu machen.
 
 ## Skills
-Projekt-Skills liegen in `.claude/skills/` (Übersicht: `SKILLS.md`). Pflicht:
+Projekt-Skills liegen in `.claude/skills/`, Team-Plugins kommen über `bash setup.sh` (Übersicht: `SKILLS.md`, `PLUGINS.md`). Pflicht:
 - Bugs: `systematic-debugging` · vor „fertig“: `verification-before-completion`
 - UI: `frontend-design`, bei Browser-APIs/CSS zuerst `modern-web-guidance`
 - Aufgaben über mehr als 2 Dateien: `writing-plans` (Plan kurz, Ergebnis als Aufgaben in `PROMPT.md`)

@@ -1,12 +1,12 @@
 # Skills im Repo
 
-Alle Skills liegen in `.claude/skills/`. Claude Code lädt sie automatisch für jeden, der das Repo öffnet – nichts zu installieren.
+Lose Skills liegen in `.claude/skills/` und laden automatisch, wenn das Repo geöffnet ist. `modern-web-guidance` steckt im Team-Plugin `plugins/hacktober26-team/`. `bash setup.sh` installiert alles auf einmal.
 Claude nutzt sie von selbst, wenn die Beschreibung passt. Ihr könnt sie auch direkt anfordern: „nutze den Skill systematic-debugging“.
 
 | Skill | Wofür bei uns | Wer vor allem | Quelle / Lizenz |
 |---|---|---|---|
 | `frontend-design` | UI, die nicht nach Vorlage aussieht: Farben, Typo, Layout | D, A | Anthropic · Apache 2.0 |
-| `modern-web-guidance` | Aktuelle Web-APIs & CSS (Kamera-Input, Dialoge, Formulare, Performance) | A, D | Google Chrome · Apache 2.0 |
+| `modern-web-guidance` (Plugin `hacktober26-team`) | Aktuelle Web-APIs & CSS (Kamera-Input, Dialoge, Formulare, Performance) | A, D | Google Chrome · Apache 2.0 |
 | `systematic-debugging` | Bugs an der Ursache fixen statt raten – Pflicht für `bug-hunter` | alle | superpowers (obra) · MIT |
 | `verification-before-completion` | Erst Beweis (Check grün), dann „fertig“ sagen | alle | superpowers · MIT |
 | `writing-plans` | Größere Aufgaben (> 2 Dateien) erst planen | B, Opus-Aufgaben | superpowers · MIT |
