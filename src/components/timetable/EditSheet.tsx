@@ -1,7 +1,6 @@
 "use client";
 import { useState } from "react";
 import type { Entry } from "@/types";
-import { CampusMap } from "@/features/act/CampusMap";
 import { Modal } from "./Modal";
 import { PinIcon } from "./Icons";
 import { mapsUrl, range, toMin } from "./logic";
@@ -28,6 +27,8 @@ interface EditSheetProps {
   onSave: (v: EditValues) => void;
   onAlternatives: () => void;
   onDelete: () => void;
+  /** opens the full-screen campus map (CampusMap) */
+  onShowMap: () => void;
   onClose: () => void;
 }
 
@@ -52,6 +53,7 @@ export function EditSheet({
   onSave,
   onAlternatives,
   onDelete,
+  onShowMap,
   onClose,
 }: EditSheetProps) {
   const [v, setV] = useState<EditValues>({
@@ -121,9 +123,10 @@ export function EditSheet({
       </div>
 
       {entry.location && (
-        <div className="tt-group tt-group-map">
-          {/* campus site plan (Lenny, TASK-022) */}
-          <CampusMap room={entry.location} title={entry.title} kind={KIND_NAME[entry.type]} time={range(entry)} />
+        <div className="tt-group">
+          <button type="button" className="tt-group-row tt-group-action" onClick={onShowMap}>
+            Lageplan anzeigen
+          </button>
           <a
             className="tt-group-row tt-group-action"
             href={mapsUrl(entry.location)}

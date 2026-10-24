@@ -15,8 +15,14 @@ const href = (c: { program: string; term?: number }) => `/?program=${c.program}$
 /** default program first, the internal demo data last */
 const ORDER = Object.keys(PROGRAMS).sort((a, b) => Number(b === DEFAULT.program) - Number(a === DEFAULT.program) || Number(a === "demo") - Number(b === "demo"));
 
-const termsOf = (id: string) =>
-  [...new Set(PROGRAMS[id].courses.flatMap((c) => (c.term != null ? [c.term] : [])))].sort((a, b) => a - b);
+/** standard length of study: offered even where the data only covers some semesters (BWL: only the 1st so far) */
+const SEMESTERS: Record<string, number> = { bwl: 6 };
+
+const termsOf = (id: string) => {
+  const fromData = PROGRAMS[id].courses.flatMap((c) => (c.term != null ? [c.term] : []));
+  const all = Array.from({ length: SEMESTERS[id] ?? 0 }, (_, i) => i + 1);
+  return [...new Set([...fromData, ...all])].sort((a, b) => a - b);
+};
 
 const selectStyle = {
   minHeight: 48,

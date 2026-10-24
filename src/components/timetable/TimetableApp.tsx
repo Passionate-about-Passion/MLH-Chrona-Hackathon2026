@@ -35,6 +35,7 @@ import { Toast, type ToastState } from "./Toast";
 import { VoiceOverlay } from "./VoiceOverlay";
 import { WeekPager } from "./WeekPager";
 import { WeekStrip } from "./WeekStrip";
+import { CampusMap } from "@/features/act/CampusMap";
 import { EditSheet, type EditKind, type EditValues } from "./EditSheet";
 import {
   WD_LONG,
@@ -43,6 +44,7 @@ import {
   entriesOn,
   moveToSession,
   nextEntry,
+  range as timeRange,
   untilText,
   weekdayOf,
   type Alternative,
@@ -59,6 +61,8 @@ const nowTime = (d = new Date()) => `${String(d.getHours()).padStart(2, "0")}:${
 const TODAY = localIso();
 /** open on Monday when today is a weekend day */
 const START_DATE = weekdayOf(TODAY) >= 5 ? addDays(TODAY, 7 - weekdayOf(TODAY)) : TODAY;
+const KIND_NAME = { V: "Vorlesung", U: "Übung", T: "Tutorium", P: "Termin" } as const;
+
 type Snapshot = { plan: Plan; constraints: Constraint[]; priorities: Priority[] };
 
 export function TimetableApp({ program = "demo", term }: { program?: string; term?: number }) {
@@ -109,7 +113,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
   useEffect(() => {
     fetch("/api/google/status")
       .then((r) => r.json())
-      .then((j: { configured?: boolean; connected?: boolean }) => setGcal((g) => ({ ...g, connected: !!(j.configured && j.connected) })))
+      .then((j: { configured?: boolean; connected?: boolean }) => setGcal((g) => ({ ...g, connected: j.configured ? !!j.connected : null })))
       .catch(() => setGcal((g) => ({ ...g, connected: false })));
   }, []);
 
@@ -192,6 +196,8 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
   const previewEntry = preview && entries.find((e) => e.id === preview.entryId);
 
   /* ---------- edit sheet (tap on a card) ---------- */
+  const [mapEntryId, setMapEntryId] = useState<string | null>(null);
+  const mapEntry = mapEntryId ? entries.find((e) => e.id === mapEntryId) : undefined;
   const [editId, setEditId] = useState<string | null>(null);
   const editEntry = editId ? entries.find((e) => e.id === editId) : undefined;
   /** private blocks have ids "blk:<blockKey>"; only the student's own ones can be changed */
@@ -401,6 +407,9 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
         <Toast toast={toast} onDismiss={dismissToast} />
       </div>
 
+      {mapEntry && (
+        <CampusMap room={mapEntry.location} title={mapEntry.title} kind={KIND_NAME[mapEntry.type]} time={timeRange(mapEntry)} onClose={() => setMapEntryId(null)} />
+      )}
       {conflict && conflictEntry && (
         <ConflictDialog
           entry={conflictEntry}
@@ -439,6 +448,10 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
             void openAlternatives(editEntry);
           }}
           onDelete={() => deleteEntry(editEntry)}
+          onShowMap={() => {
+            setEditId(null);
+            setMapEntryId(editEntry.id);
+          }}
           onClose={() => setEditId(null)}
         />
       )}
