@@ -1,1 +1,2794 @@
+{
+  "schema_version": "1.0",
+  "institution": "Universität Mannheim",
+  "semester": {
+    "name": "Herbst-/Wintersemester 2026",
+    "year": 2026
+  },
+  "degree_program": "Bachelor Betriebswirtschaftslehre (2012)",
+  "timezone": "Europe/Berlin",
+  "source": {
+    "type": "user_pasted_text",
+    "filename": "Pasted text.txt",
+    "external_verification": false
+  },
+  "conventions": {
+    "dates": "YYYY-MM-DD; start_date und end_date einschließlich",
+    "times": "HH:MM, lokale Zeit in Europe/Berlin",
+    "weekday_iso": "1=Montag bis 7=Sonntag",
+    "missing_values": "null = unbekannt; leere Gruppenlisten = keine Gruppen in der Vorlage, nicht zwingend keine Veranstaltung",
+    "instructors": "Dozent/-in-Angaben gelten jeweils für den Terminblock. Namen aus Gruppentiteln stehen separat in instructor_name_from_label.",
+    "ects": "Zahlen aus der Nutzeranfrage als ECTS interpretiert; für ECO 301 nicht angegeben.",
+    "shared_events": "Gemeinsame Veranstaltungen werden einmal gespeichert und über event_ids mit beiden Modulen verknüpft.",
+    "location_changes": "Ab effective_from hat die angegebene Raumänderung Vorrang vor location; nicht angegebene Raumdetails bleiben unbekannt.",
+    "recurrence": "Wöchentliche Serien wie in der Vorlage; Feiertage, Ausfälle und Ersatztermine sind nicht zusätzlich abgeleitet.",
+    "selection_rules": "Welche Parallelgruppen zu wählen oder zu kombinieren sind, geht aus der Vorlage nicht hervor."
+  },
+  "modules": {
+    "ACC 300": {
+      "code": "ACC 300",
+      "name": "Grundlagen des betrieblichen Rechnungswesens",
+      "ects": 6,
+      "ects_source": "user_request_assumed_ects",
+      "code_source": "source_text",
+      "source_path": "1.3.1.3.1.1",
+      "event_ids": [
+        "ACC300_lecture",
+        "ACC300_exercise",
+        "ACC300_tutorial"
+      ]
+    },
+    "MAN 301": {
+      "code": "MAN 301",
+      "name": "Strategic and International Management",
+      "ects": 6,
+      "ects_source": "user_request_assumed_ects",
+      "code_source": "source_text",
+      "source_path": "1.3.1.3.4.1",
+      "event_ids": [
+        "MAN301_lecture",
+        "MAN301_exercise"
+      ]
+    },
+    "CC 301": {
+      "code": "CC 301",
+      "name": "Analysis",
+      "ects": 5,
+      "ects_source": "user_request_assumed_ects",
+      "code_source": "user_request",
+      "source_path": "1.3.1.2.1",
+      "event_ids": [
+        "CC301_lecture",
+        "CC301_exercise"
+      ]
+    },
+    "CC 302": {
+      "code": "CC 302",
+      "name": "Finanzmathematik",
+      "ects": 3,
+      "ects_source": "user_request_assumed_ects",
+      "code_source": "source_text",
+      "source_path": "1.3.1.2.2",
+      "event_ids": [
+        "CC302_CC303_introduction",
+        "CC302_lecture",
+        "CC302_exercise",
+        "CC302_CC303_tutorial"
+      ]
+    },
+    "CC 303": {
+      "code": "CC 303",
+      "name": "Quantitative Methoden",
+      "ects": 3,
+      "ects_source": "user_request_assumed_ects",
+      "code_source": "source_text",
+      "source_path": "1.3.1.2.3",
+      "event_ids": [
+        "CC302_CC303_introduction",
+        "CC302_CC303_tutorial",
+        "CC303_lecture",
+        "CC303_exercise"
+      ]
+    },
+    "ECO 301": {
+      "code": "ECO 301",
+      "name": "Grundlagen der Volkswirtschaftslehre",
+      "ects": null,
+      "ects_source": null,
+      "code_source": "user_request",
+      "source_path": "1.3.1.4.1",
+      "event_ids": [
+        "ECO301_lecture",
+        "ECO301_exercise"
+      ]
+    }
+  },
+  "events": {
+    "CC301_lecture": {
+      "id": "CC301_lecture",
+      "title": "Analysis",
+      "type": "lecture",
+      "type_label": "Vorlesung",
+      "module_codes": [
+        "CC 301"
+      ],
+      "source_paths": [
+        "1.3.1.2.1.1"
+      ],
+      "parallel_groups": [
+        {
+          "id": "CC301_lecture_group_1",
+          "number": 1,
+          "label": "Analysis - 1. Parallelgruppe",
+          "source_path": "1.3.1.2.1.1.1",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "CC301_lecture_group_1_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-08",
+              "end_date": "2026-12-08",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "ZOOM-Lehre-039",
+                "room_label": "ZOOM-Lehre-039",
+                "building": "Virtuelles Gebäude",
+                "mode": "online"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 08.09.26 - 08.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)ZOOM-Lehre-039 (Virtuelles Gebäude)"
+            }
+          ]
+        },
+        {
+          "id": "CC301_lecture_group_2",
+          "number": 2,
+          "label": "Analysis - 2. Parallelgruppe",
+          "source_path": "1.3.1.2.1.1.2",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "CC301_lecture_group_2_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-12-10",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 10.09.26 - 10.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "CC301_exercise": {
+      "id": "CC301_exercise",
+      "title": "Analysis",
+      "type": "exercise",
+      "type_label": "Übung",
+      "module_codes": [
+        "CC 301"
+      ],
+      "source_paths": [
+        "1.3.1.2.1.2"
+      ],
+      "parallel_groups": [
+        {
+          "id": "CC301_exercise_group_1",
+          "number": 1,
+          "label": "Analysis (Yavarovich) - 1. Parallelgruppe",
+          "source_path": "1.3.1.2.1.2.1",
+          "instructor_name_from_label": "Yavarovich",
+          "schedules": [
+            {
+              "id": "CC301_exercise_group_1_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 129",
+                "room_label": "O 129 Göhringer Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)O 129 Göhringer Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "CC301_exercise_group_2",
+          "number": 2,
+          "label": "Analysis (Yavarovich) - 2. Parallelgruppe",
+          "source_path": "1.3.1.2.1.2.2",
+          "instructor_name_from_label": "Yavarovich",
+          "schedules": [
+            {
+              "id": "CC301_exercise_group_2_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A 203",
+                "room_label": "A 203 Unterrichtsraum",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)A 203 Unterrichtsraum (B 6, 23-25 Bauteil A)"
+            }
+          ]
+        },
+        {
+          "id": "CC301_exercise_group_3",
+          "number": 3,
+          "label": "Analysis (Bal) - 3. Parallelgruppe",
+          "source_path": "1.3.1.2.1.2.3",
+          "instructor_name_from_label": "Bal",
+          "schedules": [
+            {
+              "id": "CC301_exercise_group_3_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A 101",
+                "room_label": "A 101 Kleiner Hörsaal",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)A 101 Kleiner Hörsaal (B 6, 23-25 Bauteil A)"
+            }
+          ]
+        },
+        {
+          "id": "CC301_exercise_group_4",
+          "number": 4,
+          "label": "Analysis (Bal) - 4. Parallelgruppe",
+          "source_path": "1.3.1.2.1.2.4",
+          "instructor_name_from_label": "Bal",
+          "schedules": [
+            {
+              "id": "CC301_exercise_group_4_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001",
+                "room_label": "001 Hörsaal",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 17:15 bis 18:45 Uhr (wöchentlich)001 Hörsaal (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "CC301_exercise_group_5",
+          "number": 5,
+          "label": "Analysis (Lomitschka) - 5. Parallelgruppe",
+          "source_path": "1.3.1.2.1.2.5",
+          "instructor_name_from_label": "Lomitschka",
+          "schedules": [
+            {
+              "id": "CC301_exercise_group_5_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C 014",
+                "room_label": "C 014 Hörsaal",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)C 014 Hörsaal (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "CC301_exercise_group_6",
+          "number": 6,
+          "label": "Analysis (Lomitschka) - 6. Parallelgruppe",
+          "source_path": "1.3.1.2.1.2.6",
+          "instructor_name_from_label": "Lomitschka",
+          "schedules": [
+            {
+              "id": "CC301_exercise_group_6_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "B 244",
+                "room_label": "B 244 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)B 244 Hörsaal (A 5, 6 Bauteil B)"
+            }
+          ]
+        },
+        {
+          "id": "CC301_exercise_group_7",
+          "number": 7,
+          "label": "Analysis (Schubert) - 7. Parallelgruppe",
+          "source_path": "1.3.1.2.1.2.7",
+          "instructor_name_from_label": "Schubert",
+          "schedules": [
+            {
+              "id": "CC301_exercise_group_7_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-09-15",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "once",
+              "location": {
+                "room_code": "B 144",
+                "room_label": "B 144 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 15.09.26 von 08:30 bis 10:00 Uhr (Einzeltermin)B 144 Hörsaal (A 5, 6 Bauteil B)"
+            },
+            {
+              "id": "CC301_exercise_group_7_schedule_2",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-22",
+              "end_date": "2026-12-08",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "B 244",
+                "room_label": "B 244 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 22.09.26 - 08.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)B 244 Hörsaal (A 5, 6 Bauteil B)"
+            }
+          ]
+        },
+        {
+          "id": "CC301_exercise_group_8",
+          "number": 8,
+          "label": "Analysis (Schubert) - 8. Parallelgruppe",
+          "source_path": "1.3.1.2.1.2.8",
+          "instructor_name_from_label": "Schubert",
+          "schedules": [
+            {
+              "id": "CC301_exercise_group_8_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "B 243",
+                "room_label": "B 243 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)B 243 Hörsaal (A 5, 6 Bauteil B)"
+            }
+          ]
+        },
+        {
+          "id": "CC301_exercise_group_9",
+          "number": 9,
+          "label": "Analysis (Kostadinov) - 9. Parallelgruppe",
+          "source_path": "1.3.1.2.1.2.9",
+          "instructor_name_from_label": "Kostadinov",
+          "schedules": [
+            {
+              "id": "CC301_exercise_group_9_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 131",
+                "room_label": "O 131 Wilhelm Müller Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)O 131 Wilhelm Müller Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "CC301_exercise_group_10",
+          "number": 10,
+          "label": "Analysis (Kostadinov) - 10. Parallelgruppe",
+          "source_path": "1.3.1.2.1.2.10",
+          "instructor_name_from_label": "Kostadinov",
+          "schedules": [
+            {
+              "id": "CC301_exercise_group_10_schedule_1",
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-18",
+              "end_date": "2026-12-11",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001",
+                "room_label": "001 Hörsaal",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Freitag, 18.09.26 - 11.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)001 Hörsaal (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "CC301_exercise_group_11",
+          "number": 11,
+          "label": "Analysis (Werner) - 11. Parallelgruppe",
+          "source_path": "1.3.1.2.1.2.11",
+          "instructor_name_from_label": "Werner",
+          "schedules": [
+            {
+              "id": "CC301_exercise_group_11_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "B 144",
+                "room_label": "B 144 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)B 144 Hörsaal (A 5, 6 Bauteil B)"
+            }
+          ]
+        },
+        {
+          "id": "CC301_exercise_group_12",
+          "number": 12,
+          "label": "Analysis (Werner) - 12. Parallelgruppe",
+          "source_path": "1.3.1.2.1.2.12",
+          "instructor_name_from_label": "Werner",
+          "schedules": [
+            {
+              "id": "CC301_exercise_group_12_schedule_1",
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-18",
+              "end_date": "2026-12-11",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001",
+                "room_label": "001 Hörsaal",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Freitag, 18.09.26 - 11.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)001 Hörsaal (L 7, 3-5)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "CC302_CC303_introduction": {
+      "id": "CC302_CC303_introduction",
+      "title": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden EINFÜHRUNG",
+      "type": "introduction",
+      "type_label": "Einführungsveranstaltung",
+      "module_codes": [
+        "CC 302",
+        "CC 303"
+      ],
+      "source_paths": [
+        "1.3.1.2.2.1",
+        "1.3.1.2.3.1"
+      ],
+      "parallel_groups": [
+        {
+          "id": "CC302_CC303_introduction_group_1",
+          "number": 1,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden EINFÜHRUNG - 1. Parallelgruppe",
+          "source_path": "1.3.1.2.2.1.1",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "CC302_CC303_introduction_group_1_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-09-07",
+              "start_time": "19:00",
+              "end_time": "20:30",
+              "recurrence": "once",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon",
+                "Prof. Dr. Schön-Peterson, Cornelia"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 07.09.26 von 19:00 bis 20:30 Uhr (Einzeltermin)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        },
+        {
+          "id": "CC302_CC303_introduction_group_2",
+          "number": 2,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden EINFÜHRUNG - 2. Parallelgruppe",
+          "source_path": "1.3.1.2.2.1.2",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "CC302_CC303_introduction_group_2_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-08",
+              "end_date": "2026-09-08",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "once",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon",
+                "Prof. Dr. Schön-Peterson, Cornelia"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 08.09.26 von 12:00 bis 13:30 Uhr (Einzeltermin)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "CC302_lecture": {
+      "id": "CC302_lecture",
+      "title": "CC 302 Finanzmathematik VL",
+      "type": "lecture",
+      "type_label": "Vorlesung",
+      "module_codes": [
+        "CC 302"
+      ],
+      "source_paths": [
+        "1.3.1.2.2.2"
+      ],
+      "parallel_groups": [
+        {
+          "id": "CC302_lecture_group_1",
+          "number": 1,
+          "label": "CC 302 Finanzmathematik VL - 1. Parallelgruppe",
+          "source_path": "1.3.1.2.2.2.1",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "CC302_lecture_group_1_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-10-22",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 10.09.26 - 22.10.26 von 13:45 bis 15:15 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        },
+        {
+          "id": "CC302_lecture_group_2",
+          "number": 2,
+          "label": "CC 302 Finanzmathematik VL - 2. Parallelgruppe",
+          "source_path": "1.3.1.2.2.2.2",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "CC302_lecture_group_2_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-10-22",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 10.09.26 - 22.10.26 von 15:30 bis 17:00 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        },
+        {
+          "id": "CC302_lecture_group_3",
+          "number": 3,
+          "label": "CC 302 Finanzmathematik VL - 3. Parallelgruppe",
+          "source_path": "1.3.1.2.2.2.3",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "CC302_lecture_group_3_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-10-22",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 10.09.26 - 22.10.26 von 17:15 bis 18:45 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "CC302_exercise": {
+      "id": "CC302_exercise",
+      "title": "CC 302 Finanzmathematik ÜBUNG",
+      "type": "exercise",
+      "type_label": "Übung",
+      "module_codes": [
+        "CC 302"
+      ],
+      "source_paths": [
+        "1.3.1.2.2.3"
+      ],
+      "parallel_groups": [
+        {
+          "id": "CC302_exercise_group_1",
+          "number": 1,
+          "label": "CC 302 Finanzmathematik ÜBUNG - 1. Parallelgruppe",
+          "source_path": "1.3.1.2.2.3.1",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "CC302_exercise_group_1_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-10-20",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 15.09.26 - 20.10.26 von 12:00 bis 13:30 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        },
+        {
+          "id": "CC302_exercise_group_2",
+          "number": 2,
+          "label": "CC 302 Finanzmathematik ÜBUNG - 2. Parallelgruppe",
+          "source_path": "1.3.1.2.2.3.2",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "CC302_exercise_group_2_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-10-21",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 16.09.26 - 21.10.26 von 08:30 bis 10:00 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        },
+        {
+          "id": "CC302_exercise_group_3",
+          "number": 3,
+          "label": "CC 302 Finanzmathematik ÜBUNG - 3. Parallelgruppe",
+          "source_path": "1.3.1.2.2.3.3",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "CC302_exercise_group_3_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-10-21",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SN 163",
+                "room_label": "SN 163 Manfred Lautenschläger Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 16.09.26 - 21.10.26 von 13:45 bis 15:15 Uhr (wöchentlich)SN 163 Manfred Lautenschläger Hörsaal (Schloss Schneckenhof Nord)"
+            }
+          ]
+        },
+        {
+          "id": "CC302_exercise_group_4",
+          "number": 4,
+          "label": "CC 302 Finanzmathematik ÜBUNG - 4. Parallelgruppe",
+          "source_path": "1.3.1.2.2.3.4",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "CC302_exercise_group_4_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-10-21",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SN 163",
+                "room_label": "SN 163 Manfred Lautenschläger Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 16.09.26 - 21.10.26 von 15:30 bis 17:00 Uhr (wöchentlich)SN 163 Manfred Lautenschläger Hörsaal (Schloss Schneckenhof Nord)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "CC302_CC303_tutorial": {
+      "id": "CC302_CC303_tutorial",
+      "title": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT",
+      "type": "tutorial",
+      "type_label": "Tutorium",
+      "module_codes": [
+        "CC 302",
+        "CC 303"
+      ],
+      "source_paths": [
+        "1.3.1.2.2.4",
+        "1.3.1.2.3.4"
+      ],
+      "parallel_groups": [],
+      "schedule_data_status": "not_provided_in_source"
+    },
+    "CC303_lecture": {
+      "id": "CC303_lecture",
+      "title": "CC 303 Quantitative Methoden VL",
+      "type": "lecture",
+      "type_label": "Vorlesung",
+      "module_codes": [
+        "CC 303"
+      ],
+      "source_paths": [
+        "1.3.1.2.3.2"
+      ],
+      "parallel_groups": [],
+      "schedule_data_status": "not_provided_in_source"
+    },
+    "CC303_exercise": {
+      "id": "CC303_exercise",
+      "title": "CC 303 Quantitative Methoden ÜBUNG",
+      "type": "exercise",
+      "type_label": "Übung",
+      "module_codes": [
+        "CC 303"
+      ],
+      "source_paths": [
+        "1.3.1.2.3.3"
+      ],
+      "parallel_groups": [],
+      "schedule_data_status": "not_provided_in_source"
+    },
+    "ACC300_lecture": {
+      "id": "ACC300_lecture",
+      "title": "ACC 300 Grundlagen des betrieblichen Rechnungswesens",
+      "type": "lecture",
+      "type_label": "Vorlesung",
+      "module_codes": [
+        "ACC 300"
+      ],
+      "source_paths": [
+        "1.3.1.3.1.1.1"
+      ],
+      "parallel_groups": [
+        {
+          "id": "ACC300_lecture_group_1",
+          "number": 1,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 1. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.1.1",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_lecture_group_1_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-09",
+              "end_date": "2026-12-09",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SN 169",
+                "room_label": "SN 169 Röchling Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Münster, Till",
+                "Noordermeer, Benjamin",
+                "Wu, Xinyan"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 09.09.26 - 09.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)SN 169 Röchling Hörsaal (Schloss Schneckenhof Nord)"
+            },
+            {
+              "id": "ACC300_lecture_group_1_schedule_2",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-11-17",
+              "end_date": "2026-11-17",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "once",
+              "location": {
+                "room_code": "O 145",
+                "room_label": "O 145 Heinrich Vetter Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Münster, Till",
+                "Noordermeer, Benjamin",
+                "Wu, Xinyan"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 17.11.26 von 15:30 bis 17:00 Uhr (Einzeltermin)O 145 Heinrich Vetter Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_lecture_group_2",
+          "number": 2,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 2. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.1.2",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_lecture_group_2_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-09",
+              "end_date": "2026-12-09",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SN 169",
+                "room_label": "SN 169 Röchling Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Münster, Till",
+                "Noordermeer, Benjamin",
+                "Wu, Xinyan"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 09.09.26 - 09.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)SN 169 Röchling Hörsaal (Schloss Schneckenhof Nord)"
+            },
+            {
+              "id": "ACC300_lecture_group_2_schedule_2",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-11-17",
+              "end_date": "2026-11-17",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "once",
+              "location": {
+                "room_code": "SN 163",
+                "room_label": "SN 163 Manfred Lautenschläger Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Münster, Till",
+                "Noordermeer, Benjamin",
+                "Wu, Xinyan"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 17.11.26 von 17:15 bis 18:45 Uhr (Einzeltermin)SN 163 Manfred Lautenschläger Hörsaal (Schloss Schneckenhof Nord)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_lecture_group_3",
+          "number": 3,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 3. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.1.3",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_lecture_group_3_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-12-10",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SN 169",
+                "room_label": "SN 169 Röchling Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Noordermeer, Benjamin",
+                "Wu, Xinyan",
+                "Prof. Dr. Münster, Till"
+              ],
+              "notes": [
+                "as of 1 October lecture hall O 148"
+              ],
+              "location_changes": [
+                {
+                  "effective_from": "2026-10-01",
+                  "effective_until": "2026-12-10",
+                  "room_code": "O 148",
+                  "room_label": null,
+                  "building": null,
+                  "mode": "in_person",
+                  "source": "schedule_note",
+                  "note": "as of 1 October lecture hall O 148"
+                }
+              ],
+              "source_text": "Donnerstag, 10.09.26 - 10.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)SN 169 Röchling Hörsaal (Schloss Schneckenhof Nord)"
+            },
+            {
+              "id": "ACC300_lecture_group_3_schedule_2",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-09-14",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "once",
+              "location": {
+                "room_code": "O 151",
+                "room_label": "O 151 Hans Luik Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Noordermeer, Benjamin",
+                "Wu, Xinyan",
+                "Prof. Dr. Münster, Till"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 14.09.26 von 13:45 bis 15:15 Uhr (Einzeltermin)O 151 Hans Luik Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_lecture_group_4",
+          "number": 4,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 4. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.1.4",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_lecture_group_4_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-12-10",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SN 169",
+                "room_label": "SN 169 Röchling Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Münster, Till",
+                "Noordermeer, Benjamin",
+                "Wu, Xinyan"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 10.09.26 - 10.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)SN 169 Röchling Hörsaal (Schloss Schneckenhof Nord)"
+            },
+            {
+              "id": "ACC300_lecture_group_4_schedule_2",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-09-14",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "once",
+              "location": {
+                "room_code": "W 117",
+                "room_label": "W 117 Hörsaal",
+                "building": "Schloss Westflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Münster, Till",
+                "Noordermeer, Benjamin",
+                "Wu, Xinyan"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 14.09.26 von 15:30 bis 17:00 Uhr (Einzeltermin)W 117 Hörsaal (Schloss Westflügel)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "ACC300_exercise": {
+      "id": "ACC300_exercise",
+      "title": "ACC 300 Grundlagen des betrieblichen Rechnungswesens",
+      "type": "exercise",
+      "type_label": "Übung",
+      "module_codes": [
+        "ACC 300"
+      ],
+      "source_paths": [
+        "1.3.1.3.1.1.2"
+      ],
+      "parallel_groups": [
+        {
+          "id": "ACC300_exercise_group_1",
+          "number": 1,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 1. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.2.1",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_exercise_group_1_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-28",
+              "end_date": "2026-12-07",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 142",
+                "room_label": "O 142 Engelhorn Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Wu, Xinyan"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 28.09.26 - 07.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)O 142 Engelhorn Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_exercise_group_2",
+          "number": 2,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 2. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.2.2",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_exercise_group_2_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-28",
+              "end_date": "2026-12-07",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 142",
+                "room_label": "O 142 Engelhorn Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Wu, Xinyan"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 28.09.26 - 07.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)O 142 Engelhorn Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_exercise_group_3",
+          "number": 3,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 3. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.2.3",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_exercise_group_3_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-28",
+              "end_date": "2026-12-07",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 142",
+                "room_label": "O 142 Engelhorn Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Wu, Xinyan"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 28.09.26 - 07.12.26 von 17:15 bis 18:45 Uhr (wöchentlich)O 142 Engelhorn Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_exercise_group_4",
+          "number": 4,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 4. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.2.4",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_exercise_group_4_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-29",
+              "end_date": "2026-12-08",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 145",
+                "room_label": "O 145 Heinrich Vetter Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Wu, Xinyan"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 29.09.26 - 08.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 145 Heinrich Vetter Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_exercise_group_5",
+          "number": 5,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 5. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.2.5",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_exercise_group_5_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-10-01",
+              "end_date": "2026-12-10",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 145",
+                "room_label": "O 145 Heinrich Vetter Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Wu, Xinyan"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 01.10.26 - 10.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 145 Heinrich Vetter Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_exercise_group_6",
+          "number": 6,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 6. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.2.6",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_exercise_group_6_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-10-01",
+              "end_date": "2026-12-10",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 142",
+                "room_label": "O 142 Engelhorn Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Wu, Xinyan"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 01.10.26 - 10.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)O 142 Engelhorn Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "ACC300_tutorial": {
+      "id": "ACC300_tutorial",
+      "title": "ACC 300 Grundlagen des betrieblichen Rechnungswesens",
+      "type": "tutorial",
+      "type_label": "Tutorium",
+      "module_codes": [
+        "ACC 300"
+      ],
+      "source_paths": [
+        "1.3.1.3.1.1.3"
+      ],
+      "parallel_groups": [
+        {
+          "id": "ACC300_tutorial_group_1",
+          "number": 1,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 1. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.3.1",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_tutorial_group_1_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-21",
+              "end_date": "2026-12-07",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 145",
+                "room_label": "O 145 Heinrich Vetter Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Schley, Luis"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 21.09.26 - 07.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)O 145 Heinrich Vetter Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_tutorial_group_2",
+          "number": 2,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 2. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.3.2",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_tutorial_group_2_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-21",
+              "end_date": "2026-12-07",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 151",
+                "room_label": "O 151 Hans Luik Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Klaß-Thomsen, Oskar"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 21.09.26 - 07.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)O 151 Hans Luik Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_tutorial_group_3",
+          "number": 3,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 3. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.3.3",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_tutorial_group_3_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-21",
+              "end_date": "2026-12-07",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 131",
+                "room_label": "O 131 Wilhelm Müller Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Jensch, Vianne"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 21.09.26 - 07.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)O 131 Wilhelm Müller Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_tutorial_group_4",
+          "number": 4,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 4. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.3.4",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_tutorial_group_4_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-22",
+              "end_date": "2026-12-08",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 148",
+                "room_label": "O 148 MVV Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prexl, Tim"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 22.09.26 - 08.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 148 MVV Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_tutorial_group_5",
+          "number": 5,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 5. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.3.5",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_tutorial_group_5_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-23",
+              "end_date": "2026-12-09",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 151",
+                "room_label": "O 151 Hans Luik Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Klöden, Mia"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 23.09.26 - 09.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)O 151 Hans Luik Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_tutorial_group_6",
+          "number": 6,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 6. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.3.6",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_tutorial_group_6_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-22",
+              "end_date": "2026-12-08",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 148",
+                "room_label": "O 148 MVV Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Jensch, Vianne"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 22.09.26 - 08.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)O 148 MVV Hörsaal (Schloss Ostflügel)"
+            },
+            {
+              "id": "ACC300_tutorial_group_6_schedule_2",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-11-03",
+              "end_date": "2026-11-03",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "once",
+              "location": {
+                "room_code": "O 142",
+                "room_label": "O 142 Engelhorn Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 03.11.26 von 17:15 bis 18:45 Uhr (Einzeltermin)O 142 Engelhorn Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_tutorial_group_7",
+          "number": 7,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 7. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.3.7",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_tutorial_group_7_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-23",
+              "end_date": "2026-12-09",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 142",
+                "room_label": "O 142 Engelhorn Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Klöden, Mia"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 23.09.26 - 09.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 142 Engelhorn Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_tutorial_group_8",
+          "number": 8,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 8. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.3.8",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_tutorial_group_8_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-23",
+              "end_date": "2026-12-09",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 142",
+                "room_label": "O 142 Engelhorn Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Klaß-Thomsen, Oskar"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 23.09.26 - 09.12.26 von 17:15 bis 18:45 Uhr (wöchentlich)O 142 Engelhorn Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_tutorial_group_9",
+          "number": 9,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 9. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.3.9",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_tutorial_group_9_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-24",
+              "end_date": "2026-12-10",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 142",
+                "room_label": "O 142 Engelhorn Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Schley, Luis"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 24.09.26 - 10.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 142 Engelhorn Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ACC300_tutorial_group_10",
+          "number": 10,
+          "label": "ACC 300 Grundlagen des betrieblichen Rechnungswesens - 10. Parallelgruppe",
+          "source_path": "1.3.1.3.1.1.3.10",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ACC300_tutorial_group_10_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-24",
+              "end_date": "2026-12-10",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 142",
+                "room_label": "O 142 Engelhorn Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prexl, Tim"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 24.09.26 - 10.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)O 142 Engelhorn Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "MAN301_lecture": {
+      "id": "MAN301_lecture",
+      "title": "MAN 301 Strategic and International Management",
+      "type": "lecture",
+      "type_label": "Vorlesung",
+      "module_codes": [
+        "MAN 301"
+      ],
+      "source_paths": [
+        "1.3.1.3.4.1.1"
+      ],
+      "parallel_groups": [
+        {
+          "id": "MAN301_lecture_group_1",
+          "number": 1,
+          "label": "MAN 301 Strategic and International Management - 1. Parallelgruppe",
+          "source_path": "1.3.1.3.4.1.1.1",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "MAN301_lecture_group_1_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Woywode, Michael",
+                "Prof. Dr. Brauer, Matthias"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "MAN301_exercise": {
+      "id": "MAN301_exercise",
+      "title": "MAN 301 Strategic and International Management (Exercise)",
+      "type": "exercise",
+      "type_label": "Übung",
+      "module_codes": [
+        "MAN 301"
+      ],
+      "source_paths": [
+        "1.3.1.3.4.1.2"
+      ],
+      "parallel_groups": [
+        {
+          "id": "MAN301_exercise_group_1",
+          "number": 1,
+          "label": "MAN 301 Strategic and International Management (Exercise) - 1. Parallelgruppe",
+          "source_path": "1.3.1.3.4.1.2.1",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "MAN301_exercise_group_1_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SN 163",
+                "room_label": "SN 163 Manfred Lautenschläger Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Sauerbier, Elisa",
+                "Fritsch, Teresa",
+                "Neubauer, Felix"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)SN 163 Manfred Lautenschläger Hörsaal (Schloss Schneckenhof Nord)"
+            }
+          ]
+        },
+        {
+          "id": "MAN301_exercise_group_2",
+          "number": 2,
+          "label": "MAN 301 Strategic and International Management (Exercise) - 2. Parallelgruppe",
+          "source_path": "1.3.1.3.4.1.2.2",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "MAN301_exercise_group_2_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SN 169",
+                "room_label": "SN 169 Röchling Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Sauerbier, Elisa",
+                "Fritsch, Teresa",
+                "Neubauer, Felix"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)SN 169 Röchling Hörsaal (Schloss Schneckenhof Nord)"
+            }
+          ]
+        },
+        {
+          "id": "MAN301_exercise_group_3",
+          "number": 3,
+          "label": "MAN 301 Strategic and International Management (Exercise) - 3. Parallelgruppe",
+          "source_path": "1.3.1.3.4.1.2.3",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "MAN301_exercise_group_3_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SN 169",
+                "room_label": "SN 169 Röchling Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Sauerbier, Elisa",
+                "Fritsch, Teresa",
+                "Neubauer, Felix"
+              ],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 17:15 bis 18:45 Uhr (wöchentlich)SN 169 Röchling Hörsaal (Schloss Schneckenhof Nord)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "ECO301_lecture": {
+      "id": "ECO301_lecture",
+      "title": "Grundlagen der Volkswirtschaftslehre",
+      "type": "lecture",
+      "type_label": "Vorlesung",
+      "module_codes": [
+        "ECO 301"
+      ],
+      "source_paths": [
+        "1.3.1.4.1.1"
+      ],
+      "parallel_groups": [
+        {
+          "id": "ECO301_lecture_group_1",
+          "number": 1,
+          "label": "Grundlagen der Volkswirtschaftslehre - 1. Parallelgruppe",
+          "source_path": "1.3.1.4.1.1.1",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ECO301_lecture_group_1_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            },
+            {
+              "id": "ECO301_lecture_group_1_schedule_2",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-09",
+              "end_date": "2026-12-09",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 09.09.26 - 09.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            },
+            {
+              "id": "ECO301_lecture_group_1_schedule_3",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-11-04",
+              "end_date": "2026-11-04",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "once",
+              "location": {
+                "room_code": "UMA-ZOOM-AUDIMAX-01",
+                "room_label": "UMA-ZOOM-AUDIMAX-01",
+                "building": "Virtuelles Gebäude",
+                "mode": "online"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 04.11.26 von 10:15 bis 11:45 Uhr (Einzeltermin)UMA-ZOOM-AUDIMAX-01 (Virtuelles Gebäude)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_lecture_group_2",
+          "number": 2,
+          "label": "Grundlagen der Volkswirtschaftslehre - 2. Parallelgruppe",
+          "source_path": "1.3.1.4.1.1.2",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ECO301_lecture_group_2_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            },
+            {
+              "id": "ECO301_lecture_group_2_schedule_2",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-09",
+              "end_date": "2026-12-09",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 09.09.26 - 09.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            },
+            {
+              "id": "ECO301_lecture_group_2_schedule_3",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-11-04",
+              "end_date": "2026-11-04",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "once",
+              "location": {
+                "room_code": "UMA-ZOOM-AUDIMAX-01",
+                "room_label": "UMA-ZOOM-AUDIMAX-01",
+                "building": "Virtuelles Gebäude",
+                "mode": "online"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 04.11.26 von 13:45 bis 15:15 Uhr (Einzeltermin)UMA-ZOOM-AUDIMAX-01 (Virtuelles Gebäude)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_lecture_group_3",
+          "number": 3,
+          "label": "Grundlagen der Volkswirtschaftslehre - 3. Parallelgruppe",
+          "source_path": "1.3.1.4.1.1.3",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "id": "ECO301_lecture_group_3_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-08",
+              "end_date": "2026-12-08",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "ZOOM-Lehre-119",
+                "room_label": "ZOOM-Lehre-119",
+                "building": "Virtuelles Gebäude",
+                "mode": "online"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 08.09.26 - 08.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)ZOOM-Lehre-119 (Virtuelles Gebäude)"
+            },
+            {
+              "id": "ECO301_lecture_group_3_schedule_2",
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-11",
+              "end_date": "2026-12-11",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "ZOOM-Lehre-063",
+                "room_label": "ZOOM-Lehre-063",
+                "building": "Virtuelles Gebäude",
+                "mode": "online"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Freitag, 11.09.26 - 11.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)ZOOM-Lehre-063 (Virtuelles Gebäude)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "ECO301_exercise": {
+      "id": "ECO301_exercise",
+      "title": "Grundlagen der Volkswirtschaftslehre",
+      "type": "exercise",
+      "type_label": "Übung",
+      "module_codes": [
+        "ECO 301"
+      ],
+      "source_paths": [
+        "1.3.1.4.1.2"
+      ],
+      "parallel_groups": [
+        {
+          "id": "ECO301_exercise_group_1",
+          "number": 1,
+          "label": "Grundlagen der Volkswirtschaftslehre (Mucha) - 1. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.1",
+          "instructor_name_from_label": "Mucha",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_1_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001",
+                "room_label": "001 Hörsaal",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)001 Hörsaal (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_2",
+          "number": 2,
+          "label": "Grundlagen der Volkswirtschaftslehre (Strobl) - 2. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.2",
+          "instructor_name_from_label": "Strobl",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_2_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C 013",
+                "room_label": "C 013 Hörsaal",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)C 013 Hörsaal (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_3",
+          "number": 3,
+          "label": "Grundlagen der Volkswirtschaftslehre (Mucha) - 3. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.3",
+          "instructor_name_from_label": "Mucha",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_3_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "S 031",
+                "room_label": "S 031 Seminarraum",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)S 031 Seminarraum (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_4",
+          "number": 4,
+          "label": "Grundlagen der Volkswirtschaftslehre (Su) - 4. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.4",
+          "instructor_name_from_label": "Su",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_4_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "S 031",
+                "room_label": "S 031 Seminarraum",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)S 031 Seminarraum (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_5",
+          "number": 5,
+          "label": "Grundlagen der Volkswirtschaftslehre (Strobl) - 5. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.5",
+          "instructor_name_from_label": "Strobl",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_5_schedule_1",
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001",
+                "room_label": "001 Hörsaal",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)001 Hörsaal (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_6",
+          "number": 6,
+          "label": "Grundlagen der Volkswirtschaftslehre (Kasparetz) - 6. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.6",
+          "instructor_name_from_label": "Kasparetz",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_6_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C 015",
+                "room_label": "C 015 Hörsaal",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)C 015 Hörsaal (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_7",
+          "number": 7,
+          "label": "Grundlagen der Volkswirtschaftslehre (Su) - 7. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.7",
+          "instructor_name_from_label": "Su",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_7_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 135",
+                "room_label": "O 135 Saal der starken Marken Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)O 135 Saal der starken Marken Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_8",
+          "number": 8,
+          "label": "Grundlagen der Volkswirtschaftslehre (Reuber) - 8. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.8",
+          "instructor_name_from_label": "Reuber",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_8_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001",
+                "room_label": "001 Hörsaal",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)001 Hörsaal (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_9",
+          "number": 9,
+          "label": "Grundlagen der Volkswirtschaftslehre (Happel) - 9. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.9",
+          "instructor_name_from_label": "Happel",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_9_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 135",
+                "room_label": "O 135 Saal der starken Marken Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 135 Saal der starken Marken Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_10",
+          "number": 10,
+          "label": "Grundlagen der Volkswirtschaftslehre (Kasparetz) - 10. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.10",
+          "instructor_name_from_label": "Kasparetz",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_10_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C 014",
+                "room_label": "C 014 Hörsaal",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)C 014 Hörsaal (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_11",
+          "number": 11,
+          "label": "Grundlagen der Volkswirtschaftslehre (Reuber) - 11. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.11",
+          "instructor_name_from_label": "Reuber",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_11_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "D 007",
+                "room_label": "D 007 Seminarraum 2",
+                "building": "B 6, 27-29 Bauteil D",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)D 007 Seminarraum 2 (B 6, 27-29 Bauteil D)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_12",
+          "number": 12,
+          "label": "Grundlagen der Volkswirtschaftslehre (Happel) - 12. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.12",
+          "instructor_name_from_label": "Happel",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_12_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C 015",
+                "room_label": "C 015 Hörsaal",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)C 015 Hörsaal (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_13",
+          "number": 13,
+          "label": "Grundlagen der Volkswirtschaftslehre (Becker) - 13. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.13",
+          "instructor_name_from_label": "Becker",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_13_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 129",
+                "room_label": "O 129 Göhringer Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 129 Göhringer Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_14",
+          "number": 14,
+          "label": "Grundlagen der Volkswirtschaftslehre (Feldheim) - 14. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.14",
+          "instructor_name_from_label": "Feldheim",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_14_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O 129",
+                "room_label": "O 129 Göhringer Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)O 129 Göhringer Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_15",
+          "number": 15,
+          "label": "Grundlagen der Volkswirtschaftslehre (Feldheim) - 15. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.15",
+          "instructor_name_from_label": "Feldheim",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_15_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "EO 159",
+                "room_label": "EO 159 Seminarraum",
+                "building": "Schloss Ehrenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)EO 159 Seminarraum (Schloss Ehrenhof Ost)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_16",
+          "number": 16,
+          "label": "Grundlagen der Volkswirtschaftslehre (Brehm) - 16. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.16",
+          "instructor_name_from_label": "Brehm",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_16_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "EO 382",
+                "room_label": "EO 382 Seminarraum",
+                "building": "Schloss Ehrenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)EO 382 Seminarraum (Schloss Ehrenhof Ost)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_17",
+          "number": 17,
+          "label": "Grundlagen der Volkswirtschaftslehre (Brehm) - 17. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.17",
+          "instructor_name_from_label": "Brehm",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_17_schedule_1",
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "EO 242",
+                "room_label": "EO 242 Seminarraum",
+                "building": "Schloss Ehrenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)EO 242 Seminarraum (Schloss Ehrenhof Ost)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_18",
+          "number": 18,
+          "label": "Grundlagen der Volkswirtschaftslehre (Becker) - 18. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.18",
+          "instructor_name_from_label": "Becker",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_18_schedule_1",
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-18",
+              "end_date": "2026-12-11",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "S 031",
+                "room_label": "S 031 Seminarraum",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Freitag, 18.09.26 - 11.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)S 031 Seminarraum (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_19",
+          "number": 19,
+          "label": "Grundlagen der Volkswirtschaftslehre (Berner) - 19. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.19",
+          "instructor_name_from_label": "Berner",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_19_schedule_1",
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-18",
+              "end_date": "2026-12-11",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "S 031",
+                "room_label": "S 031 Seminarraum",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Freitag, 18.09.26 - 11.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)S 031 Seminarraum (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_20",
+          "number": 20,
+          "label": "Grundlagen der Volkswirtschaftslehre (Berner) - 20. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.20",
+          "instructor_name_from_label": "Berner",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_20_schedule_1",
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-18",
+              "end_date": "2026-12-11",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C 013",
+                "room_label": "C 013 Hörsaal",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Freitag, 18.09.26 - 11.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)C 013 Hörsaal (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_21",
+          "number": 21,
+          "label": "Grundlagen der Volkswirtschaftslehre (Hörz) - 21. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.21",
+          "instructor_name_from_label": "Hörz",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_21_schedule_1",
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "B 243",
+                "room_label": "B 243 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)B 243 Hörsaal (A 5, 6 Bauteil B)"
+            }
+          ]
+        },
+        {
+          "id": "ECO301_exercise_group_22",
+          "number": 22,
+          "label": "Grundlagen der Volkswirtschaftslehre (Hörz) - 22. Parallelgruppe",
+          "source_path": "1.3.1.4.1.2.22",
+          "instructor_name_from_label": "Hörz",
+          "schedules": [
+            {
+              "id": "ECO301_exercise_group_22_schedule_1",
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "EO 159",
+                "room_label": "EO 159 Seminarraum",
+                "building": "Schloss Ehrenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "location_changes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)EO 159 Seminarraum (Schloss Ehrenhof Ost)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    }
+  },
+  "data_issues": [
+    {
+      "code": "missing_schedule_data",
+      "event_id": "CC302_CC303_tutorial",
+      "message": "In der Vorlage sind keine Parallelgruppen oder Termine zu dieser Veranstaltung enthalten."
+    },
+    {
+      "code": "missing_schedule_data",
+      "event_id": "CC303_lecture",
+      "message": "In der Vorlage sind keine Parallelgruppen oder Termine zu dieser Veranstaltung enthalten."
+    },
+    {
+      "code": "missing_schedule_data",
+      "event_id": "CC303_exercise",
+      "message": "In der Vorlage sind keine Parallelgruppen oder Termine zu dieser Veranstaltung enthalten."
+    },
+    {
+      "code": "overlapping_single_and_weekly_schedule",
+      "schedule_id": "ECO301_lecture_group_1_schedule_3",
+      "related_schedule_ids": [
+        "ECO301_lecture_group_1_schedule_2"
+      ],
+      "message": "Einzeltermin überschneidet sich mit einer wöchentlichen Serie derselben Gruppe. Ob er diese ersetzt, ist in der Vorlage nicht angegeben; beide bleiben erhalten."
+    },
+    {
+      "code": "overlapping_single_and_weekly_schedule",
+      "schedule_id": "ECO301_lecture_group_2_schedule_3",
+      "related_schedule_ids": [
+        "ECO301_lecture_group_2_schedule_2"
+      ],
+      "message": "Einzeltermin überschneidet sich mit einer wöchentlichen Serie derselben Gruppe. Ob er diese ersetzt, ist in der Vorlage nicht angegeben; beide bleiben erhalten."
+    }
+  ],
+  "counts": {
+    "modules": 6,
+    "events": 15,
+    "parallel_groups": 72,
+    "schedule_blocks": 83
+  }
+}
 
