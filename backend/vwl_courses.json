@@ -1,0 +1,2440 @@
+{
+  "schema_version": "1.0",
+  "institution": "Universität Mannheim",
+  "semester": {
+    "name": "Herbst-/Wintersemester 2026",
+    "year": 2026
+  },
+  "study_program": "Bachelor Volkswirtschaftslehre (2016)",
+  "timezone": "Europe/Berlin",
+  "source": {
+    "type": "user_pasted_text",
+    "filename": "Pasted text.txt",
+    "external_verification": false
+  },
+  "conventions": {
+    "dates": "YYYY-MM-DD",
+    "times": "HH:MM, Europe/Berlin",
+    "recurrence": "weekly, biweekly or once",
+    "missing_values": "empty parallel_groups means no schedules were shown in the pasted source"
+  },
+  "modules": {
+    "Grundlagen der Volkswirtschaftslehre": {
+      "name": "Grundlagen der Volkswirtschaftslehre",
+      "source_path": "1.2.2.1.1.1",
+      "event_ids": [
+        "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Vorlesung",
+        "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung"
+      ],
+      "parallel_group_count": 25
+    },
+    "Mikroökonomik B": {
+      "name": "Mikroökonomik B",
+      "source_path": "1.2.2.1.1.2",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Makroökonomik B": {
+      "name": "Makroökonomik B",
+      "source_path": "1.2.2.1.1.3",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Analysis und Lineare Algebra A": {
+      "name": "Analysis und Lineare Algebra A",
+      "source_path": "1.2.2.1.1.4",
+      "event_ids": [
+        "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Vorlesung",
+        "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Übung"
+      ],
+      "parallel_group_count": 9
+    },
+    "Grundlagen der Finanzmathematik": {
+      "name": "Grundlagen der Finanzmathematik",
+      "source_path": "1.2.2.1.1.5",
+      "event_ids": [
+        "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_EINFÜHRUNG__Einführungsveranstaltung",
+        "Grundlagen_der_Finanzmathematik__CC_302_Finanzmathematik_VL__Vorlesung",
+        "Grundlagen_der_Finanzmathematik__CC_302_Finanzmathematik_ÜBUNG__Übung",
+        "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium"
+      ],
+      "parallel_group_count": 31
+    },
+    "Statistik II": {
+      "name": "Statistik II",
+      "source_path": "1.2.2.1.1.6",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Recht": {
+      "name": "Recht",
+      "source_path": "1.2.2.1.1.7",
+      "event_ids": [
+        "Recht__Recht_für_VWLer__Vorlesung"
+      ],
+      "parallel_group_count": 1
+    },
+    "Wissenschaftliches Arbeiten": {
+      "name": "Wissenschaftliches Arbeiten",
+      "source_path": "1.2.2.1.1.8",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Wirtschaftsgeschichte": {
+      "name": "Wirtschaftsgeschichte",
+      "source_path": "1.2.2.1.1.9",
+      "event_ids": [
+        "Wirtschaftsgeschichte__Wirtschaftsgeschichte__Vorlesung",
+        "Wirtschaftsgeschichte__Wirtschaftsgeschichte__Übung"
+      ],
+      "parallel_group_count": 3
+    }
+  },
+  "events": {
+    "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Vorlesung": {
+      "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Vorlesung",
+      "title": "Grundlagen der Volkswirtschaftslehre",
+      "type_label": "Vorlesung",
+      "module_names": [
+        "Grundlagen der Volkswirtschaftslehre"
+      ],
+      "source_path": "1.2.2.1.1.1.1",
+      "parallel_groups": [
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Vorlesung__group_1",
+          "number": 1,
+          "label": "Grundlagen der Volkswirtschaftslehre - 1. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            },
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-09",
+              "end_date": "2026-12-09",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 09.09.26 - 09.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            },
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-11-04",
+              "end_date": "2026-11-04",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "once",
+              "location": {
+                "room_code": "UMA-ZOOM-AUDIMAX-01",
+                "room_label": "UMA-ZOOM-AUDIMAX-01",
+                "building": "Virtuelles Gebäude",
+                "mode": "online"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 04.11.26 von 10:15 bis 11:45 Uhr (Einzeltermin)UMA-ZOOM-AUDIMAX-01 (Virtuelles Gebäude)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Vorlesung__group_2",
+          "number": 2,
+          "label": "Grundlagen der Volkswirtschaftslehre - 2. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            },
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-09",
+              "end_date": "2026-12-09",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 09.09.26 - 09.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            },
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-11-04",
+              "end_date": "2026-11-04",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "once",
+              "location": {
+                "room_code": "UMA-ZOOM-AUDIMAX-01",
+                "room_label": "UMA-ZOOM-AUDIMAX-01",
+                "building": "Virtuelles Gebäude",
+                "mode": "online"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 04.11.26 von 13:45 bis 15:15 Uhr (Einzeltermin)UMA-ZOOM-AUDIMAX-01 (Virtuelles Gebäude)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Vorlesung__group_3",
+          "number": 3,
+          "label": "Grundlagen der Volkswirtschaftslehre - 3. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-08",
+              "end_date": "2026-12-08",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "ZOOM-Lehre-119",
+                "room_label": "ZOOM-Lehre-119",
+                "building": "Virtuelles Gebäude",
+                "mode": "online"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Dienstag, 08.09.26 - 08.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)ZOOM-Lehre-119 (Virtuelles Gebäude)"
+            },
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-11",
+              "end_date": "2026-12-11",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "ZOOM-Lehre-063",
+                "room_label": "ZOOM-Lehre-063",
+                "building": "Virtuelles Gebäude",
+                "mode": "online"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Freitag, 11.09.26 - 11.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)ZOOM-Lehre-063 (Virtuelles Gebäude)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung": {
+      "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung",
+      "title": "Grundlagen der Volkswirtschaftslehre",
+      "type_label": "Übung",
+      "module_names": [
+        "Grundlagen der Volkswirtschaftslehre"
+      ],
+      "source_path": "1.2.2.1.1.1.2",
+      "parallel_groups": [
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_1",
+          "number": 1,
+          "label": "Grundlagen der Volkswirtschaftslehre (Mucha) - 1. Parallelgruppe",
+          "instructor_name_from_label": "Mucha",
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001",
+                "room_label": "001 Hörsaal",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)001 Hörsaal (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_2",
+          "number": 2,
+          "label": "Grundlagen der Volkswirtschaftslehre (Strobl) - 2. Parallelgruppe",
+          "instructor_name_from_label": "Strobl",
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C 013 Hörsaal",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)C 013 Hörsaal (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_3",
+          "number": 3,
+          "label": "Grundlagen der Volkswirtschaftslehre (Mucha) - 3. Parallelgruppe",
+          "instructor_name_from_label": "Mucha",
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "S",
+                "room_label": "S 031 Seminarraum",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)S 031 Seminarraum (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_4",
+          "number": 4,
+          "label": "Grundlagen der Volkswirtschaftslehre (Su) - 4. Parallelgruppe",
+          "instructor_name_from_label": "Su",
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "S",
+                "room_label": "S 031 Seminarraum",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)S 031 Seminarraum (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_5",
+          "number": 5,
+          "label": "Grundlagen der Volkswirtschaftslehre (Strobl) - 5. Parallelgruppe",
+          "instructor_name_from_label": "Strobl",
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001",
+                "room_label": "001 Hörsaal",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)001 Hörsaal (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_6",
+          "number": 6,
+          "label": "Grundlagen der Volkswirtschaftslehre (Kasparetz) - 6. Parallelgruppe",
+          "instructor_name_from_label": "Kasparetz",
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C 015 Hörsaal",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)C 015 Hörsaal (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_7",
+          "number": 7,
+          "label": "Grundlagen der Volkswirtschaftslehre (Su) - 7. Parallelgruppe",
+          "instructor_name_from_label": "Su",
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 135 Saal der starken Marken Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)O 135 Saal der starken Marken Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_8",
+          "number": 8,
+          "label": "Grundlagen der Volkswirtschaftslehre (Reuber) - 8. Parallelgruppe",
+          "instructor_name_from_label": "Reuber",
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001",
+                "room_label": "001 Hörsaal",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)001 Hörsaal (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_9",
+          "number": 9,
+          "label": "Grundlagen der Volkswirtschaftslehre (Happel) - 9. Parallelgruppe",
+          "instructor_name_from_label": "Happel",
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 135 Saal der starken Marken Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 135 Saal der starken Marken Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_10",
+          "number": 10,
+          "label": "Grundlagen der Volkswirtschaftslehre (Kasparetz) - 10. Parallelgruppe",
+          "instructor_name_from_label": "Kasparetz",
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C 014 Hörsaal",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)C 014 Hörsaal (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_11",
+          "number": 11,
+          "label": "Grundlagen der Volkswirtschaftslehre (Reuber) - 11. Parallelgruppe",
+          "instructor_name_from_label": "Reuber",
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "D",
+                "room_label": "D 007 Seminarraum 2",
+                "building": "B 6, 27-29 Bauteil D",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)D 007 Seminarraum 2 (B 6, 27-29 Bauteil D)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_12",
+          "number": 12,
+          "label": "Grundlagen der Volkswirtschaftslehre (Happel) - 12. Parallelgruppe",
+          "instructor_name_from_label": "Happel",
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C 015 Hörsaal",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)C 015 Hörsaal (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_13",
+          "number": 13,
+          "label": "Grundlagen der Volkswirtschaftslehre (Becker) - 13. Parallelgruppe",
+          "instructor_name_from_label": "Becker",
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 129 Göhringer Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 129 Göhringer Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_14",
+          "number": 14,
+          "label": "Grundlagen der Volkswirtschaftslehre (Feldheim) - 14. Parallelgruppe",
+          "instructor_name_from_label": "Feldheim",
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 129 Göhringer Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)O 129 Göhringer Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_15",
+          "number": 15,
+          "label": "Grundlagen der Volkswirtschaftslehre (Feldheim) - 15. Parallelgruppe",
+          "instructor_name_from_label": "Feldheim",
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "EO",
+                "room_label": "EO 159 Seminarraum",
+                "building": "Schloss Ehrenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)EO 159 Seminarraum (Schloss Ehrenhof Ost)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_16",
+          "number": 16,
+          "label": "Grundlagen der Volkswirtschaftslehre (Brehm) - 16. Parallelgruppe",
+          "instructor_name_from_label": "Brehm",
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "EO",
+                "room_label": "EO 382 Seminarraum",
+                "building": "Schloss Ehrenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)EO 382 Seminarraum (Schloss Ehrenhof Ost)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_17",
+          "number": 17,
+          "label": "Grundlagen der Volkswirtschaftslehre (Brehm) - 17. Parallelgruppe",
+          "instructor_name_from_label": "Brehm",
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "EO",
+                "room_label": "EO 242 Seminarraum",
+                "building": "Schloss Ehrenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)EO 242 Seminarraum (Schloss Ehrenhof Ost)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_18",
+          "number": 18,
+          "label": "Grundlagen der Volkswirtschaftslehre (Becker) - 18. Parallelgruppe",
+          "instructor_name_from_label": "Becker",
+          "schedules": [
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-18",
+              "end_date": "2026-12-11",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "S",
+                "room_label": "S 031 Seminarraum",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Freitag, 18.09.26 - 11.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)S 031 Seminarraum (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_19",
+          "number": 19,
+          "label": "Grundlagen der Volkswirtschaftslehre (Berner) - 19. Parallelgruppe",
+          "instructor_name_from_label": "Berner",
+          "schedules": [
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-18",
+              "end_date": "2026-12-11",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "S",
+                "room_label": "S 031 Seminarraum",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Freitag, 18.09.26 - 11.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)S 031 Seminarraum (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_20",
+          "number": 20,
+          "label": "Grundlagen der Volkswirtschaftslehre (Berner) - 20. Parallelgruppe",
+          "instructor_name_from_label": "Berner",
+          "schedules": [
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-18",
+              "end_date": "2026-12-11",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C 013 Hörsaal",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Freitag, 18.09.26 - 11.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)C 013 Hörsaal (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_21",
+          "number": 21,
+          "label": "Grundlagen der Volkswirtschaftslehre (Hörz) - 21. Parallelgruppe",
+          "instructor_name_from_label": "Hörz",
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "B",
+                "room_label": "B 243 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)B 243 Hörsaal (A 5, 6 Bauteil B)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Volkswirtschaftslehre__Grundlagen_der_Volkswirtschaftslehre__Übung__group_22",
+          "number": 22,
+          "label": "Grundlagen der Volkswirtschaftslehre (Hörz) - 22. Parallelgruppe",
+          "instructor_name_from_label": "Hörz",
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "EO",
+                "room_label": "EO 159 Seminarraum",
+                "building": "Schloss Ehrenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)EO 159 Seminarraum (Schloss Ehrenhof Ost)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Vorlesung": {
+      "id": "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Vorlesung",
+      "title": "Analysis und Lineare Algebra A",
+      "type_label": "Vorlesung",
+      "module_names": [
+        "Analysis und Lineare Algebra A"
+      ],
+      "source_path": "1.2.2.1.1.4.1",
+      "parallel_groups": [
+        {
+          "id": "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Vorlesung__group_1",
+          "number": 1,
+          "label": "Analysis und Lineare Algebra A - 1. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-12-10",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SO",
+                "room_label": "SO 108 Hörsaal",
+                "building": "Schloss Schneckenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [
+                "Die Vorlesung findet in Präsenz statt."
+              ],
+              "source_text": "Donnerstag, 10.09.26 - 10.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)SO 108 Hörsaal (Schloss Schneckenhof Ost)"
+            },
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-09-10",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "once",
+              "location": {
+                "room_code": "SN",
+                "room_label": "SN 163 Manfred Lautenschläger Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [
+                "Die Vorlesung findet in Präsenz statt."
+              ],
+              "source_text": "Donnerstag, 10.09.26 von 15:30 bis 17:00 Uhr (Einzeltermin)SN 163 Manfred Lautenschläger Hörsaal (Schloss Schneckenhof Nord)"
+            },
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-22",
+              "end_date": "2026-12-08",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "biweekly",
+              "location": {
+                "room_code": "ZOOM-Lehre-039",
+                "room_label": "ZOOM-Lehre-039",
+                "building": "Virtuelles Gebäude",
+                "mode": "online"
+              },
+              "instructors": [],
+              "notes": [
+                "Die Vorlesung findet online via Zoom statt."
+              ],
+              "source_text": "Dienstag, 22.09.26 - 08.12.26 von 12:00 bis 13:30 Uhr (14-täglich)ZOOM-Lehre-039 (Virtuelles Gebäude)"
+            },
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-10-09",
+              "end_date": "2026-10-09",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "once",
+              "location": {
+                "room_code": "UMA-ZOOM-AUDIMAX-01",
+                "room_label": "UMA-ZOOM-AUDIMAX-01",
+                "building": "Virtuelles Gebäude",
+                "mode": "online"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Freitag, 09.10.26 von 15:30 bis 17:00 Uhr (Einzeltermin)UMA-ZOOM-AUDIMAX-01 (Virtuelles Gebäude)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Übung": {
+      "id": "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Übung",
+      "title": "Analysis und Lineare Algebra A",
+      "type_label": "Übung",
+      "module_names": [
+        "Analysis und Lineare Algebra A"
+      ],
+      "source_path": "1.2.2.1.1.4.2",
+      "parallel_groups": [
+        {
+          "id": "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Übung__group_1",
+          "number": 1,
+          "label": "Analysis und Lineare Algebra A (Seifert) - 1. Parallelgruppe",
+          "instructor_name_from_label": "Seifert",
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "biweekly",
+              "location": {
+                "room_code": "003",
+                "room_label": "003 Seminarraum",
+                "building": "L 9, 1-2",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 08:30 bis 10:00 Uhr (14-täglich)003 Seminarraum (L 9, 1-2)"
+            },
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "D",
+                "room_label": "D 007 Seminarraum 2",
+                "building": "B 6, 27-29 Bauteil D",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)D 007 Seminarraum 2 (B 6, 27-29 Bauteil D)"
+            }
+          ]
+        },
+        {
+          "id": "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Übung__group_2",
+          "number": 2,
+          "label": "Analysis und Lineare Algebra A (Mootz) - 2. Parallelgruppe",
+          "instructor_name_from_label": "Mootz",
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "P",
+                "room_label": "P 044 Seminarraum",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)P 044 Seminarraum (L 7, 3-5)"
+            },
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "biweekly",
+              "location": {
+                "room_code": "P",
+                "room_label": "P 044 Seminarraum",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 08:30 bis 10:00 Uhr (14-täglich)P 044 Seminarraum (L 7, 3-5)"
+            }
+          ]
+        },
+        {
+          "id": "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Übung__group_3",
+          "number": 3,
+          "label": "Analysis und Lineare Algebra A (Laabidi) - 3. Parallelgruppe",
+          "instructor_name_from_label": "Laabidi",
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "003",
+                "room_label": "003 Seminarraum",
+                "building": "L 9, 1-2",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)003 Seminarraum (L 9, 1-2)"
+            },
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "biweekly",
+              "location": {
+                "room_code": "D",
+                "room_label": "D 002 Seminarraum 1",
+                "building": "B 6, 27-29 Bauteil D",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 15:30 bis 17:00 Uhr (14-täglich)D 002 Seminarraum 1 (B 6, 27-29 Bauteil D)"
+            }
+          ]
+        },
+        {
+          "id": "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Übung__group_4",
+          "number": 4,
+          "label": "Analysis und Lineare Algebra A (Julich) - 4. Parallelgruppe",
+          "instructor_name_from_label": "Julich",
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "biweekly",
+              "location": {
+                "room_code": "P",
+                "room_label": "P 044 Seminarraum",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 17:15 bis 18:45 Uhr (14-täglich)P 044 Seminarraum (L 7, 3-5)"
+            },
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "003",
+                "room_label": "003 Seminarraum",
+                "building": "L 9, 1-2",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 17:15 bis 18:45 Uhr (wöchentlich)003 Seminarraum (L 9, 1-2)"
+            }
+          ]
+        },
+        {
+          "id": "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Übung__group_5",
+          "number": 5,
+          "label": "Analysis und Lineare Algebra A (Witt) - 5. Parallelgruppe",
+          "instructor_name_from_label": "Witt",
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "biweekly",
+              "location": {
+                "room_code": "D",
+                "room_label": "D 002 Seminarraum 1",
+                "building": "B 6, 27-29 Bauteil D",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 08:30 bis 10:00 Uhr (14-täglich)D 002 Seminarraum 1 (B 6, 27-29 Bauteil D)"
+            },
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "D",
+                "room_label": "D 002 Seminarraum 1",
+                "building": "B 6, 27-29 Bauteil D",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)D 002 Seminarraum 1 (B 6, 27-29 Bauteil D)"
+            }
+          ]
+        },
+        {
+          "id": "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Übung__group_6",
+          "number": 6,
+          "label": "Analysis und Lineare Algebra A (Tertilt) - 6. Parallelgruppe",
+          "instructor_name_from_label": "Tertilt",
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "310",
+                "room_label": "310 Seminarraum",
+                "building": "B 6, 30-32 Bauteil E-F",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)310 Seminarraum (B 6, 30-32 Bauteil E-F)"
+            },
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-18",
+              "end_date": "2026-12-11",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "biweekly",
+              "location": {
+                "room_code": "003",
+                "room_label": "003 Seminarraum",
+                "building": "L 9, 1-2",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Freitag, 18.09.26 - 11.12.26 von 15:30 bis 17:00 Uhr (14-täglich)003 Seminarraum (L 9, 1-2)"
+            }
+          ]
+        },
+        {
+          "id": "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Übung__group_7",
+          "number": 7,
+          "label": "Analysis und Lineare Algebra A (Lesnik) - 7. Parallelgruppe",
+          "instructor_name_from_label": "Lesnik",
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "003",
+                "room_label": "003 Seminarraum",
+                "building": "L 9, 1-2",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)003 Seminarraum (L 9, 1-2)"
+            },
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "biweekly",
+              "location": {
+                "room_code": "003",
+                "room_label": "003 Seminarraum",
+                "building": "L 9, 1-2",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 12:00 bis 13:30 Uhr (14-täglich)003 Seminarraum (L 9, 1-2)"
+            }
+          ]
+        },
+        {
+          "id": "Analysis_und_Lineare_Algebra_A__Analysis_und_Lineare_Algebra_A__Übung__group_8",
+          "number": 8,
+          "label": "Analysis und Lineare Algebra A (Girardin) - 8. Parallelgruppe",
+          "instructor_name_from_label": "Girardin",
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "biweekly",
+              "location": {
+                "room_code": "157",
+                "room_label": "157 Seminarraum",
+                "building": "L 7, 3-5",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 15:30 bis 17:00 Uhr (14-täglich)157 Seminarraum (L 7, 3-5)"
+            },
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-18",
+              "end_date": "2026-12-11",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "003",
+                "room_label": "003 Seminarraum",
+                "building": "L 9, 1-2",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Freitag, 18.09.26 - 11.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)003 Seminarraum (L 9, 1-2)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_EINFÜHRUNG__Einführungsveranstaltung": {
+      "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_EINFÜHRUNG__Einführungsveranstaltung",
+      "title": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden EINFÜHRUNG",
+      "type_label": "Einführungsveranstaltung",
+      "module_names": [
+        "Grundlagen der Finanzmathematik"
+      ],
+      "source_path": "1.2.2.1.1.5.1",
+      "parallel_groups": [],
+      "schedule_data_status": "not_provided_in_source"
+    },
+    "Grundlagen_der_Finanzmathematik__CC_302_Finanzmathematik_VL__Vorlesung": {
+      "id": "Grundlagen_der_Finanzmathematik__CC_302_Finanzmathematik_VL__Vorlesung",
+      "title": "CC 302 Finanzmathematik VL",
+      "type_label": "Vorlesung",
+      "module_names": [
+        "Grundlagen der Finanzmathematik"
+      ],
+      "source_path": "1.2.2.1.1.5.2",
+      "parallel_groups": [
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_Finanzmathematik_VL__Vorlesung__group_1",
+          "number": 1,
+          "label": "CC 302 Finanzmathematik VL - 1. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-10-22",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "source_text": "Donnerstag, 10.09.26 - 22.10.26 von 13:45 bis 15:15 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_Finanzmathematik_VL__Vorlesung__group_2",
+          "number": 2,
+          "label": "CC 302 Finanzmathematik VL - 2. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-10-22",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "source_text": "Donnerstag, 10.09.26 - 22.10.26 von 15:30 bis 17:00 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_Finanzmathematik_VL__Vorlesung__group_3",
+          "number": 3,
+          "label": "CC 302 Finanzmathematik VL - 3. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-10-22",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "source_text": "Donnerstag, 10.09.26 - 22.10.26 von 17:15 bis 18:45 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Grundlagen_der_Finanzmathematik__CC_302_Finanzmathematik_ÜBUNG__Übung": {
+      "id": "Grundlagen_der_Finanzmathematik__CC_302_Finanzmathematik_ÜBUNG__Übung",
+      "title": "CC 302 Finanzmathematik ÜBUNG",
+      "type_label": "Übung",
+      "module_names": [
+        "Grundlagen der Finanzmathematik"
+      ],
+      "source_path": "1.2.2.1.1.5.3",
+      "parallel_groups": [
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_Finanzmathematik_ÜBUNG__Übung__group_1",
+          "number": 1,
+          "label": "CC 302 Finanzmathematik ÜBUNG - 1. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-10-20",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 20.10.26 von 12:00 bis 13:30 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_Finanzmathematik_ÜBUNG__Übung__group_2",
+          "number": 2,
+          "label": "CC 302 Finanzmathematik ÜBUNG - 2. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-10-21",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 21.10.26 von 08:30 bis 10:00 Uhr (wöchentlich)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_Finanzmathematik_ÜBUNG__Übung__group_3",
+          "number": 3,
+          "label": "CC 302 Finanzmathematik ÜBUNG - 3. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-10-21",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SN",
+                "room_label": "SN 163 Manfred Lautenschläger Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 21.10.26 von 13:45 bis 15:15 Uhr (wöchentlich)SN 163 Manfred Lautenschläger Hörsaal (Schloss Schneckenhof Nord)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_Finanzmathematik_ÜBUNG__Übung__group_4",
+          "number": 4,
+          "label": "CC 302 Finanzmathematik ÜBUNG - 4. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-10-21",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SN",
+                "room_label": "SN 163 Manfred Lautenschläger Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Rother, Simon"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 21.10.26 von 15:30 bis 17:00 Uhr (wöchentlich)SN 163 Manfred Lautenschläger Hörsaal (Schloss Schneckenhof Nord)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium": {
+      "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium",
+      "title": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT",
+      "type_label": "Tutorium",
+      "module_names": [
+        "Grundlagen der Finanzmathematik"
+      ],
+      "source_path": "1.2.2.1.1.5.4",
+      "parallel_groups": [
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_1",
+          "number": 1,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 1. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 133 KPMG Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Dressel, Jakob"
+              ],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 133 KPMG Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_2",
+          "number": 2,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 2. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 142 Engelhorn Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Ahuja, Dev"
+              ],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)O 142 Engelhorn Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_3",
+          "number": 3,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 3. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 133 KPMG Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Stüwert, Eva"
+              ],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)O 133 KPMG Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_4",
+          "number": 4,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 4. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 133 KPMG Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Weiss, Claire"
+              ],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)O 133 KPMG Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_5",
+          "number": 5,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 5. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-12-07",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 133 KPMG Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Steiner, Anton"
+              ],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 07.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)O 133 KPMG Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_6",
+          "number": 6,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 6. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 142 Engelhorn Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Steiner, Anton"
+              ],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 142 Engelhorn Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_8",
+          "number": 8,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 8. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 145 Heinrich Vetter Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Dressel, Jakob"
+              ],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)O 145 Heinrich Vetter Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_9",
+          "number": 9,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 9. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 133 KPMG Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Stüwert, Eva"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)O 133 KPMG Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_10",
+          "number": 10,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 10. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 133 KPMG Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Ahuja, Dev"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)O 133 KPMG Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_11",
+          "number": 11,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 11. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 133 KPMG Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Wagner, Jan"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)O 133 KPMG Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_12",
+          "number": 12,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 12. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 135 Saal der starken Marken Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Sauter, Katharina"
+              ],
+              "notes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)O 135 Saal der starken Marken Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_13",
+          "number": 13,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 13. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 135 Saal der starken Marken Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Wagner, Jan"
+              ],
+              "notes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)O 135 Saal der starken Marken Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_14",
+          "number": 14,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 14. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-12-10",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 148 MVV Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Sauter, Katharina"
+              ],
+              "notes": [],
+              "source_text": "Donnerstag, 17.09.26 - 10.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)O 148 MVV Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_15",
+          "number": 15,
+          "label": "CC 302 Finanzmathematik | Tutorium - 15. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-14",
+              "end_date": "2026-10-12",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 133 KPMG Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Senck, Julian"
+              ],
+              "notes": [],
+              "source_text": "Montag, 14.09.26 - 12.10.26 von 15:30 bis 17:00 Uhr (wöchentlich)O 133 KPMG Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_16",
+          "number": 16,
+          "label": "CC 302 Finanzmathematik | Tutorium - 16. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-10-13",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 135 Saal der starken Marken Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Senck, Julian"
+              ],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 13.10.26 von 12:00 bis 13:30 Uhr (wöchentlich)O 135 Saal der starken Marken Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_17",
+          "number": 17,
+          "label": "CC 302 Finanzmathematik | Tutorium - 17. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-10-13",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 135 Saal der starken Marken Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Bockier, Tessa"
+              ],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 13.10.26 von 15:30 bis 17:00 Uhr (wöchentlich)O 135 Saal der starken Marken Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_18",
+          "number": 18,
+          "label": "CC 302 Finanzmathematik | Tutorium - 18. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-10-14",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 133 KPMG Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Clemens, Leonard"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 14.10.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 133 KPMG Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_19",
+          "number": 19,
+          "label": "CC 302 Finanzmathematik | Tutorium - 19. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-10-14",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 133 KPMG Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Baus, Patrick"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 14.10.26 von 15:30 bis 17:00 Uhr (wöchentlich)O 133 KPMG Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_20",
+          "number": 20,
+          "label": "CC 302 Finanzmathematik | Tutorium - 20. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-10-15",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 135 Saal der starken Marken Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Bockier, Tessa"
+              ],
+              "notes": [],
+              "source_text": "Donnerstag, 17.09.26 - 15.10.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 135 Saal der starken Marken Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_21",
+          "number": 21,
+          "label": "CC 302 Finanzmathematik | Tutorium - 21. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-10-15",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 135 Saal der starken Marken Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Baum, Caspar"
+              ],
+              "notes": [],
+              "source_text": "Donnerstag, 17.09.26 - 15.10.26 von 13:45 bis 15:15 Uhr (wöchentlich)O 135 Saal der starken Marken Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_22",
+          "number": 22,
+          "label": "CC 302 Finanzmathematik | Tutorium - 22. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-17",
+              "end_date": "2026-10-15",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 135 Saal der starken Marken Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Baus, Patrick"
+              ],
+              "notes": [],
+              "source_text": "Donnerstag, 17.09.26 - 15.10.26 von 15:30 bis 17:00 Uhr (wöchentlich)O 135 Saal der starken Marken Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_23",
+          "number": 23,
+          "label": "CC 302 Finanzmathematik | Tutorium - 23. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-18",
+              "end_date": "2026-10-16",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 135 Saal der starken Marken Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Clemens, Leonard"
+              ],
+              "notes": [],
+              "source_text": "Freitag, 18.09.26 - 16.10.26 von 10:15 bis 11:45 Uhr (wöchentlich)O 135 Saal der starken Marken Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_24",
+          "number": 24,
+          "label": "CC 302 / CC 303 Finanzmathematik / Quantitative Methoden TUT | Tutorium - 24. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-18",
+              "end_date": "2026-12-11",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 135 Saal der starken Marken Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Weiss, Claire"
+              ],
+              "notes": [],
+              "source_text": "Freitag, 18.09.26 - 11.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)O 135 Saal der starken Marken Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Grundlagen_der_Finanzmathematik__CC_302_/_CC_303_Finanzmathematik_/_Quantitative_Methoden_TUT__Tutorium__group_25",
+          "number": 25,
+          "label": "CC 302 Finanzmathematik | Tutorium - 25. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-10-14",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "ZOOM-Lehre-134",
+                "room_label": "ZOOM-Lehre-134",
+                "building": "Virtuelles Gebäude",
+                "mode": "online"
+              },
+              "instructors": [
+                "Baum, Caspar"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 14.10.26 von 15:30 bis 17:00 Uhr (wöchentlich)ZOOM-Lehre-134 (Virtuelles Gebäude)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Recht__Recht_für_VWLer__Vorlesung": {
+      "id": "Recht__Recht_für_VWLer__Vorlesung",
+      "title": "Recht für VWLer",
+      "type_label": "Vorlesung",
+      "module_names": [
+        "Recht"
+      ],
+      "source_path": "1.2.2.1.1.7.1",
+      "parallel_groups": [
+        {
+          "id": "Recht__Recht_für_VWLer__Vorlesung__group_1",
+          "number": 1,
+          "label": "Recht für VWLer - 1. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SO",
+                "room_label": "SO 108 Hörsaal",
+                "building": "Schloss Schneckenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)SO 108 Hörsaal (Schloss Schneckenhof Ost)"
+            },
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-12-10",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SO",
+                "room_label": "SO 108 Hörsaal",
+                "building": "Schloss Schneckenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Donnerstag, 10.09.26 - 10.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)SO 108 Hörsaal (Schloss Schneckenhof Ost)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Wirtschaftsgeschichte__Wirtschaftsgeschichte__Vorlesung": {
+      "id": "Wirtschaftsgeschichte__Wirtschaftsgeschichte__Vorlesung",
+      "title": "Wirtschaftsgeschichte",
+      "type_label": "Vorlesung",
+      "module_names": [
+        "Wirtschaftsgeschichte"
+      ],
+      "source_path": "1.2.2.1.1.9.1",
+      "parallel_groups": [
+        {
+          "id": "Wirtschaftsgeschichte__Wirtschaftsgeschichte__Vorlesung__group_1",
+          "number": 1,
+          "label": "Wirtschaftsgeschichte - 1. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-11",
+              "end_date": "2026-12-11",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A",
+                "room_label": "A 001 Großer Hörsaal",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Freitag, 11.09.26 - 11.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)A 001 Großer Hörsaal (B 6, 23-25 Bauteil A)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Wirtschaftsgeschichte__Wirtschaftsgeschichte__Übung": {
+      "id": "Wirtschaftsgeschichte__Wirtschaftsgeschichte__Übung",
+      "title": "Wirtschaftsgeschichte",
+      "type_label": "Übung",
+      "module_names": [
+        "Wirtschaftsgeschichte"
+      ],
+      "source_path": "1.2.2.1.1.9.2",
+      "parallel_groups": [
+        {
+          "id": "Wirtschaftsgeschichte__Wirtschaftsgeschichte__Übung__group_1",
+          "number": 1,
+          "label": "Wirtschaftsgeschichte - 1. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-23",
+              "end_date": "2026-12-02",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "biweekly",
+              "location": {
+                "room_code": "B",
+                "room_label": "B 144 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Wilzbach, Janko"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 23.09.26 - 02.12.26 von 12:00 bis 13:30 Uhr (14-täglich)B 144 Hörsaal (A 5, 6 Bauteil B)"
+            },
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-12-09",
+              "end_date": "2026-12-09",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "once",
+              "location": {
+                "room_code": "B",
+                "room_label": "B 144 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 09.12.26 von 12:00 bis 13:30 Uhr (Einzeltermin)B 144 Hörsaal (A 5, 6 Bauteil B)"
+            }
+          ]
+        },
+        {
+          "id": "Wirtschaftsgeschichte__Wirtschaftsgeschichte__Übung__group_2",
+          "number": 2,
+          "label": "Wirtschaftsgeschichte - 2. Parallelgruppe",
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-23",
+              "end_date": "2026-12-02",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "biweekly",
+              "location": {
+                "room_code": "B",
+                "room_label": "B 144 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Wilzbach, Janko"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 23.09.26 - 02.12.26 von 13:45 bis 15:15 Uhr (14-täglich)B 144 Hörsaal (A 5, 6 Bauteil B)"
+            },
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-12-09",
+              "end_date": "2026-12-09",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "once",
+              "location": {
+                "room_code": "B",
+                "room_label": "B 144 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Mittwoch, 09.12.26 von 13:45 bis 15:15 Uhr (Einzeltermin)B 144 Hörsaal (A 5, 6 Bauteil B)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    }
+  },
+  "counts": {
+    "modules": 9,
+    "events": 11,
+    "parallel_groups": 69,
+    "schedule_blocks": 88
+  }
+}
