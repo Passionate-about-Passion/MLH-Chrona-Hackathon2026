@@ -1,15 +1,15 @@
 "use client";
 /**
- * Start screen: choose study program + semester once (default WiFo, 1st semester – the demo case).
- * The choice is remembered in localStorage: the next visit of / goes straight to the app.
+ * Start screen: choose study program + semester once (default BWL, 1st semester – the demo case).
+ * The choice is remembered in localStorage: the next visit of / goes straight to the app. /?reset shows the picker again.
  */
 import "@/components/timetable/timetable.css";
 import "@/styles/glass.css";
 import { useEffect, useState } from "react";
 import { PROGRAMS, getProgram } from "@/data";
 
-const KEY = "tt-program";
-const DEFAULT = { program: "wifo", term: 1 };
+const KEY = "tt-program-v2";
+const DEFAULT = { program: "bwl", term: 1 };
 const href = (c: { program: string; term?: number }) => `/?program=${c.program}${c.term ? `&term=${c.term}` : ""}`;
 
 /** default program first, the internal demo data last */
@@ -36,6 +36,7 @@ export function ProgramPicker() {
 
   useEffect(() => {
     try {
+      if (new URLSearchParams(location.search).has("reset")) return localStorage.removeItem(KEY);
       const saved = JSON.parse(localStorage.getItem(KEY) ?? "null");
       if (saved?.program && getProgram(saved.program)) location.replace(href(saved));
     } catch {
