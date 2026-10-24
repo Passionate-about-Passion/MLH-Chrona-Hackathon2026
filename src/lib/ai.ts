@@ -106,7 +106,9 @@ async function askOpenAICompatible(
   if (system.trim()) messages.push({ role: "system", content: system });
   messages.push({ role: "user", content });
 
-  const res = await client.chat.completions.create({ model, messages });
+  // Ollama honors keep_alive on /v1 (verified: ollama ps → UNTIL Forever); keeps Gemma loaded.
+  const extra = provider === "ollama" ? { keep_alive: -1 } : {};
+  const res = await client.chat.completions.create({ model, messages, ...extra });
   return res.choices[0]?.message?.content ?? "";
 }
 

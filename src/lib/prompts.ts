@@ -28,6 +28,7 @@ Constraints = times the student is NOT available.
 Priorities: exactly one entry for EVERY course in the list.
 - Default: required + exam -> 3, required without exam -> 2, elective -> 1.
 - If the student says a course is important or unimportant, override the default ONLY for that course (important -> 3, unimportant -> 1). All other courses keep their default weight.
+- If "Current weights" are given, keep them unless the student changes that course in this sentence.
 - reason: one short German sentence, e.g. "Pflichtmodul mit Prüfung" or "Laut dir besonders wichtig".
 - Only use courseIds from the list. Never invent courses.
 Questions: ALWAYS ask when the student names a single date ("nächsten Donnerstag", "am 5. November") or gives only a start or end time ("ab 14 Uhr") - options for the date case: "Nur nächsten Donnerstag", "Jeden Donnerstag". Otherwise only if something could mean several different things. Then add one German question with 2-4 concrete options and still fill everything else with the most likely reading. Typical cases:

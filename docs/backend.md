@@ -7,14 +7,23 @@
 | „Donnerstag 14–16 Uhr habe ich einen Termin" | Sperrzeit Do 14–16, **fest** | Alles, was Do 14–16 liegt, in eine andere Gruppe verschieben |
 | „Ich will dienstags frei haben" | Sperrzeit Di ganztägig, **Wunsch** | Möglichst alles vom Dienstag wegverschieben. Geht ein wichtiges Modul nur dienstags (z. B. die einzige Vorlesung), bleibt es und die App sagt warum |
 
-**Wie der Stundenplan entsteht:** Zu Semesterbeginn stehen alle Kurse mit allen Gruppen in `courses.json`. Der Planer berechnet daraus mit den festen Terminen (`fixed`) und den Standardgewichten den Startplan. Sagt die Nutzerin gleich am Anfang etwas („Montags habe ich Fußball, Mathe ist mir wichtig"), steuert Gemma den ersten Plan genauso wie jede spätere Änderung. **Ausgabe:** Wochenansicht in der App und **live im Google Kalender**: `/api/act` schreibt nach jeder Berechnung die Termine (wöchentlich bis Semesterende) in den Kalender „Stundenplan". Unveränderte Termine bleiben stehen, nur verschobene werden gelöscht und neu angelegt.
+**Wie der Stundenplan entsteht:**
+1. **Daten:** Pro Studiengang eine Datei `src/data/<id>.json` (BWL, später VWL, WiFo; dazu `demo.json` für den Pitch) mit allen Kursen, allen parallelen Gruppen, empfohlenem Fachsemester (`term`) und Semesterzeitraum.
+2. **Auswahl:** Die Nutzerin wählt Studiengang und Fachsemester (`GET /api/programs`), optional einzelne Kurse ab- oder zuwählen.
+3. **Startplan:** `POST /api/act { program, term }` – der Planer wählt aus allen Gruppen der ausgewählten Kurse einen konfliktfreien Plan mit den festen Terminen (`fixed`) und den Standardgewichten.
+4. **Google Kalender:** derselbe Request schreibt den Plan sofort in den Kalender „Stundenplan" (OAuth).
+5. **Ändern per Sprache:** jede Aussage geht über Gemma → Planer → Kalender (siehe Tabelle oben).
 
-### Google-Kalender einrichten (einmalig, ca. 10 Min)
-1. https://console.cloud.google.com → neues Projekt → „APIs & Dienste" → **Google Calendar API** aktivieren.
-2. „IAM & Verwaltung" → **Dienstkonten** → Dienstkonto anlegen → „Schlüssel" → Schlüssel hinzufügen → JSON herunterladen.
-3. In Google Kalender (Browser) einen neuen Kalender **„Stundenplan"** anlegen → Einstellungen → „Für bestimmte Personen freigeben" → E-Mail des Dienstkontos mit **„Änderungen an Terminen vornehmen"**. Dort auch die **Kalender-ID** kopieren.
-4. In `.env.local`: `GOOGLE_SERVICE_ACCOUNT_EMAIL` (`client_email` aus der JSON), `GOOGLE_PRIVATE_KEY` (`private_key` aus der JSON, in Anführungszeichen), `GOOGLE_CALENDAR_ID`.
-5. Kalender „Stundenplan" auf dem Handy einblenden (Google-Kalender-App → Einstellungen → Kalender anzeigen).
+Bisher (vor TASK-014): alle Kurse aus `courses.json`. Sagt die Nutzerin gleich am Anfang etwas („Montags habe ich Fußball, Mathe ist mir wichtig"), steuert Gemma den ersten Plan genauso wie jede spätere Änderung. **Ausgabe:** Wochenansicht in der App und **live im Google Kalender**: `/api/act` schreibt nach jeder Berechnung die Termine (wöchentlich bis Semesterende) in den Kalender „Stundenplan". Unveränderte Termine bleiben stehen, nur verschobene werden gelöscht und neu angelegt.
+
+### Google-Kalender einrichten (einmalig, ca. 10 Min, OAuth)
+1. https://console.cloud.google.com → neues Projekt → „APIs & Dienste" → Bibliothek → **Google Calendar API** aktivieren.
+2. „Google Auth Platform" (OAuth-Zustimmungsbildschirm): App-Name, Support-E-Mail, Zielgruppe **Extern**, Status **Test**. Unter „Zielgruppe" → **Testnutzer**: die Google-Konten eintragen, die in der Demo angemeldet werden.
+3. „Datenzugriff" → Bereich hinzufügen: `https://www.googleapis.com/auth/calendar`.
+4. „Clients" → Client erstellen → Typ **Webanwendung** → Autorisierte Weiterleitungs-URI: `http://localhost:3000/api/google/callback` (später zusätzlich die Deployment-URL).
+5. Client-ID und Client-Secret **selbst** in `.env.local` eintragen (nicht in den Chat): `GOOGLE_CLIENT_ID=…`, `GOOGLE_CLIENT_SECRET=…`, `GOOGLE_REDIRECT_URI=http://localhost:3000/api/google/callback`.
+6. App starten, `http://localhost:3000/api/google/login` am Laptop öffnen, anmelden. Die App legt den Kalender „Stundenplan" selbst an.
+7. In der Google-Kalender-App auf dem Handy den Kalender „Stundenplan" einblenden.
 
 In beiden Fällen zeigt die App, **was sich geändert hat** („Übung Statistik: Di 10–12 → Do 8–10"), und liest es auf Wunsch vor.
 
@@ -77,3 +86,6 @@ Plan       { chosen: { courseId: string; groupId: string }[];
 - **OR-Tools CP-SAT → TS-Backtracking.** CP-SAT braucht einen Python-Dienst neben Next.js. Bei ~5 Kursen × 3 Gruppen gibt es rund 250 Kombinationen, die eine Schleife in Millisekunden prüft. CP-SAT lohnt sich erst bei Hunderten Kursen oder Optimierungszielen (z. B. „möglichst wenige Lücken").
 - **IBM Granite Speech → Web Speech API.** Granite braucht Python und einen Modell-Download. Im Pitch als „Ausbaustufe, komplett Open Source" nennen, in der Demo den Browser nutzen.
 - **Datenbank → JSON-Datei.** Reicht für die Demo, `docs/scope.md` schließt eine DB ohnehin aus.
+
+## Vor der Demo
+`npm run warmup` lädt `gemma4:e4b` und hält es im Speicher (`keep_alive: -1`, `ollama ps` zeigt `UNTIL Forever`). Setzt außerdem `OLLAMA_KEEP_ALIVE=-1` per `launchctl`; das gilt erst nach einem Neustart der Ollama-App. `ask()` schickt `keep_alive: -1` auch bei jeder Anfrage über `/v1` mit.

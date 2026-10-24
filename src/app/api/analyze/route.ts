@@ -23,7 +23,7 @@ const isDay = (d: unknown): d is Day => DAYS.includes(d as Day);
 const todayDay = (): Day => DAYS[(new Date().getDay() + 6) % 7];
 
 /** Gemma kann sich irren: nur gültige Werte durchlassen, fehlende Kurse mit Standardgewicht auffüllen. */
-function clean(raw: Record<string, unknown>, transcript: string): Understanding {
+function clean(raw: Record<string, unknown>, transcript: string, current: Map<string, Priority>): Understanding {
   const intent = raw.intent === "query" ? "query" : "reschedule";
   const arr = (v: unknown): Record<string, unknown>[] =>
     Array.isArray(v) ? v.filter((x): x is Record<string, unknown> => !!x && typeof x === "object") : [];
@@ -53,7 +53,7 @@ function clean(raw: Record<string, unknown>, transcript: string): Understanding 
       });
   }
   const priorities = courses.map(
-    (c) => byId.get(c.id) ?? { courseId: c.id, weight: defaultWeight(c), reason: "Standardgewicht" },
+    (c) => byId.get(c.id) ?? current.get(c.id) ?? { courseId: c.id, weight: defaultWeight(c), reason: "Standardgewicht" },
   );
 
   const questions: Question[] = arr(raw.questions)
@@ -76,6 +76,7 @@ export async function POST(req: Request) {
     let text = "";
     let today: Day | undefined;
     let provider: Provider | undefined;
+    let given: unknown[] = [];
     if ((req.headers.get("content-type") ?? "").includes("multipart/form-data")) {
       const form = await req.formData();
       text = String(form.get("note") ?? "").trim();
@@ -85,6 +86,7 @@ export async function POST(req: Request) {
       text = String(body.text ?? "").trim();
       today = isDay(body.today) ? body.today : undefined;
       provider = body.provider || undefined;
+      given = Array.isArray(body.priorities) ? body.priorities : [];
     }
     if (!text) return NextResponse.json({ error: "Bitte Text angeben" }, { status: 400 });
 
@@ -96,23 +98,44 @@ export async function POST(req: Request) {
     }
 
     const list = courses.map(({ id, name, required, ects, exam }) => ({ id, name, required, ects, exam }));
-    const result = await ask({
-      system: ANALYZE_SYSTEM,
-      prompt: `Courses: ${JSON.stringify(list)}\nToday: ${today ?? todayDay()}\nStudent said: ${text}`,
-      json: true,
-      provider,
-    });
+    // Aktueller Stand aus dem Frontend: nur bekannte Kurse, Gewicht 1-3
+    const current = new Map<string, Priority>();
+    for (const p of given as Record<string, unknown>[]) {
+      const w = Math.round(Number(p?.weight));
+      if (courses.some((c) => c.id === p?.courseId) && Number.isFinite(w))
+        current.set(String(p.courseId), {
+          courseId: String(p.courseId),
+          weight: Math.min(3, Math.max(1, w)) as 1 | 2 | 3,
+          reason: String(p.reason || ""),
+        });
+    }
+    const weights = current.size ? `\nCurrent weights: ${JSON.stringify([...current.values()])}` : "";
+    const prompt = `Courses: ${JSON.stringify(list)}\nToday: ${today ?? todayDay()}${weights}\nStudent said: ${text}`;
 
-    let raw: Record<string, unknown>;
-    try {
-      raw = JSON.parse(result.text);
-      if (!raw || typeof raw !== "object") throw new Error();
-    } catch {
+    // Bei ungültigem JSON genau einmal neu fragen
+    let result = await ask({ system: ANALYZE_SYSTEM, prompt, json: true, provider });
+    let raw: Record<string, unknown> | undefined;
+    for (let attempt = 0; attempt < 2 && !raw; attempt++) {
+      try {
+        const parsed = JSON.parse(result.text);
+        if (!parsed || typeof parsed !== "object") throw new Error();
+        raw = parsed;
+      } catch {
+        if (attempt === 1) break;
+        result = await ask({
+          system: ANALYZE_SYSTEM,
+          prompt: `${prompt}\nYour last answer was not valid JSON.`,
+          json: true,
+          provider,
+        });
+      }
+    }
+    if (!raw) {
       return NextResponse.json({ error: "Modell hat kein gültiges JSON geliefert", raw: result.text }, { status: 502 });
     }
 
     return NextResponse.json({
-      understanding: clean(raw, text),
+      understanding: clean(raw, text, current),
       meta: { provider: result.provider, model: result.model, ms: result.ms },
     });
   } catch (err) {

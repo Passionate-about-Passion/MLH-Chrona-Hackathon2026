@@ -19,6 +19,7 @@ git pull --quiet --rebase 2>/dev/null || echo "⚠️  git pull failed (local ch
 echo "Commit: $(git log -1 --format='%h %s' 2>/dev/null)"
 run "lint" npm run --silent lint
 run "typecheck" npm run --silent typecheck
+run "tests" npm run --silent test
 run "build" npm run --silent build
 if grep -q '^MOCK=1' .env.local 2>/dev/null; then echo "ℹ️  MOCK=1 aktiv (vor der Demo auf 0 stellen)"; fi
 exit $fail

@@ -9,6 +9,8 @@
     "lint": "eslint",
     "test:gemma": "node --env-file-if-exists=.env.local scripts/test-gemma.mjs",
     "typecheck": "tsc --noEmit",
+    "test": "bash scripts/test.sh",
+    "warmup": "bash scripts/warmup.sh",
     "prepare": "husky"
   },
   "dependencies": {

@@ -69,6 +69,8 @@ export interface Course {
   required: boolean;
   ects: number;
   exam: boolean;
+  /** recommended Fachsemester (1, 2, 3 …) – used to preselect courses when the plan is created */
+  term?: number;
   groups: Group[];
 }
 
@@ -124,6 +126,8 @@ export interface Plan {
 }
 
 export interface CourseData {
+  /** one file per Studiengang in src/data/<id>.json, e.g. { id: "bwl", name: "BWL (B.Sc.)" } */
+  program?: { id: string; name: string };
   courses: Course[];
   /** private appointments / hobbies known from the start */
   fixed: Constraint[];
