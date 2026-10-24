@@ -14,13 +14,13 @@ interface WeekPagerProps {
   date: string;
   entries: Entry[];
   onDate: (iso: string) => void;
-  onConflictTap: (entry: Entry) => void;
+  onEntryTap: (entry: Entry) => void;
   /** space for the overlays on top and bottom */
   padTop: number;
   padBottom: number;
 }
 
-function DayColumn({ iso, entries, onConflictTap }: { iso: string; entries: Entry[]; onConflictTap: (e: Entry) => void }) {
+function DayColumn({ iso, entries, onEntryTap }: { iso: string; entries: Entry[]; onEntryTap: (e: Entry) => void }) {
   const list = useMemo(() => entriesOn(entries, iso), [entries, iso]);
   const conflicts = useMemo(() => conflictIds(list), [list]);
   return (
@@ -34,7 +34,7 @@ function DayColumn({ iso, entries, onConflictTap }: { iso: string; entries: Entr
             col={col}
             cols={cols}
             conflict={conflict}
-            onTap={conflict ? () => onConflictTap(entry) : undefined}
+            onTap={() => onEntryTap(entry)}
             style={{
               top: ((toMin(entry.start) - HOUR_START * 60) / 60) * HOUR_PX + 2,
               height: ((toMin(entry.end) - toMin(entry.start)) / 60) * HOUR_PX - 4,
@@ -47,7 +47,7 @@ function DayColumn({ iso, entries, onConflictTap }: { iso: string; entries: Entr
 }
 
 /** Full-screen day paging like the iPhone calendar: one day centred, the neighbours peek in at the edges. */
-export function WeekPager({ date, entries, onDate, onConflictTap, padTop, padBottom }: WeekPagerProps) {
+export function WeekPager({ date, entries, onDate, onEntryTap, padTop, padBottom }: WeekPagerProps) {
   const vertical = useRef<HTMLDivElement>(null);
   const pager = useRef<HTMLDivElement>(null);
   const settle = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -116,7 +116,7 @@ export function WeekPager({ date, entries, onDate, onConflictTap, padTop, padBot
                 centre(i, true);
               }}
             >
-              <DayColumn iso={iso} entries={entries} onConflictTap={onConflictTap} />
+              <DayColumn iso={iso} entries={entries} onEntryTap={onEntryTap} />
             </div>
           ))}
         </div>

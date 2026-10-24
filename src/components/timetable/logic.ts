@@ -150,6 +150,20 @@ export function layoutDay(list: Entry[]): Placed[] {
   return out;
 }
 
+/** "in 25 Min", "in 2 Std 10 Min", "in 3 Tagen" until `date` at `start` (local time) */
+export function untilText(date: string, start: string, now = new Date()) {
+  const min = Math.round((new Date(`${date}T${start}:00`).getTime() - now.getTime()) / 60000);
+  if (min <= 0) return "Jetzt";
+  if (min < 60) return `in ${min} Min`;
+  if (min < 24 * 60) {
+    const h = Math.floor(min / 60);
+    const m = min % 60;
+    return m ? `in ${h} Std ${m} Min` : `in ${h} Std`;
+  }
+  const d = Math.round(min / (24 * 60));
+  return d === 1 ? "in 1 Tag" : `in ${d} Tagen`;
+}
+
 export function nextEntry(entries: Entry[], fromIso: string, fromTime: string) {
   for (let i = 0; i < 14; i++) {
     const date = addDays(fromIso, i);

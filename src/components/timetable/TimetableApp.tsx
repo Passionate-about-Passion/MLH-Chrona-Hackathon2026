@@ -35,7 +35,18 @@ import { VoiceOverlay } from "./VoiceOverlay";
 import { WeekPager } from "./WeekPager";
 import { WeekStrip } from "./WeekStrip";
 import { Onboarding, type ProgramChoice } from "./Onboarding";
-import { addDays, conflictIds, entriesOn, moveToSession, nextEntry, weekdayOf, type Alternative } from "./logic";
+import { EditSheet, type EditKind, type EditValues } from "./EditSheet";
+import {
+  WD_LONG,
+  addDays,
+  conflictIds,
+  entriesOn,
+  moveToSession,
+  nextEntry,
+  untilText,
+  weekdayOf,
+  type Alternative,
+} from "./logic";
 
 /** room for the overlays: header + week strip on top, tab bar at the bottom */
 const PAD_TOP = 164;
@@ -129,7 +140,13 @@ function Planner({ program, term, onChangeProgram }: ProgramChoice & { onChangeP
     () => (plan ? planToEntries(data, plan, constraints, priorities, extras) : []),
     [data, plan, constraints, priorities, extras],
   );
-  const next = useMemo(() => nextEntry(entries, TODAY, nowTime()), [entries]);
+  // the countdown in the header ticks every 30 s
+  const [now, setNow] = useState(() => new Date());
+  useEffect(() => {
+    const t = setInterval(() => setNow(new Date()), 30_000);
+    return () => clearInterval(t);
+  }, []);
+  const next = useMemo(() => nextEntry(entries, localIso(now), nowTime(now)), [entries, now]);
 
   /** Ask the solver for a new plan. Mock mode ignores `current`, so apply the wished choice locally then. */
   const replan = async (next: { constraints: Constraint[]; priorities: Priority[]; current: Plan["chosen"] }) => {
@@ -170,6 +187,50 @@ function Planner({ program, term, onChangeProgram }: ProgramChoice & { onChangeP
 
   const conflictEntry = conflict && entries.find((e) => e.id === conflict.entryId);
   const previewEntry = preview && entries.find((e) => e.id === preview.entryId);
+
+  /* ---------- edit sheet (tap on a card) ---------- */
+  const [editId, setEditId] = useState<string | null>(null);
+  const editEntry = editId ? entries.find((e) => e.id === editId) : undefined;
+  /** private blocks have ids "blk:<blockKey>"; only the student's own ones can be changed */
+  const ownBlockKey = (e: Entry) => (e.id.startsWith("blk:") ? e.id.slice(4) : null);
+  const editKind = (e: Entry): EditKind => {
+    if (e.groupId) return "course";
+    const key = ownBlockKey(e);
+    return key && constraints.some((c) => blockKey(c) === key) ? "private" : "readonly";
+  };
+
+  const saveEdit = (e: Entry, v: EditValues) => {
+    setEditId(null);
+    if (e.courseId) {
+      if (v.weight !== e.weight) void applyIntent({ type: "set_course_weight", courseId: e.courseId, weight: v.weight });
+      return;
+    }
+    const key = ownBlockKey(e);
+    const old = constraints.find((c) => blockKey(c) === key);
+    if (!key || !old) return;
+    const before = { constraints, extras };
+    const block: Constraint = { ...old, start: v.start, end: v.end, label: v.title };
+    const nextExtras = { ...extras };
+    delete nextExtras[key];
+    nextExtras[blockKey(block)] = { location: v.location, weight: v.weight, fixed: v.fixed };
+    setConstraints(constraints.map((c) => (c === old ? block : c)));
+    setExtras(nextExtras);
+    showToast("Termin gespeichert.", () => {
+      setConstraints(before.constraints);
+      setExtras(before.extras);
+    });
+  };
+
+  const deleteEntry = (e: Entry) => {
+    setEditId(null);
+    const key = ownBlockKey(e);
+    const before = { constraints, extras };
+    setConstraints(constraints.filter((c) => blockKey(c) !== key));
+    showToast("Termin gelöscht.", () => {
+      setConstraints(before.constraints);
+      setExtras(before.extras);
+    });
+  };
   const courseOf = (e: Entry) => courses.find((c) => c.id === e.courseId)!;
 
   const applyMove = async () => {
@@ -265,7 +326,7 @@ function Planner({ program, term, onChangeProgram }: ProgramChoice & { onChangeP
                 date={date}
                 entries={entries}
                 onDate={setDate}
-                onConflictTap={(e) => void openAlternatives(e)}
+                onEntryTap={(e) => setEditId(e.id)}
                 padTop={PAD_TOP}
                 padBottom={PAD_BOTTOM}
               />
@@ -290,12 +351,8 @@ function Planner({ program, term, onChangeProgram }: ProgramChoice & { onChangeP
                 </button>
                 {next ? (
                   <button type="button" className="tt-next glass" onClick={() => setDate(next.date)}>
-                    <span className="tt-next-label">Next up</span>
+                    <span className="tt-next-label">{untilText(next.date, next.entry.start, now)}</span>
                     <span className="tt-next-title">{next.entry.title}</span>
-                    <span className="tt-next-meta">
-                      {next.entry.start}
-                      {next.entry.location && ` · ${next.entry.location}`}
-                    </span>
                   </button>
                 ) : (
                   <div className="tt-next glass">
@@ -348,6 +405,22 @@ function Planner({ program, term, onChangeProgram }: ProgramChoice & { onChangeP
           }}
           onApply={() => void applyMove()}
           onClose={() => setPreview(null)}
+        />
+      )}
+      {editEntry && (
+        <EditSheet
+          entry={editEntry}
+          kind={editKind(editEntry)}
+          conflict={conflictIds(entriesOn(entries, date)).has(editEntry.id)}
+          dayName={WD_LONG[editEntry.wd ?? weekdayOf(date)]}
+          groupName={groups.find((g) => g.id === editEntry.groupId)?.name}
+          onSave={(v) => saveEdit(editEntry, v)}
+          onAlternatives={() => {
+            setEditId(null);
+            void openAlternatives(editEntry);
+          }}
+          onDelete={() => deleteEntry(editEntry)}
+          onClose={() => setEditId(null)}
         />
       )}
       {addOpen && <AddSheet date={date} onSave={addEntry} onClose={() => setAddOpen(false)} />}

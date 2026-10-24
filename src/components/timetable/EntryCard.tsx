@@ -12,7 +12,7 @@ interface EntryCardProps {
 }
 
 /**
- * The card is a plain box. A conflict card gets a full-size button underneath the content,
+ * The card is a plain box with a full-size button underneath the content (opens the edit sheet),
  * so the location can stay a real link (a link inside a button is not allowed).
  */
 export function EntryCard({ entry, col = 0, cols = 1, conflict = false, onTap, style }: EntryCardProps) {
@@ -33,7 +33,7 @@ export function EntryCard({ entry, col = 0, cols = 1, conflict = false, onTap, s
           type="button"
           className="tt-card-hit"
           onClick={onTap}
-          aria-label={`${entry.title}, ${range(entry)}, Konflikt. Tippen zeigt Alternativen.`}
+          aria-label={`${entry.title}, ${range(entry)}${conflict ? ", Überschneidung" : ""}. Bearbeiten.`}
         />
       )}
       <span className="tt-card-head">
