@@ -73,7 +73,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
   );
   /** back to the start screen (ProgramPicker in page.tsx) */
   const onChangeProgram = () => {
-    window.location.href = "/";
+    window.location.href = "/?reset";
   };
 
   const [plan, setPlan] = useState<Plan | null>(null);
@@ -326,28 +326,32 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
       <div className="tt-phone">
         {tab === "cal" ? (
           <>
-            {mode === "W" ? (
-              <WeekPager
-                date={date}
-                entries={entries}
-                onDate={setDate}
-                onEntryTap={(e) => setEditId(e.id)}
-                padTop={PAD_TOP}
-                padBottom={PAD_BOTTOM}
-              />
-            ) : (
-              <div className="tt-cal tt-cal-month">
+            {/* keyed by mode, so switching W/M plays the slide-in animation */}
+            <div className="tt-view" data-mode={mode} key={mode}>
+              {mode === "W" ? (
+                <WeekPager
+                  date={date}
+                  entries={entries}
+                  onDate={setDate}
+                  onEntryTap={(e) => setEditId(e.id)}
+                  padTop={PAD_TOP}
+                  padBottom={PAD_BOTTOM}
+                />
+              ) : (
                 <MonthView
                   date={date}
                   today={TODAY}
                   entries={entries}
-                  onPick={(iso) => {
+                  onSelect={setDate}
+                  onOpenDay={(iso) => {
                     setDate(iso);
                     setMode("W");
                   }}
+                  onEntryTap={(e) => setEditId(e.id)}
+                  onConflictTap={(e) => void openAlternatives(e)}
                 />
-              </div>
-            )}
+              )}
+            </div>
             {loadError && <p className="tt-error-float glass-dense">Der Planer ist nicht erreichbar: {loadError}</p>}
             <div className="tt-overlay-top">
               <header className="tt-top">
@@ -366,15 +370,8 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
                 )}
               </header>
               {mode === "W" && <WeekStrip date={date} today={TODAY} onDate={setDate} />}
-              {gcal.connected === false ? (
-                <a className="tt-gcal glass" href="/api/google/login">Mit Google verbinden</a>
-              ) : gcal.connected ? (
-                <span className="tt-gcal glass">
-                  {gcal.last === "error" ? "Google Kalender: Sync fehlgeschlagen" : gcal.last === "ok" ? "Google Kalender ✓ synchron" : "Google Kalender verbunden"}
-                </span>
-              ) : null}
             </div>
-            <DateSlider mode={mode} onMode={setMode} date={date} onDate={setDate} min={range.min} max={range.max} />
+            <DateSlider mode={mode} onMode={setMode} date={date} onDate={setDate} min={range.min} max={range.max} autoDim={mode === "M"} />
           </>
         ) : (
           <Learnplan
@@ -387,6 +384,17 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
               showToast(`Kalender exportiert: ${n} Termine in stundenplan.ics`);
             }}
             onChangeProgram={onChangeProgram}
+            google={
+              gcal.connected === false ? (
+                <a className="tt-gcal glass" href="/api/google/login">
+                  Mit Google verbinden
+                </a>
+              ) : gcal.connected ? (
+                <span className="tt-gcal glass">
+                  {gcal.last === "error" ? "Sync fehlgeschlagen" : gcal.last === "ok" ? "Google ✓ synchron" : "Google verbunden"}
+                </span>
+              ) : null
+            }
           />
         )}
         <TabBar tab={tab} onTab={setTab} onVoice={() => setVoiceOpen(true)} voiceActive={voiceOpen} />

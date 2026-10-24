@@ -455,9 +455,10 @@ a.tt-card-loc {
   background: #fff;
 }
 
-/* date slider */
+/* date slider: a white thumb slides between W and M */
 
 .tt-slider {
+  --gap: 44px;
   position: absolute;
   right: 8px;
   top: 50%;
@@ -467,13 +468,37 @@ a.tt-card-loc {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 10px;
+  gap: var(--gap);
   padding: 6px;
   border-radius: 28px;
   user-select: none;
+  transition: opacity 0.4s ease;
+}
+
+.tt-slider[data-dim] {
+  opacity: 0.4;
+}
+
+.tt-slider-thumb {
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 2px 8px rgba(29, 29, 31, 0.14);
+  transform: translateY(var(--nudge, 0px));
+  transition: transform 0.45s var(--spring);
+}
+
+.tt-slider[data-mode="M"] .tt-slider-thumb {
+  transform: translateY(calc(44px + var(--gap) + var(--nudge, 0px)));
 }
 
 .tt-slider-key {
+  position: relative;
+  z-index: 1;
   width: 44px;
   height: 44px;
   border: 0;
@@ -481,29 +506,12 @@ a.tt-card-loc {
   background: transparent;
   font-size: 18px;
   font-weight: 750;
-  color: var(--ink);
+  color: var(--ink-2);
+  transition: color 0.25s ease;
 }
 
 .tt-slider-key[data-active] {
   color: var(--primary);
-  background: #fff;
-  box-shadow: 0 2px 8px rgba(29, 29, 31, 0.12);
-}
-
-.tt-slider-grip {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 10px 0;
-  transition: transform 0.2s var(--spring);
-}
-
-.tt-slider-grip i {
-  display: block;
-  width: 22px;
-  height: 2px;
-  border-radius: 1px;
-  background: rgba(29, 29, 31, 0.3);
 }
 
 .tt-bubble {
@@ -549,12 +557,34 @@ a.tt-card-loc {
   color: var(--ink);
 }
 
+.tt-tab {
+  position: relative;
+  z-index: 1;
+  transition:
+    color 0.25s ease,
+    transform 0.25s var(--spring);
+}
+
 .tt-tab[aria-current="page"] {
   color: var(--primary);
+}
+
+.tt-tab-pill {
+  position: absolute;
+  top: 4px;
+  left: 4px;
+  width: calc((100% - 8px - 56px - 8px) / 2);
+  height: 56px;
+  border-radius: 28px;
   background: rgba(255, 255, 255, 0.4);
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.9),
     0 1px 4px rgba(29, 29, 31, 0.08);
+  transition: transform 0.45s var(--spring);
+}
+
+.tt-tab-pill[data-tab="plan"] {
+  transform: translateX(calc(100% + 56px + 8px));
 }
 
 .tt-mic {
@@ -636,92 +666,301 @@ a.tt-card-loc {
   border-radius: 20px;
 }
 
-/* ---------- month view ---------- */
+/* ---------- month view (iPhone style): grid on top, day list below ---------- */
 
-.tt-cal-month {
-  padding: calc(88px + env(safe-area-inset-top)) 72px 112px 12px;
+.tt-view {
+  position: absolute;
+  inset: 0;
+}
+
+.tt-mv {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  padding-top: calc(80px + env(safe-area-inset-top));
+}
+
+.tt-mv-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0 14px 6px 18px;
 }
 
 .tt-month-title {
-  margin: 0 4px 14px;
+  margin: 0;
   font-size: 28px;
   font-weight: 750;
   letter-spacing: -0.01em;
 }
 
-.tt-month-grid {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 2px;
+.tt-today {
+  min-height: 44px;
+  padding: 0 18px;
+  border: 0;
+  border-radius: 22px;
+  font-weight: 650;
+  color: var(--primary);
+  transition:
+    opacity 0.25s ease,
+    transform 0.35s var(--spring);
 }
 
-.tt-month-wd {
-  padding-bottom: 6px;
+.tt-today[data-hidden] {
+  opacity: 0;
+  transform: scale(0.85);
+  pointer-events: none;
+}
+
+.tt-mv-wd {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  padding: 0 14px 6px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.tt-mv-wd span {
   text-align: center;
   font-size: 12px;
   font-weight: 600;
   color: var(--ink-2);
 }
 
-.tt-month-day {
+.tt-mv-months {
+  flex: none;
+  height: 45dvh;
+  overflow-y: auto;
+  scroll-snap-type: y mandatory;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.tt-mv-months::-webkit-scrollbar {
+  display: none;
+}
+
+.tt-mv-month {
+  height: 100%;
+  padding: 0 14px;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  background: linear-gradient(rgba(0, 0, 0, 0.06), rgba(0, 0, 0, 0.06)) 0 0 / 100% 1px repeat-y;
+  background-size: 100% calc(100% / 6);
+}
+
+.tt-mv-day {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 4px;
-  min-height: 52px;
-  padding: 6px 0;
+  justify-content: flex-start;
+  gap: 3px;
+  min-height: 44px;
+  padding: 4px 0 0;
   border: 0;
-  border-radius: 14px;
   background: transparent;
-  font-weight: 650;
-  font-variant-numeric: tabular-nums;
   color: var(--ink);
+  font-variant-numeric: tabular-nums;
 }
 
-.tt-month-day[data-out] {
+.tt-mv-num {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 17px;
+  font-weight: 600;
+  transition:
+    background-color 0.2s ease,
+    box-shadow 0.25s var(--spring),
+    transform 0.25s var(--spring);
+}
+
+.tt-mv-day[data-weekend] {
   color: var(--ink-2);
-  opacity: 0.6;
 }
 
-.tt-month-day[data-today] > span:first-child {
-  color: var(--primary);
-  text-decoration: underline;
-  text-underline-offset: 3px;
+.tt-mv-day[data-out] {
+  color: #9a9aa1;
 }
 
-.tt-month-day[aria-current="date"] {
+.tt-mv-day[data-out] .tt-mv-dots {
+  opacity: 0.5;
+}
+
+.tt-mv-day[data-selected] .tt-mv-num {
+  box-shadow: inset 0 0 0 1.5px var(--primary);
+}
+
+.tt-mv-day[data-today] .tt-mv-num {
   color: #fff;
   background: var(--primary);
 }
 
-.tt-month-dots {
-  display: flex;
-  gap: 3px;
-  min-height: 6px;
+.tt-mv-day[data-today][data-selected] .tt-mv-num {
+  box-shadow: 0 0 0 3px var(--bg), 0 0 0 5px rgba(52, 80, 110, 0.35);
 }
 
-.tt-month-dots i {
+.tt-mv-day:active .tt-mv-num {
+  transform: scale(0.9);
+}
+
+.tt-mv-dots {
+  display: flex;
+  gap: 3px;
+  height: 6px;
+}
+
+.tt-mv-dots i {
+  display: grid;
+  place-items: center;
   width: 6px;
   height: 6px;
   border-radius: 50%;
   background: var(--v-bar);
+  font-style: normal;
 }
 
-.tt-month-dots i[data-type="U"] {
+.tt-mv-dots i[data-type="U"] {
   background: var(--u-bar);
 }
-.tt-month-dots i[data-type="T"] {
+.tt-mv-dots i[data-type="T"] {
   background: var(--t-bar);
 }
-.tt-month-dots i[data-type="P"] {
+.tt-mv-dots i[data-type="P"] {
   background: var(--p-bar);
 }
-.tt-month-dots i[data-conflict] {
+.tt-mv-dots i[data-type="X"] {
   background: var(--x-rim);
 }
+.tt-mv-dots i[data-type="+"] {
+  width: 8px;
+  background: transparent;
+  font-size: 10px;
+  font-weight: 800;
+  line-height: 6px;
+  color: var(--ink-2);
+}
 
-.tt-month-day[aria-current="date"] .tt-month-dots i {
-  box-shadow: 0 0 0 1px #fff;
+/* day list */
+
+.tt-mv-list {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 12px 14px 120px;
+  border-top: 1px solid rgba(0, 0, 0, 0.06);
+}
+
+.tt-mv-list-head {
+  margin: 0 4px 10px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+.tt-mv-list-head span {
+  font-weight: 500;
+  color: var(--ink-2);
+}
+
+.tt-mv-empty {
+  margin: 24px 0;
+  text-align: center;
+  color: var(--ink-2);
+}
+
+.tt-mv-rows {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tt-mv-row {
+  --c-bar: var(--v-bar);
+  --c-bg: var(--v-bg);
+  --c-ink: var(--v-ink);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 56px;
+  padding: 8px 12px 8px 10px;
+  border: 0;
+  border-left: 4px solid var(--c-bar);
+  border-radius: 10px;
+  text-align: left;
+  color: var(--c-ink);
+  background: var(--c-bg);
+  transition: transform 0.2s var(--spring);
+}
+
+.tt-mv-row[data-type="U"] {
+  --c-bar: var(--u-bar);
+  --c-bg: var(--u-bg);
+  --c-ink: var(--u-ink);
+}
+.tt-mv-row[data-type="T"] {
+  --c-bar: var(--t-bar);
+  --c-bg: var(--t-bg);
+  --c-ink: var(--t-ink);
+}
+.tt-mv-row[data-type="P"] {
+  --c-bar: var(--p-bar);
+  --c-bg: var(--p-bg);
+  --c-ink: var(--p-ink);
+}
+.tt-mv-row[data-conflict] {
+  --c-bar: var(--x-bar);
+  --c-bg: var(--x-bg);
+  --c-ink: var(--x-ink);
+  border: 2px solid var(--x-rim);
+  border-left-width: 4px;
+}
+
+.tt-mv-row:active {
+  transform: scale(0.98);
+}
+
+.tt-mv-row-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.tt-mv-row-title {
+  font-weight: 650;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tt-mv-row-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-size: 13px;
+}
+
+.tt-mv-row-loc {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 /* ---------- dialogs ---------- */
@@ -754,21 +993,8 @@ a.tt-card-loc {
   border-radius: 30px;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .tt-dialog[open] .tt-panel {
-    animation: tt-pop 0.22s ease-out;
-  }
-  .tt-toast {
-    animation: tt-pop 0.2s ease-out;
-  }
-}
 
-@keyframes tt-pop {
-  from {
-    opacity: 0;
-    transform: translateY(12px) scale(0.98);
-  }
-}
+
 
 .tt-h1 {
   margin: 0;
@@ -1462,7 +1688,7 @@ a.tt-card-loc {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .tt-slider-grip,
+  .tt-slider-thumb,
   .tt-switch,
   .tt-switch::after,
   .tt-mic {
@@ -1474,12 +1700,146 @@ a.tt-card-loc {
 }
 
 .tt-gcal {
-  align-self: flex-start;
-  margin: 8px 0 0 4px;
-  padding: 4px 12px;
-  border-radius: 999px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--ink-2);
+  display: inline-grid;
+  place-items: center;
+  min-height: 44px;
+  padding: 0 14px;
+  border-radius: 22px;
+  font-size: 14px;
+  font-weight: 650;
+  white-space: nowrap;
+  color: var(--primary);
   text-decoration: none;
+}
+
+/* ---------- motion: small, physical, Apple-like ---------- */
+
+.tt-root,
+.tt-dialog {
+  --sheet-curve: cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* press feedback on everything tappable */
+.tt-btn,
+.tt-add,
+.tt-next,
+.tt-week-day,
+.tt-today,
+.tt-gcal,
+.tt-weight-pick,
+.tt-link-btn,
+.tt-slider-key,
+.tt-option {
+  transition:
+    transform 0.25s var(--spring),
+    background-color 0.25s ease,
+    color 0.25s ease;
+}
+
+.tt-btn:active,
+.tt-add:active,
+.tt-next:active,
+.tt-week-day:active,
+.tt-today:active,
+.tt-gcal:active,
+.tt-weight-pick:active,
+.tt-tab:active,
+.tt-slider-key:active {
+  transform: scale(0.95);
+}
+
+/* cards glide to their new slot after a change on the same day */
+.tt-card {
+  transition:
+    top 0.5s var(--spring),
+    height 0.5s var(--spring),
+    left 0.4s var(--spring),
+    width 0.4s var(--spring),
+    background-color 0.3s ease,
+    opacity 0.3s ease;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* W <-> M: the view slides in from the side of the letter you tapped (W top, M bottom) */
+  .tt-view[data-mode="W"] {
+    animation: tt-view-from-top 0.45s var(--sheet-curve);
+  }
+  .tt-view[data-mode="M"] {
+    animation: tt-view-from-bottom 0.45s var(--sheet-curve);
+  }
+
+  .tt-dialog[open]::backdrop {
+    animation: tt-fade 0.3s ease;
+  }
+  .tt-dialog[open][data-variant="sheet"] .tt-panel {
+    animation: tt-sheet-up 0.45s var(--sheet-curve);
+  }
+  .tt-dialog[open]:not([data-variant="sheet"]) .tt-panel {
+    animation: tt-zoom-in 0.35s var(--spring);
+  }
+  .tt-toast {
+    animation: tt-toast-in 0.45s var(--spring);
+  }
+  .tt-bubble {
+    animation: tt-zoom-in 0.25s var(--spring);
+  }
+  .tt-plan {
+    animation: tt-fade-up 0.4s var(--sheet-curve);
+  }
+}
+
+@keyframes tt-view-from-top {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+}
+
+@keyframes tt-view-from-bottom {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+}
+
+@keyframes tt-fade {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes tt-sheet-up {
+  from {
+    transform: translateY(105%);
+  }
+}
+
+@keyframes tt-zoom-in {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+}
+
+@keyframes tt-toast-in {
+  from {
+    opacity: 0;
+    transform: translateY(16px) scale(0.96);
+  }
+}
+
+@keyframes tt-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tt-root *,
+  .tt-dialog *,
+  .tt-dialog::backdrop {
+    animation: none !important;
+    transition: none !important;
+  }
 }

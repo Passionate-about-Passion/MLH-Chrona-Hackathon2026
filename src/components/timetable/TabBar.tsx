@@ -13,6 +13,8 @@ interface TabBarProps {
 export function TabBar({ tab, onTab, onVoice, voiceActive = false }: TabBarProps) {
   return (
     <nav className="tt-tabbar glass" aria-label="Hauptnavigation">
+      {/* light glass pill that slides to the active tab */}
+      <span className="tt-tab-pill" data-tab={tab} aria-hidden="true" />
       <button
         type="button"
         className="tt-tab"
