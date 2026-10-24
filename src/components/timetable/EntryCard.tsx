@@ -1,6 +1,6 @@
 import type { Entry } from "@/types";
 import { LockIcon, PinIcon, RepeatIcon } from "./Icons";
-import { mapsUrl, range } from "./logic";
+import { range } from "./logic";
 
 interface EntryCardProps {
   entry: Entry;
@@ -12,8 +12,8 @@ interface EntryCardProps {
 }
 
 /**
- * The card is a plain box with a full-size button underneath the content (opens the edit sheet),
- * so the location can stay a real link (a link inside a button is not allowed).
+ * The card is a plain box with a full-size button underneath the content that opens the edit sheet.
+ * The location is plain text here; the map links live in the edit sheet.
  */
 export function EntryCard({ entry, col = 0, cols = 1, conflict = false, onTap, style }: EntryCardProps) {
   return (
@@ -57,16 +57,10 @@ export function EntryCard({ entry, col = 0, cols = 1, conflict = false, onTap, s
       <span className="tt-card-meta">
         <span className="tt-card-time">{range(entry)}</span>
         {entry.location && (
-          <a
-            className="tt-card-loc"
-            href={mapsUrl(entry.location)}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`${entry.location} in Google Maps öffnen`}
-          >
+          <span className="tt-card-loc">
             <PinIcon size={13} />
             <span>{entry.location}</span>
-          </a>
+          </span>
         )}
       </span>
     </div>

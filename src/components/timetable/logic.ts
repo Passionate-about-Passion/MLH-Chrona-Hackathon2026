@@ -150,14 +150,15 @@ export function layoutDay(list: Entry[]): Placed[] {
   return out;
 }
 
-/** "in 25 Min", "in 2 Std 10 Min", "in 42 Std 5 Min" until `date` at `start` (local time), always hours and minutes */
+/** "in 25 Min", "in 3 Std 10 Min", "in 1 Tag 2 Std 5 Min" until `date` at `start` (local time); zero parts are left out */
 export function untilText(date: string, start: string, now = new Date()) {
-  const min = Math.ceil((new Date(`${date}T${start}:00`).getTime() - now.getTime()) / 60000);
-  if (min <= 0) return "Jetzt";
-  if (min < 60) return `in ${min} Min`;
-  const h = Math.floor(min / 60);
-  const m = min % 60;
-  return m ? `in ${h} Std ${m} Min` : `in ${h} Std`;
+  const total = Math.ceil((new Date(`${date}T${start}:00`).getTime() - now.getTime()) / 60000);
+  if (total <= 0) return "Jetzt";
+  const d = Math.floor(total / (24 * 60));
+  const h = Math.floor((total % (24 * 60)) / 60);
+  const m = total % 60;
+  const parts = [d ? (d === 1 ? "1 Tag" : `${d} Tagen`) : "", h ? `${h} Std` : "", m ? `${m} Min` : ""].filter(Boolean);
+  return `in ${parts.join(" ")}`;
 }
 
 export function nextEntry(entries: Entry[], fromIso: string, fromTime: string) {
