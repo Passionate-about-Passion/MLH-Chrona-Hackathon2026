@@ -376,11 +376,6 @@
 
 /* week strip */
 
-.tt-top .tt-week {
-  flex: 1;
-  min-width: 0;
-}
-
 .tt-week {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
