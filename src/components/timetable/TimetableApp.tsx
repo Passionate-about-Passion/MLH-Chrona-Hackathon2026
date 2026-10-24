@@ -1,4 +1,5 @@
 "use client";
+import "@/styles/glass.css";
 import "./timetable.css";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Constraint, Plan, Priority } from "@/lib/types";
@@ -25,25 +26,19 @@ import { AddSheet } from "./AddSheet";
 import { ChangePreview } from "./ChangePreview";
 import { ConflictDialog } from "./ConflictDialog";
 import { DateSlider, type Mode } from "./DateSlider";
-import { DayView } from "./DayView";
-import { PinIcon, PlusIcon } from "./Icons";
+import { PlusIcon } from "./Icons";
 import { Learnplan } from "./Learnplan";
 import { MonthView } from "./MonthView";
 import { TabBar, type Tab } from "./TabBar";
 import { Toast, type ToastState } from "./Toast";
 import { VoiceOverlay } from "./VoiceOverlay";
+import { WeekPager } from "./WeekPager";
 import { WeekStrip } from "./WeekStrip";
-import {
-  addDays,
-  conflictIds,
-  entriesOn,
-  moveToSession,
-  nextEntry,
-  range,
-  relativeDay,
-  weekdayOf,
-  type Alternative,
-} from "./logic";
+import { addDays, conflictIds, entriesOn, moveToSession, nextEntry, weekdayOf, type Alternative } from "./logic";
+
+/** room for the overlays: header + week strip on top, tab bar at the bottom */
+const PAD_TOP = 164;
+const PAD_BOTTOM = 112;
 
 const data = getProgram()!;
 const groups = uiGroups(data);
@@ -96,7 +91,6 @@ export function TimetableApp() {
     () => (plan ? planToEntries(data, plan, constraints, priorities, extras) : []),
     [plan, constraints, priorities, extras],
   );
-  const dayEntries = useMemo(() => entriesOn(entries, date), [entries, date]);
   const next = useMemo(() => nextEntry(entries, TODAY, nowTime()), [entries]);
 
   /** Ask the solver for a new plan. Mock mode ignores `current`, so apply the wished choice locally then. */
@@ -228,43 +222,17 @@ export function TimetableApp() {
       <div className="tt-phone">
         {tab === "cal" ? (
           <>
-            <header className="tt-top">
-              <button type="button" className="tt-add" aria-label="Termin hinzufügen" onClick={() => setAddOpen(true)}>
-                <PlusIcon />
-              </button>
-              {next ? (
-                <button type="button" className="tt-next tt-glass" onClick={() => setDate(next.date)}>
-                  <span className="tt-next-label">Next up · {relativeDay(next.date, TODAY)}</span>
-                  <span className="tt-next-title">{next.entry.title}</span>
-                  <span className="tt-next-meta">
-                    {range(next.entry)}
-                    {next.entry.location && (
-                      <>
-                        <PinIcon size={12} />
-                        {next.entry.location}
-                      </>
-                    )}
-                  </span>
-                </button>
-              ) : (
-                <div className="tt-next tt-glass">
-                  <span className="tt-next-title">{plan ? "Nichts mehr geplant" : "Plan wird berechnet …"}</span>
-                </div>
-              )}
-            </header>
             {mode === "W" ? (
-              <>
-                <WeekStrip date={date} today={TODAY} entries={entries} onDate={setDate} />
-                <main className="tt-main tt-glass">
-                  {loadError ? (
-                    <p className="tt-empty">Der Planer ist nicht erreichbar: {loadError}</p>
-                  ) : (
-                    <DayView date={date} entries={dayEntries} onConflictTap={(e) => void openAlternatives(e)} />
-                  )}
-                </main>
-              </>
+              <WeekPager
+                date={date}
+                entries={entries}
+                onDate={setDate}
+                onConflictTap={(e) => void openAlternatives(e)}
+                padTop={PAD_TOP}
+                padBottom={PAD_BOTTOM}
+              />
             ) : (
-              <main className="tt-main tt-glass tt-main-month">
+              <div className="tt-cal tt-cal-month">
                 <MonthView
                   date={date}
                   today={TODAY}
@@ -274,8 +242,31 @@ export function TimetableApp() {
                     setMode("W");
                   }}
                 />
-              </main>
+              </div>
             )}
+            {loadError && <p className="tt-error-float glass-dense">Der Planer ist nicht erreichbar: {loadError}</p>}
+            <div className="tt-overlay-top">
+              <header className="tt-top">
+                <button type="button" className="tt-add glass" aria-label="Termin hinzufügen" onClick={() => setAddOpen(true)}>
+                  <PlusIcon />
+                </button>
+                {next ? (
+                  <button type="button" className="tt-next glass" onClick={() => setDate(next.date)}>
+                    <span className="tt-next-label">Next up</span>
+                    <span className="tt-next-title">{next.entry.title}</span>
+                    <span className="tt-next-meta">
+                      {next.entry.start}
+                      {next.entry.location && ` · ${next.entry.location}`}
+                    </span>
+                  </button>
+                ) : (
+                  <div className="tt-next glass">
+                    <span className="tt-next-title">{plan ? "Nichts mehr geplant" : "Plan wird berechnet …"}</span>
+                  </div>
+                )}
+              </header>
+              {mode === "W" && <WeekStrip date={date} today={TODAY} onDate={setDate} />}
+            </div>
             <DateSlider mode={mode} onMode={setMode} date={date} onDate={setDate} min={RANGE.min} max={RANGE.max} />
           </>
         ) : (
@@ -289,7 +280,7 @@ export function TimetableApp() {
             }}
           />
         )}
-        <TabBar tab={tab} onTab={setTab} onVoice={() => setVoiceOpen(true)} />
+        <TabBar tab={tab} onTab={setTab} onVoice={() => setVoiceOpen(true)} voiceActive={voiceOpen} />
         <Toast toast={toast} onDismiss={dismissToast} />
       </div>
 
