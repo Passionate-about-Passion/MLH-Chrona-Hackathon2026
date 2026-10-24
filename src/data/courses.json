@@ -1,0 +1,52 @@
+{
+  "semester": { "start": "2026-10-26", "end": "2027-02-05" },
+  "courses": [
+    {
+      "id": "mathe1", "name": "Mathematik I", "required": true, "ects": 8, "exam": true,
+      "groups": [
+        { "id": "mathe1-v", "kind": "Vorlesung", "sessions": [
+          { "day": "Di", "start": "10:00", "end": "12:00", "room": "Aula" },
+          { "day": "Do", "start": "10:00", "end": "12:00", "room": "Aula" } ] },
+        { "id": "mathe1-u1", "kind": "Übung", "sessions": [{ "day": "Di", "start": "14:00", "end": "16:00", "room": "A 101" }] },
+        { "id": "mathe1-u2", "kind": "Übung", "sessions": [{ "day": "Mi", "start": "08:00", "end": "10:00", "room": "A 101" }] },
+        { "id": "mathe1-u3", "kind": "Übung", "sessions": [{ "day": "Fr", "start": "10:00", "end": "12:00", "room": "A 102" }] }
+      ]
+    },
+    {
+      "id": "stat", "name": "Statistik", "required": true, "ects": 6, "exam": true,
+      "groups": [
+        { "id": "stat-v", "kind": "Vorlesung", "sessions": [{ "day": "Mo", "start": "10:00", "end": "12:00", "room": "Aula" }] },
+        { "id": "stat-u1", "kind": "Übung", "sessions": [{ "day": "Do", "start": "14:00", "end": "16:00", "room": "B 201" }] },
+        { "id": "stat-u2", "kind": "Übung", "sessions": [{ "day": "Fr", "start": "12:00", "end": "14:00", "room": "B 201" }] }
+      ]
+    },
+    {
+      "id": "prog1", "name": "Programmieren I", "required": true, "ects": 6, "exam": true,
+      "groups": [
+        { "id": "prog1-v", "kind": "Vorlesung", "sessions": [{ "day": "Mo", "start": "14:00", "end": "16:00", "room": "Aula" }] },
+        { "id": "prog1-u1", "kind": "Übung", "sessions": [{ "day": "Di", "start": "12:00", "end": "14:00", "room": "PC-Pool" }] },
+        { "id": "prog1-u2", "kind": "Übung", "sessions": [{ "day": "Mi", "start": "14:00", "end": "16:00", "room": "PC-Pool" }] },
+        { "id": "prog1-u3", "kind": "Übung", "sessions": [{ "day": "Do", "start": "12:00", "end": "14:00", "room": "PC-Pool" }] }
+      ]
+    },
+    {
+      "id": "bwl", "name": "Einführung BWL", "required": true, "ects": 5, "exam": false,
+      "groups": [
+        { "id": "bwl-v", "kind": "Vorlesung", "sessions": [{ "day": "Mi", "start": "10:00", "end": "12:00", "room": "Aula" }] },
+        { "id": "bwl-t1", "kind": "Tutorium", "sessions": [{ "day": "Di", "start": "16:00", "end": "18:00", "room": "C 12" }] },
+        { "id": "bwl-t2", "kind": "Tutorium", "sessions": [{ "day": "Do", "start": "16:00", "end": "18:00", "room": "C 12" }] }
+      ]
+    },
+    {
+      "id": "spanisch", "name": "Spanisch A1", "required": false, "ects": 3, "exam": false,
+      "groups": [
+        { "id": "spanisch-1", "kind": "Übung", "sessions": [{ "day": "Di", "start": "18:00", "end": "20:00", "room": "Sprachenzentrum" }] },
+        { "id": "spanisch-2", "kind": "Übung", "sessions": [{ "day": "Mi", "start": "16:00", "end": "18:00", "room": "Sprachenzentrum" }] }
+      ]
+    }
+  ],
+  "fixed": [
+    { "type": "block", "day": "Mo", "start": "18:00", "end": "20:00", "label": "Fußball", "hard": true },
+    { "type": "block", "day": "Fr", "start": "14:00", "end": "18:00", "label": "Nebenjob", "hard": true }
+  ]
+}

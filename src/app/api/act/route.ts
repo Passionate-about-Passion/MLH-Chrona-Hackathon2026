@@ -1,48 +1,22 @@
 /**
- * SLICE C – HANDELN (backend)
- * POST /api/act  JSON: { analysis: Analysis, action: Action, outputLanguage?: string, provider?: Provider }
- * → { result: ActResult, meta: Meta }
+ * SLICE C – HANDELN
+ * POST /api/act  JSON: { constraints?, priorities?, current? } → { plan: Plan, meta }
+ * Reiner TS-Planer, keine KI.
  */
 import { NextResponse } from "next/server";
-import { ask, type Provider } from "@/lib/ai";
-import { ACT_SYSTEM } from "@/lib/prompts";
-import { isMock, mockAct } from "@/lib/mocks";
-import type { Action, Analysis } from "@/lib/types";
+import { solve } from "@/features/act/solver";
+import data from "@/data/courses.json";
+import { isMock, mockPlan } from "@/lib/mocks";
+import type { Choice, Constraint, CourseData, Priority } from "@/lib/types";
 
 export const runtime = "nodejs";
-export const maxDuration = 60;
 
 export async function POST(req: Request) {
   try {
-    const body = (await req.json()) as {
-      analysis?: Analysis;
-      action?: Action;
-      outputLanguage?: string;
-      provider?: Provider;
-    };
-    if (!body.analysis || !body.action) {
-      return NextResponse.json({ error: "analysis und action sind Pflicht" }, { status: 400 });
-    }
-    if (isMock()) {
-      return NextResponse.json({ result: mockAct(body.action.id), meta: { provider: "mock", model: "mock", ms: 0, mock: true } });
-    }
-
-    const result = await ask({
-      system: ACT_SYSTEM,
-      prompt: JSON.stringify({
-        action: body.action.type,
-        outputLanguage: body.outputLanguage ?? body.analysis.language ?? "de",
-        analysis: body.analysis,
-      }),
-      provider: body.provider,
-      // Idea: ground "find_deadline" with live web info (Gemini API only)
-      googleSearch: body.action.type === "find_deadline" && (body.provider ?? process.env.AI_PROVIDER ?? "gemini") === "gemini",
-    });
-
-    return NextResponse.json({
-      result: { actionId: body.action.id, text: result.text },
-      meta: { provider: result.provider, model: result.model, ms: result.ms },
-    });
+    const t0 = Date.now();
+    const body = (await req.json().catch(() => ({}))) as { constraints?: Constraint[]; priorities?: Priority[]; current?: Choice[] };
+    const plan = isMock() ? mockPlan : solve(data as CourseData, body.constraints ?? [], body.priorities ?? [], body.current);
+    return NextResponse.json({ plan, meta: { provider: "solver", model: "solver", ms: Date.now() - t0, mock: isMock() || undefined } });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[act]", message);

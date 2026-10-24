@@ -9,8 +9,8 @@ Ein KI-Stundenplan-Assistent, der Vorlesungs-, Übungs- und Tutoriumstermine mit
 - Wer zahlt und warum: TODO
 
 ## Kernfeatures (maximal 2)
-1. Stundenplan-Optimierung: aus allen Terminoptionen ein konfliktfreier Plan, Kursgewichte entscheiden bei Konflikten.
-2. Spontane Änderung per Sprache („Donnerstag 14–16 Uhr habe ich einen Termin"): Woche neu legen, Ausweichtermine vorschlagen.
+1. Stundenplan-Optimierung: aus allen Terminoptionen ein konfliktfreier Plan, Kursgewichte (von Gemma bestimmt) entscheiden bei Konflikten.
+2. Spontane Änderung per Sprache („Donnerstag 14–16 Uhr habe ich einen Termin", „Ich will dienstags frei haben"): Woche neu legen, Ausweichtermine vorschlagen, live im Google Kalender. Dazu „Welche Termine habe ich?" → wird vorgelesen (ElevenLabs).
 
 ## Bewusst nicht gebaut
 - Login / Accounts
@@ -31,7 +31,8 @@ Eintägiger Hack: Die Guidebook-Werte (Freeze = Deadline − 7 h) passen nicht, 
 - Zuständig für Force-Stop (Leader): TODO (Pitcher)
 
 ## Demo-Skript
-1. TODO (Persona stellt Problem vor)
-2. TODO (Foto aufnehmen → Gemma versteht es)
-3. TODO (Aktion auslösen → Ergebnis, ggf. vorlesen)
-4. TODO (optional: Umschalten auf „Lokal" → gleiches Ergebnis, nichts verlässt das Gerät)
+1. Persona stellt vollen Dienstag vor
+2. „Donnerstag 14 bis 16 Uhr habe ich einen Termin" → Statistik-Übung wandert auf Freitag
+3. „Ich will dienstags frei haben" → alles außer der Mathe-Vorlesung zieht um, App sagt warum
+4. „Welche Termine habe ich am Mittwoch?" → wird vorgelesen
+5. optional: alles lokal (Gemma über Ollama)

@@ -15,12 +15,15 @@ export async function POST(req: Request) {
   if (!apiKey) return NextResponse.json({ error: "ELEVENLABS_API_KEY nicht gesetzt" }, { status: 501 });
 
   const voiceId = process.env.ELEVENLABS_VOICE_ID || "21m00Tcm4TlvDq8ikWAM";
+  const model = process.env.ELEVENLABS_MODEL || "eleven_multilingual_v2";
   const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
     method: "POST",
     headers: { "xi-api-key": apiKey, "Content-Type": "application/json", Accept: "audio/mpeg" },
     body: JSON.stringify({
       text: text.slice(0, 2500),
-      model_id: process.env.ELEVENLABS_MODEL || "eleven_multilingual_v2",
+      model_id: model,
+      // language_code wird von multilingual_v2 nicht unterstützt (Docs) – nur bei anderen Modellen mitsenden
+      ...(model === "eleven_multilingual_v2" ? {} : { language_code: "de" }),
     }),
   });
 
