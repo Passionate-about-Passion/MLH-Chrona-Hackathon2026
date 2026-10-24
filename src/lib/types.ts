@@ -39,6 +39,10 @@ export interface Meta {
   model: string;
   ms: number;
   mock?: boolean;
+  /** /api/analyze: kam die Eingabe als Audio (an Gemma) oder Text? */
+  input?: "audio" | "text";
+  /** /api/analyze: Dauer der Audio-Transkription durch Gemma */
+  audioMs?: number;
 }
 
 export type ApiError = { error: string };

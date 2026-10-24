@@ -3,7 +3,7 @@ import { readFileSync } from "node:fs";
 import { solve } from "./solver.ts";
 import type { Choice, CourseData } from "../../lib/types";
 
-const data: CourseData = JSON.parse(readFileSync(new URL("../../data/courses.json", import.meta.url), "utf8"));
+const data: CourseData = JSON.parse(readFileSync(new URL("../../data/demo.json", import.meta.url), "utf8"));
 const ids = (cs: Choice[]) => cs.map((c) => c.groupId).sort();
 
 // (a) Startplan = jeweils erste Gruppen

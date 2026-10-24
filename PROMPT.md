@@ -25,15 +25,16 @@ Nichts löschen: Erledigtes nach unten verschieben. Ab **14:00** nur noch Bugfix
 | 007 | Planer `/api/act`: Gewichte, fest/Wunsch, wenig Änderungen | C | sonnet | Lenny | erledigt (nicht committet) |
 | 008 | „Welche Termine habe ich?" → Antworttext → ElevenLabs | D | sonnet | Lenny | erledigt (nicht committet) |
 | 009 | Frontend: Sprechen → Rückfragen → Wochenplan → Vorlesen | alle | sonnet | Frontend-Person (nicht Lenny) | offen (nach 006–008) |
-| 013 | Google-Kalender-Sync: nach jeder Planänderung sofort im Google Kalender | C | sonnet | Lenny | offen |
-| 014 | Stundenplan-Erstellung: Studiengang + Semester wählen → Startplan | B/C | sonnet | Lenny | offen (nach 013) |
+| 013 | Google-Kalender-Sync: nach jeder Planänderung sofort im Google Kalender | C | sonnet | Lenny | erledigt, live getestet (Do 14–16 → Statistik-Übung Fr) |
+| 014 | Stundenplan-Erstellung: Studiengang + Semester wählen → Startplan | B/C | sonnet | Lenny | erledigt (nicht committet) |
 | 015 | Echte Kursdaten BWL (dann VWL, WiFo) im Format von `src/data/courses.json` | A | haiku | Emil | offen |
 | 016 | Gemma bleibt geladen (keep-alive) + `npm run warmup` | B | sonnet | Lenny | erledigt (nicht committet) |
 | 017 | Gewichte über mehrere Sätze merken + JSON-Retry in `/api/analyze` | B | sonnet | Lenny | erledigt (nicht committet) |
-| 018 | Einmaliger Termin („nur nächsten Donnerstag") → Ausweichtermin diese Woche + Kalender-Ausnahme | B/C | sonnet | Lenny | offen (nach 013, 017) |
+| 018 | Einmaliger Termin („nur nächsten Donnerstag") → Ausweichtermin diese Woche + Kalender-Ausnahme | B/C | sonnet | Lenny | gestrichen (Rückfrage aus Prompt entfernt, immer wöchentlich) |
 | 019 | Selbsttests in `scripts/check.sh` (`npm test`) | – | haiku | Lenny | erledigt (nicht committet) |
-| 010 | Test: versteht Gemma 4 Audio direkt (Ollama)? | B | sonnet | Lenny | 🔄 in Arbeit (Subagent) |
-| 011 | `scripts/voice.py` je nach Ergebnis von 010 entfernen oder umbauen | D | haiku | Lenny | offen (nach 010) |
+| 020 | Prompt: Frontend an Lennys Backend anbinden (Sprache, Rückfragen, Plan, Vorlesen, Google-Status) | alle | sonnet | Frontend-Person | offen (zu TASK-009) |
+| 010 | Test: versteht Gemma 4 Audio direkt (Ollama)? | B | sonnet | Lenny | erledigt: ja, `/api/analyze {audio}` → Gemma (`input_audio`), < 1 s |
+| 011 | `scripts/voice.py` je nach Ergebnis von 010 entfernen oder umbauen | D | haiku | Lenny | erledigt: ersetzt durch `/api/analyze {audio}` + `recordWav.ts`; `voice.py` ungenutzt |
 | 012 | Doku: `interfaces.md`, `decisions.md`, `scope.md` an Stundenplan anpassen | – | haiku | Lenny | erledigt (nicht committet) |
 
 ## Offen
@@ -88,6 +89,59 @@ Nichts löschen: Erledigtes nach unten verschieben. Ab **14:00** nur noch Bugfix
 > Fertig, wenn: `bash scripts/check.sh` grün und im Browser (MOCK=0, `AI_PROVIDER=ollama`) die drei Demo-Sätze funktionieren: „Donnerstag 14 bis 16 Uhr habe ich einen Termin" · „Ich will dienstags frei haben" · „Welche Termine habe ich am Mittwoch?". Screenshot bei 390 px.
 > Nicht anfassen: Solver-, Prompt- und Routen-Logik (nur aufrufen).
 
+### TASK-020 · Frontend an Lennys Backend anbinden (Prompt für TASK-009)
+- Bereich: alle (gemeinsam `page.tsx`) · Modell: sonnet · Prio: Feature
+- Status: offen · Wer: Frontend-Person, nicht Lenny
+> Ziel: Das Frontend aus TASK-009 nutzt alle Backend-Funktionen. Den Text unten in die Claude-Code-Sitzung der Frontend-Person kopieren (Skills `frontend-design`, bei Browser-APIs zuerst `modern-web-guidance`).
+
+````
+Baue das Frontend (TASK-009 in PROMPT.md) so, dass es Lennys Backend direkt und vollständig nutzt. Lies zuerst CLAUDE.md, docs/interfaces.md, src/lib/types.ts, src/lib/mocks.ts. Typen immer aus @/lib/types importieren, keine eigenen Kopien. Lenny hat die Backend-Routen fertig; du rufst sie nur auf.
+
+Vorhanden und wiederzuverwenden: src/features/voice/SpeakButton.tsx (Props text, lang, autoPlay; nutzt /api/speak, Fallback speechSynthesis ist eingebaut), src/features/voice/describe.ts (describeSchedule, describeChanges). Alt und aus page.tsx zu entfernen (Dateien stehen lassen): CaptureCard, AnalysisView, ActionPanel (Typen Analysis/ActResult gelten nicht mehr).
+
+ABLAUF
+1. Beim Laden: POST /api/act {} -> { plan, meta }. Das ist der Startplan. Kursdaten für die Anzeige: import data from "@/data/courses.json" (CourseData: courses, fixed, semester).
+2. Eingabe: großer Mikrofon-Knopf plus Textfeld. Der Knopf nutzt `startRecording()` aus src/features/voice/recordWav.ts und schickt `POST /api/analyze { audio }` (base64 WAV; Gemma transkribiert lokal, meta.input = "audio"). Bei Fehler (400 "Audio nicht verstanden", kein Mikro, keine Erlaubnis) Fallback: Web Speech API (lang "de-DE", nur wenn window.SpeechRecognition / webkitSpeechRecognition da ist) bzw. Textfeld.
+3. POST /api/analyze, JSON { text: string, priorities?: Priority[] } (optional today?: Day, provider?: Provider). Immer die aktuellen priorities mitschicken, sonst springen Gewichte zurück. Antwort { understanding, meta }. Understanding: { intent: "reschedule" | "query", transcript, constraints: Constraint[], priorities: Priority[], questions: Question[], queryDay?: Day | "week" }. Fehler: { error } (400 kein Text, 502 Modell ohne gültiges JSON, 500). Zeige Fehler dezent und lass Eingabe nutzbar.
+4. questions nicht leer: Frage + Optionen als Knöpfe anzeigen. Klick sendet denselben Satz erneut an /api/analyze als `<text> Klarstellung: <Frage> -> <Option>`. Erst danach weiter mit Schritt 5 bzw. 6.
+5. intent "reschedule": merke dir constraints (neue zu den bisherigen hinzufügen, Duplikate vermeiden) und priorities = understanding.priorities (ersetzen). Dann POST /api/act { constraints: alle bisherigen, priorities, current: vorheriges plan.chosen }. current ist wichtig: so ändert der Planer nur das Nötige. Antwort { plan, meta }. Plan ersetzen, plan.changes ({ courseId, kind, from, to }) im Wochenplan hervorheben und als Liste zeigen, plan.dropped (courseIds, die weichen mussten) und plan.conflicts (deutsche Sätze, z. B. warum ein Termin trotz Wunsch bleibt) anzeigen, plan.alternatives (Choice + reason) als kleine Vorschläge. Danach describeChanges(data, plan) per <SpeakButton text=... autoPlay /> vorlesen.
+6. intent "query" (z. B. „Welche Termine habe ich am Mittwoch?"): kein /api/act. Text = describeSchedule(data, plan, understanding.queryDay ?? "week", bisherigeConstraints) mit <SpeakButton autoPlay />, Text auch anzeigen, den Tag im Wochenplan hervorheben ("week" = nichts hervorheben).
+7. Vorlesen: SpeakButton ruft /api/speak { text } auf. 501 (kein ElevenLabs-Key) ist normal und fällt automatisch auf speechSynthesis zurück; kein Fehler anzeigen.
+8. Reset-Knopf: Constraints, priorities, current leeren und POST /api/act {} neu.
+
+GOOGLE-KALENDER (Backend synchronisiert selbst, du zeigst nur Status)
+- GET /api/google/status -> { configured: boolean, connected: boolean }. Beim Laden abfragen. configured && !connected: Knopf „Mit Google verbinden" als normaler Link <a href="/api/google/login"> (volle Navigation, kein fetch). Nach der Anmeldung landet man auf /?google=ok (Fehler: /?google=error): kurz „Verbunden" bzw. „Verbindung fehlgeschlagen" zeigen. Nicht configured: nichts anzeigen.
+- /api/act liefert meta.calendar: "synced" | "off" | "error: <kurz>" und meta.calendarStats (z. B. { created, deleted, kept }). Bei "synced": „Kalender synchronisiert: N neu, M entfernt" (aus calendarStats). "off": nichts. "error: ...": dezenter Hinweis mit dem Text, Plan trotzdem normal zeigen. Hinweis: Der erste Startplan (POST /api/act {}) synchronisiert ebenfalls. Request-Feld sync: false überspringt den Sync, nur für reine Vorschau nutzen, nicht für echte Änderungen.
+- Falls /api/google/* oder meta.calendar noch fehlen (Backend von Lenny noch nicht gemergt): git pull; sonst tolerant bauen (404/fehlendes Feld = nichts anzeigen) und Lenny Bescheid sagen.
+
+LADEZEITEN
+Gemma läuft lokal: /api/analyze kann einige Sekunden dauern (nach langer Pause beim ersten Mal 30 s oder mehr). Zeige sofort einen Ladezustand (Spinner/„Ich überlege ..."), sperre doppeltes Absenden, setze keinen kurzen Timeout. /api/act ist schnell, außer dem Kalender-Sync (bis ca. 8 s).
+
+ANSICHT
+Wochenplan Mo–Fr (Sa/So nur wenn Termine), 08–20 Uhr. Blöcke je Session der plan.chosen-Gruppen (Kursname, group.kind, Raum). Feste Termine (data.fixed und constraints mit hard: true) grau, Wünsche (hard: false) schraffiert, geänderte Termine kurz markiert. Darunter priorities mit weight und reason. Handy (390 px) zuerst. Mikro im Browser geht nur über HTTPS oder localhost; auf dem iPhone über http://<IP>:3000 gilt die Tastatur-Diktierfunktion, für den Mikro-Knopf next dev --experimental-https.
+
+REGELN
+- Nur Frontend-Dateien ändern: src/app/page.tsx, neue Komponenten in src/features/understand/ (Eingabe, Rückfragen) und src/features/act/ (Wochenansicht), src/app/globals.css, SpeakButton nur falls nötig.
+- Nicht ändern: src/app/api/**, solver.ts, gcal.ts, describe.ts, src/lib/ai.ts, src/lib/prompts.ts, src/data/. src/lib/types.ts nur lesen; Ergänzungen nur nach Absprache mit Lenny.
+- MOCK=0 und AI_PROVIDER=ollama gelten (kein MOCK-Frontend bauen); die Antworten kommen vom echten Backend.
+- Demo-fokussiert, nach Scope-Freeze 14:00 nur noch Bugfixes. Keine neuen Libraries ohne Absprache.
+- Vor jedem Commit: bash scripts/check.sh. Zuerst git pull.
+
+AKZEPTANZKRITERIEN
+- [ ] Beim Laden erscheint der Startplan (POST /api/act {}).
+- [ ] „Donnerstag 14 bis 16 Uhr habe ich einen Termin": nur Statistik-Übung wird verschoben, changes sichtbar, wird vorgelesen.
+- [ ] „Ich will dienstags frei haben": Wunsch schraffiert, nicht verschiebbare Termine bleiben mit Begründung aus plan.conflicts.
+- [ ] „Welche Termine habe ich am Mittwoch?": Antworttext angezeigt und automatisch vorgelesen, Tag hervorgehoben, kein /api/act-Aufruf.
+- [ ] Rückfrage (z. B. „Ab 14 Uhr habe ich nächsten Donnerstag keine Zeit"): Optionen als Knöpfe, Klick schickt Klarstellung.
+- [ ] Zweiter Satz behält Gewichte und frühere Constraints (priorities und current werden mitgeschickt).
+- [ ] Ladezustand bei /api/analyze, Fehler dezent, App bleibt bedienbar.
+- [ ] 501 von /api/speak: Browser-Stimme spricht statt Fehler.
+- [ ] Google: Verbinden-Link nur wenn configured && !connected; nach Änderung „Kalender synchronisiert: N neu, M entfernt"; bei error nur dezenter Hinweis, Plan sichtbar.
+- [ ] Reset-Knopf stellt den Startplan her.
+- [ ] bash scripts/check.sh grün, Screenshot bei 390 px.
+````
+> Nicht anfassen: Backend-Dateien (siehe Regeln im Prompt).
+
 ### TASK-013 · Google-Kalender-Sync (live)
 - Bereich: C · Modell: sonnet · Prio: Feature
 - Status: offen
@@ -109,7 +163,7 @@ Nichts löschen: Erledigtes nach unten verschieben. Ab **14:00** nur noch Bugfix
 
 ### TASK-014 · Stundenplan-Erstellung: Studiengang + Semester
 - Bereich: B/C · Modell: sonnet · Prio: Feature
-- Status: offen (erst nach TASK-013, berührt `/api/act`)
+- Status: erledigt (nicht committet)
 > Ziel: Ein Plan wird für einen Studiengang und ein Fachsemester erstellt, nicht aus allen Kursen. Pro Studiengang eine Datei `src/data/<id>.json` (`CourseData` mit `program: { id, name }`, Kurse mit `term`). `src/data/courses.json` wird zu `src/data/demo.json` (program `{ id: "demo", name: "Demo (Pitch)" }`, alle Kurse `term: 1`) – das ist der Demo-Datensatz mit vollem Dienstag.
 > Dateien: `src/data/index.ts` (neu), `src/data/demo.json` (umbenannt), `src/app/api/programs/route.ts` (neu), `src/app/api/act/route.ts`, `src/app/api/analyze/route.ts`, `src/features/act/gcal.ts` und alle `*.check.ts`, die `courses.json` lesen (nur Pfad/Import anpassen).
 > - `src/data/index.ts`: `PROGRAMS: Record<string, CourseData>` (statische JSON-Imports, neue Studiengänge = eine Zeile), `getProgram(id = "demo")`, `selectCourses(data, { term?, courseIds? }): CourseData` (courseIds gewinnt, sonst alle mit `term`, sonst alle).
@@ -148,7 +202,7 @@ Nichts löschen: Erledigtes nach unten verschieben. Ab **14:00** nur noch Bugfix
 
 ### TASK-018 · Einmaliger Termin → Ausweichtermin diese Woche
 - Bereich: B/C · Modell: sonnet · Prio: Feature (Use Case 2 aus `docs/konzept.md`: „schlägt Ausweichtermine für verpasste Veranstaltungen vor")
-- Status: offen (erst nach 013 und 017)
+- Status: gestrichen (Rückfrage aus Prompt entfernt, immer wöchentlich)
 > Problem: Wählt die Nutzerin bei der Rückfrage „Nur nächsten Donnerstag", behandelt der Planer den Termin trotzdem als jede Woche und verschiebt dauerhaft.
 > Ziel: `Constraint.date?: string` (ISO, nur dieser Tag; Lenny ergänzt den Typ). Gemma setzt `date` bei einmaligen Terminen (Prompt bekommt `Today: <Tag> <YYYY-MM-DD>`). Planer: Constraints mit `date` ändern den Wochenplan **nicht**; für jeden gewählten Termin, der sie schneidet, sucht er andere Gruppen desselben Kurses/derselben Art in **derselben Woche**, die nicht kollidieren → `plan.alternatives` mit `reason: "Nur diese Woche: statt Do 14:00–16:00"` und `plan.missed` (neu, Lenny ergänzt den Typ) mit Kurs/Termin/Datum. Kalender (`gcal.ts`): die betroffene Instanz des wöchentlichen Events absagen (Instanz-ID `<eventId>_<YYYYMMDDTHHMMSSZ>` per `PUT`/`PATCH` mit `status: "cancelled"`) und den Ausweichtermin als Einzeltermin anlegen. `describeChanges` erwähnt es („Diese Woche fällt Statistik Übung am Donnerstag aus – Ausweichtermin Freitag 12 Uhr").
 > Dateien: `src/lib/prompts.ts`, `src/app/api/analyze/route.ts`, `src/features/act/solver.ts` (+ check), `src/features/act/gcal.ts` (+ check), `src/features/voice/describe.ts` (+ check).
@@ -164,7 +218,7 @@ Nichts löschen: Erledigtes nach unten verschieben. Ab **14:00** nur noch Bugfix
 
 ### TASK-011 · `scripts/voice.py` aufräumen
 - Bereich: D · Modell: haiku · Prio: Feature
-- Status: offen (nach Ergebnis von TASK-010)
+- Status: erledigt (Audio über Gemma, siehe `/api/analyze { audio }`); `scripts/voice.py` kann gelöscht werden
 > Ziel: Versteht Gemma Audio direkt → `voice.py` löschen. Sonst nur den Whisper-Teil entfernen oder ganz löschen (Spracherkennung macht das iPhone/der Browser).
 > Fertig, wenn: keine toten Verweise auf `voice.py` mehr.
 

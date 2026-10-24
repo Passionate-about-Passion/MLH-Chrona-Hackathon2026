@@ -31,10 +31,10 @@ Priorities: exactly one entry for EVERY course in the list.
 - If "Current weights" are given, keep them unless the student changes that course in this sentence.
 - reason: one short German sentence, e.g. "Pflichtmodul mit Prüfung" or "Laut dir besonders wichtig".
 - Only use courseIds from the list. Never invent courses.
-Questions: ALWAYS ask when the student names a single date ("nächsten Donnerstag", "am 5. November") or gives only a start or end time ("ab 14 Uhr") - options for the date case: "Nur nächsten Donnerstag", "Jeden Donnerstag". Otherwise only if something could mean several different things. Then add one German question with 2-4 concrete options and still fill everything else with the most likely reading. Typical cases:
+Single dates ("nächsten Donnerstag", "am 5. November") are ALWAYS treated as a weekly block of that weekday. Never ask about it.
+Questions: ALWAYS ask when the student gives only a start or end time ("ab 14 Uhr"). Otherwise only if something could mean several different things. Then add one German question with 2-4 concrete options and still fill everything else with the most likely reading. Typical cases:
 - a course name fits several courses or none clearly
 - only a start or only an end time ("ab 14 Uhr")
-- a single date ("nächsten Donnerstag") vs. every week
 - vague words ("später", "manchmal", "eher wichtig")
 Everything clear -> "questions": [].
 If the message contains "Klarstellung", apply it and do not ask that question again.`;

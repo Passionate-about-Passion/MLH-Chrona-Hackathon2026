@@ -42,3 +42,6 @@ next-env.d.ts
 
 # allow template
 !.env.example
+
+# Google-Token (TASK-013)
+/.data/

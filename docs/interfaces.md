@@ -6,7 +6,7 @@ Der Code-Vertrag ist `src/lib/types.ts` (Abschnitt „Stundenplan") – diese Da
 ## Datenfluss
 
 ```
-Sprache (Browser / iPhone-Diktat) ──► Text ──► POST /api/analyze (Gemma 4) ──► Understanding
+Sprache ──► Audio (WAV) direkt an Gemma 4 (Fallback: Browser-Text) ──► POST /api/analyze (Gemma 4) ──► Understanding
     ──► POST /api/act (Planer, TypeScript) ──► Plan ──► Wochenansicht
 
 Frage „Welche Termine habe ich?" ──► Antworttext aus Code ──► POST /api/speak (ElevenLabs)
@@ -37,11 +37,14 @@ Meta       { provider: string; model: string; ms: number; mock?: boolean }
 
 | Methode | Pfad | Eingabe | Ausgabe | Besitzer |
 |---|---|---|---|---|
-| POST | `/api/analyze` | JSON: `{ text: string, today?: Day, provider? }` | `{ understanding: Understanding, meta: Meta }` | B |
-| POST | `/api/act` | JSON: `{ constraints?: Constraint[], priorities?: Priority[], current?: Choice[] }` | `{ plan: Plan, meta: Meta }` (`meta.provider` = `solver`) | C |
+| POST | `/api/analyze` | JSON: `{ text?: string, audio?: string, today?: Day, provider?, program?: string, term?: number, courseIds?: string[] }` | `{ understanding: Understanding, meta: Meta }` | B |
+| POST | `/api/act` | JSON: `{ constraints?: Constraint[], priorities?: Priority[], current?: Choice[], program?: string, term?: number, courseIds?: string[] }` | `{ plan: Plan, meta: Meta }` (`meta.provider` = `solver`) | C |
+| GET | `/api/programs` | – | `[{ id, name, terms: number[] }]` (Dropdowns Studiengang/Semester) | C |
 | POST | `/api/speak` | JSON: `{ text: string, lang?: "de" \| "en" }` (lang optional, Standardmodell erkennt die Sprache selbst) | `audio/mpeg` · 501 ohne Key → Browser-Fallback | D |
 
 Fehler immer als `{ error: string }` mit passendem HTTP-Status.
+
+`/api/analyze` mit Audio: `audio` = base64 WAV (16 kHz mono PCM16, Helfer `src/features/voice/recordWav.ts`) oder bei multipart die Datei `audio`. Nur ohne `text`; nur Provider `ollama`. Zweistufig: Gemma transkribiert (→ `understanding.transcript`), dann der normale Text-Ablauf. `meta` bekommt zusätzlich `input: "audio" | "text"` und bei Audio `audioMs` (Transkriptionszeit). Fehler: 400 `Audio nicht verstanden` (leere Transkription → Frontend fällt auf Browser-Text zurück), 413 bei mehr als 5 MB base64. Im MOCK-Modus wird Audio ignoriert.
 
 ## Externe Dienste / APIs
 
