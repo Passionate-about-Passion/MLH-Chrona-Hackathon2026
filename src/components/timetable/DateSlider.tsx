@@ -38,7 +38,7 @@ export function DateSlider({ mode, onMode, date, onDate, min, max }: DateSliderP
 
   return (
     <div
-      className="tt-slider"
+      className="tt-slider glass"
       role="group"
       aria-label={`Datum wechseln, ${mode === "W" ? "tageweise" : "monatsweise"}. Pfeil hoch und runter zum Blättern.`}
       style={{ touchAction: "none" }}
@@ -78,26 +78,29 @@ export function DateSlider({ mode, onMode, date, onDate, min, max }: DateSliderP
         className="tt-slider-key"
         data-active={mode === "W" || undefined}
         aria-pressed={mode === "W"}
-        aria-label="Tageweise blättern"
+        aria-label="Wochenansicht, tageweise blättern"
         onClick={() => onMode("W")}
       >
         W
       </button>
-      <div className="tt-slider-track" aria-hidden="true">
-        <span className="tt-slider-knob" style={{ transform: `translateY(${offset}px)` }} />
+      <div className="tt-slider-grip" aria-hidden="true" style={{ transform: `translateY(${offset / 3}px)` }}>
+        <i />
+        <i />
+        <i />
+        <i />
       </div>
       <button
         type="button"
         className="tt-slider-key"
         data-active={mode === "M" || undefined}
         aria-pressed={mode === "M"}
-        aria-label="Monatsweise blättern"
+        aria-label="Monatsansicht, monatsweise blättern"
         onClick={() => onMode("M")}
       >
         M
       </button>
       {bubble && (
-        <div className="tt-bubble" role="status">
+        <div className="tt-bubble glass-dense" role="status">
           {bubble}
         </div>
       )}
