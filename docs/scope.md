@@ -1,16 +1,21 @@
 # Scope (Single Source of Truth für "was bauen wir")
 
 ## Lösung in einem Satz
-TODO (wenn das nicht in einem Satz geht, ist die Idee noch nicht einfach genug)
+Ein KI-Stundenplan-Assistent, der Vorlesungs-, Übungs- und Tutoriumstermine mit privaten Terminen und Hobbys zu einem konfliktfreien Plan kombiniert und bei spontanen Änderungen per Sprache neu plant. (Gesamtkonzept: `docs/konzept.md`)
 
 ## Problem und Persona
-- Problem: TODO
-- Persona (Name, Beruf, Schmerzpunkt): TODO
+- Problem: Studierende müssen aus vielen Parallelterminen (Vorlesung, Übung, Tutorium) von Hand einen Plan bauen, der zu Hobbys und privaten Terminen passt, und bei jeder Änderung alles neu sortieren.
+- Persona (Name, Beruf, Schmerzpunkt): TODO (Studierende; Name und konkreter Schmerzpunkt für den Pitch noch festlegen)
 - Wer zahlt und warum: TODO
 
 ## Kernfeatures (maximal 2)
+<<<<<<< HEAD
 1. Stundenplan per Sprache umlegen – feste Termine und Wünsche wie „Dienstag frei", wichtige Module (von Gemma gewichtet) setzen sich durch
 2. „Welche Termine habe ich?" – Antwort wird vorgelesen (ElevenLabs)
+=======
+1. Stundenplan-Optimierung: aus allen Terminoptionen ein konfliktfreier Plan, Kursgewichte entscheiden bei Konflikten.
+2. Spontane Änderung per Sprache („Donnerstag 14–16 Uhr habe ich einen Termin"): Woche neu legen, Ausweichtermine vorschlagen.
+>>>>>>> origin/main
 
 ## Bewusst nicht gebaut
 - Login / Accounts

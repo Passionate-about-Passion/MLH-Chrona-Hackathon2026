@@ -7,8 +7,8 @@ Hintergrundwissen (Jury, Pitch, Zeitplan): `docs/playbook.md`, `docs/ABLAUF.md` 
 ## Projekt (vom Team auszufüllen, in der ersten Stunde)
 - Event: Hacktoberfest Hack Day Mannheim x Q-Summit, Sa 24.10.2026, MAFINEX Mannheim
 - Challenges: „Best Use of Gemma 4" (Google) + „Best Open-Source AI Project" (DigitalOcean)
-- Lösung in einem Satz: TODO
-- Persona (Nutzer): TODO
+- Lösung in einem Satz: KI-Stundenplan-Assistent, der Vorlesungs-, Übungs- und Tutoriumstermine mit privaten Terminen zu einem konfliktfreien Plan kombiniert und per Sprache neu plant (`docs/konzept.md`)
+- Persona (Nutzer): Studierende (konkrete Persona: TODO)
 - Jury: TODO · Abgabe: **16:45** · Pitch ab 17:00 · Pitch-Dauer: TODO
 - Stack: Next.js 15 (App Router) + TypeScript + Tailwind 4 · Gemma 4 über Gemini API / DigitalOcean Inference / Ollama · ElevenLabs (optional)
 
