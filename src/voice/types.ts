@@ -33,6 +33,8 @@ export interface VoiceService {
   parseIntent(t: Transcript): Promise<ParsedIntent>;
   /** Text-to-Speech (e.g. ElevenLabs) */
   speak(text: string): Promise<void>;
+  /** optional: stop recording and discard it (no transcription) */
+  cancelListening?(): Promise<void>;
   /** optional: the UI passes the current plan context before parsing */
   setContext?(ctx: VoiceContext): void;
 }

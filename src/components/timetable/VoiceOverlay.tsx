@@ -5,6 +5,12 @@ import { voice, type ParsedIntent } from "@/voice";
 import { Modal } from "./Modal";
 import { WD_LONG, weekdayOf } from "./logic";
 
+/** stop the microphone without sending the recording anywhere */
+const stopWithoutTranscript = async () => {
+  if (voice.cancelListening) await voice.cancelListening();
+  else await voice.stopListening();
+};
+
 type Phase =
   | { k: "listening" }
   | { k: "thinking"; text: string }
@@ -54,9 +60,11 @@ export function VoiceOverlay({ courses, onConfirm, onClose }: VoiceOverlayProps)
 
   const finish = async () => {
     try {
-      const heard = await voice.stopListening();
       // typed text wins: the microphone may be blocked or noisy during the demo
-      const transcript = typed.trim() ? { text: typed.trim(), lang: "de" as const } : heard;
+      setPhase({ k: "thinking", text: typed.trim() || "…" });
+      const transcript = typed.trim()
+        ? (await stopWithoutTranscript(), { text: typed.trim(), lang: "de" as const })
+        : await voice.stopListening();
       if (!alive.current) return;
       if (!transcript.text) return setPhase({ k: "unknown", text: "" });
       setPhase({ k: "thinking", text: transcript.text });
@@ -74,7 +82,7 @@ export function VoiceOverlay({ courses, onConfirm, onClose }: VoiceOverlayProps)
   };
 
   const cancel = () => {
-    voice.stopListening().catch(() => {});
+    stopWithoutTranscript().catch(() => {});
     onClose();
   };
 
