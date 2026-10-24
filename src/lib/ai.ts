@@ -15,6 +15,8 @@ export interface AskInput {
   prompt: string;
   system?: string;
   image?: { base64: string; mimeType: string };
+  /** base64 WAV (16 kHz mono PCM16). Ollama only. */
+  audio?: string;
   provider?: Provider;
   /** Ask the model to answer with a JSON object only. */
   json?: boolean;
@@ -46,6 +48,8 @@ export async function ask(input: AskInput): Promise<AskResult> {
   const provider = input.provider ?? defaultProvider();
   const model = MODELS[provider]();
   if (!model) throw new Error(`No model configured for provider "${provider}" (see .env.example)`);
+
+  if (input.audio && provider !== "ollama") throw new Error(`Audio wird von Provider "${provider}" nicht unterstützt (nur ollama)`);
 
   const system =
     (input.system ?? "") +
@@ -101,6 +105,8 @@ async function askOpenAICompatible(
       image_url: { url: `data:${input.image.mimeType};base64,${input.image.base64}` },
     });
   }
+
+  if (input.audio) content.push({ type: "input_audio", input_audio: { data: input.audio, format: "wav" } });
 
   const messages: OpenAI.Chat.ChatCompletionMessageParam[] = [];
   if (system.trim()) messages.push({ role: "system", content: system });

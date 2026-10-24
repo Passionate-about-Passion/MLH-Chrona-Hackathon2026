@@ -30,11 +30,11 @@ Nichts löschen: Erledigtes nach unten verschieben. Ab **14:00** nur noch Bugfix
 | 015 | Echte Kursdaten BWL (dann VWL, WiFo) im Format von `src/data/courses.json` | A | haiku | Emil | offen |
 | 016 | Gemma bleibt geladen (keep-alive) + `npm run warmup` | B | sonnet | Lenny | erledigt (nicht committet) |
 | 017 | Gewichte über mehrere Sätze merken + JSON-Retry in `/api/analyze` | B | sonnet | Lenny | erledigt (nicht committet) |
-| 018 | Einmaliger Termin („nur nächsten Donnerstag") → Ausweichtermin diese Woche + Kalender-Ausnahme | B/C | sonnet | Lenny | offen (nach 013, 017) |
+| 018 | Einmaliger Termin („nur nächsten Donnerstag") → Ausweichtermin diese Woche + Kalender-Ausnahme | B/C | sonnet | Lenny | gestrichen (Rückfrage aus Prompt entfernt, immer wöchentlich) |
 | 019 | Selbsttests in `scripts/check.sh` (`npm test`) | – | haiku | Lenny | erledigt (nicht committet) |
 | 020 | Prompt: Frontend an Lennys Backend anbinden (Sprache, Rückfragen, Plan, Vorlesen, Google-Status) | alle | sonnet | Frontend-Person | offen (zu TASK-009) |
-| 010 | Test: versteht Gemma 4 Audio direkt (Ollama)? | B | sonnet | Lenny | 🔄 in Arbeit (Subagent) |
-| 011 | `scripts/voice.py` je nach Ergebnis von 010 entfernen oder umbauen | D | haiku | Lenny | offen (nach 010) |
+| 010 | Test: versteht Gemma 4 Audio direkt (Ollama)? | B | sonnet | Lenny | erledigt: ja, `/api/analyze {audio}` → Gemma (`input_audio`), < 1 s |
+| 011 | `scripts/voice.py` je nach Ergebnis von 010 entfernen oder umbauen | D | haiku | Lenny | erledigt: ersetzt durch `/api/analyze {audio}` + `recordWav.ts`; `voice.py` ungenutzt |
 | 012 | Doku: `interfaces.md`, `decisions.md`, `scope.md` an Stundenplan anpassen | – | haiku | Lenny | erledigt (nicht committet) |
 
 ## Offen
@@ -101,7 +101,7 @@ Vorhanden und wiederzuverwenden: src/features/voice/SpeakButton.tsx (Props text,
 
 ABLAUF
 1. Beim Laden: POST /api/act {} -> { plan, meta }. Das ist der Startplan. Kursdaten für die Anzeige: import data from "@/data/courses.json" (CourseData: courses, fixed, semester).
-2. Eingabe: großer Mikrofon-Knopf (Web Speech API, lang "de-DE", nur wenn window.SpeechRecognition / webkitSpeechRecognition da ist, sonst Knopf ausblenden) plus Textfeld. Sprache wird im Browser zu Text, nichts geht als Audio ans Backend.
+2. Eingabe: großer Mikrofon-Knopf plus Textfeld. Der Knopf nutzt `startRecording()` aus src/features/voice/recordWav.ts und schickt `POST /api/analyze { audio }` (base64 WAV; Gemma transkribiert lokal, meta.input = "audio"). Bei Fehler (400 "Audio nicht verstanden", kein Mikro, keine Erlaubnis) Fallback: Web Speech API (lang "de-DE", nur wenn window.SpeechRecognition / webkitSpeechRecognition da ist) bzw. Textfeld.
 3. POST /api/analyze, JSON { text: string, priorities?: Priority[] } (optional today?: Day, provider?: Provider). Immer die aktuellen priorities mitschicken, sonst springen Gewichte zurück. Antwort { understanding, meta }. Understanding: { intent: "reschedule" | "query", transcript, constraints: Constraint[], priorities: Priority[], questions: Question[], queryDay?: Day | "week" }. Fehler: { error } (400 kein Text, 502 Modell ohne gültiges JSON, 500). Zeige Fehler dezent und lass Eingabe nutzbar.
 4. questions nicht leer: Frage + Optionen als Knöpfe anzeigen. Klick sendet denselben Satz erneut an /api/analyze als `<text> Klarstellung: <Frage> -> <Option>`. Erst danach weiter mit Schritt 5 bzw. 6.
 5. intent "reschedule": merke dir constraints (neue zu den bisherigen hinzufügen, Duplikate vermeiden) und priorities = understanding.priorities (ersetzen). Dann POST /api/act { constraints: alle bisherigen, priorities, current: vorheriges plan.chosen }. current ist wichtig: so ändert der Planer nur das Nötige. Antwort { plan, meta }. Plan ersetzen, plan.changes ({ courseId, kind, from, to }) im Wochenplan hervorheben und als Liste zeigen, plan.dropped (courseIds, die weichen mussten) und plan.conflicts (deutsche Sätze, z. B. warum ein Termin trotz Wunsch bleibt) anzeigen, plan.alternatives (Choice + reason) als kleine Vorschläge. Danach describeChanges(data, plan) per <SpeakButton text=... autoPlay /> vorlesen.
@@ -202,7 +202,7 @@ AKZEPTANZKRITERIEN
 
 ### TASK-018 · Einmaliger Termin → Ausweichtermin diese Woche
 - Bereich: B/C · Modell: sonnet · Prio: Feature (Use Case 2 aus `docs/konzept.md`: „schlägt Ausweichtermine für verpasste Veranstaltungen vor")
-- Status: offen (erst nach 013 und 017)
+- Status: gestrichen (Rückfrage aus Prompt entfernt, immer wöchentlich)
 > Problem: Wählt die Nutzerin bei der Rückfrage „Nur nächsten Donnerstag", behandelt der Planer den Termin trotzdem als jede Woche und verschiebt dauerhaft.
 > Ziel: `Constraint.date?: string` (ISO, nur dieser Tag; Lenny ergänzt den Typ). Gemma setzt `date` bei einmaligen Terminen (Prompt bekommt `Today: <Tag> <YYYY-MM-DD>`). Planer: Constraints mit `date` ändern den Wochenplan **nicht**; für jeden gewählten Termin, der sie schneidet, sucht er andere Gruppen desselben Kurses/derselben Art in **derselben Woche**, die nicht kollidieren → `plan.alternatives` mit `reason: "Nur diese Woche: statt Do 14:00–16:00"` und `plan.missed` (neu, Lenny ergänzt den Typ) mit Kurs/Termin/Datum. Kalender (`gcal.ts`): die betroffene Instanz des wöchentlichen Events absagen (Instanz-ID `<eventId>_<YYYYMMDDTHHMMSSZ>` per `PUT`/`PATCH` mit `status: "cancelled"`) und den Ausweichtermin als Einzeltermin anlegen. `describeChanges` erwähnt es („Diese Woche fällt Statistik Übung am Donnerstag aus – Ausweichtermin Freitag 12 Uhr").
 > Dateien: `src/lib/prompts.ts`, `src/app/api/analyze/route.ts`, `src/features/act/solver.ts` (+ check), `src/features/act/gcal.ts` (+ check), `src/features/voice/describe.ts` (+ check).
@@ -218,7 +218,7 @@ AKZEPTANZKRITERIEN
 
 ### TASK-011 · `scripts/voice.py` aufräumen
 - Bereich: D · Modell: haiku · Prio: Feature
-- Status: offen (nach Ergebnis von TASK-010)
+- Status: erledigt (Audio über Gemma, siehe `/api/analyze { audio }`); `scripts/voice.py` kann gelöscht werden
 > Ziel: Versteht Gemma Audio direkt → `voice.py` löschen. Sonst nur den Whisper-Teil entfernen oder ganz löschen (Spracherkennung macht das iPhone/der Browser).
 > Fertig, wenn: keine toten Verweise auf `voice.py` mehr.
 
