@@ -27,6 +27,7 @@ interface MonthViewProps {
   /** second tap on the selected day */
   onOpenDay: (iso: string) => void;
   onEntryTap: (e: Entry) => void;
+  onMap: (e: Entry) => void;
   onConflictTap: (e: Entry) => void;
 }
 
@@ -103,6 +104,7 @@ export function MonthView({
   onSelect,
   onOpenDay,
   onEntryTap,
+  onMap,
   onConflictTap,
 }: MonthViewProps) {
   const scroller = useRef<HTMLDivElement>(null);
@@ -233,7 +235,14 @@ export function MonthView({
                       <span className="tt-mv-row-meta">
                         <span className="tt-card-time">{range(e)}</span>
                         {e.location && (
-                          <span className="tt-mv-row-loc">
+                          <span
+                            className="tt-mv-row-loc tt-loc-tap"
+                            role="button"
+                            tabIndex={0}
+                            aria-label={`Lageplan: ${e.location}`}
+                            onClick={(ev) => { ev.stopPropagation(); onMap(e); }}
+                            onKeyDown={(ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ev.stopPropagation(); onMap(e); } }}
+                          >
                             <PinIcon size={13} />
                             {e.location}
                           </span>

@@ -2236,3 +2236,13 @@
 .tt-study-schedule:active {
   scale: 0.96;
 }
+
+/* tappable room: sits above the card hit area, opens the campus map */
+.tt-loc-tap {
+  position: relative;
+  z-index: 1;
+  pointer-events: auto;
+  cursor: pointer;
+  text-decoration: underline;
+  text-decoration-color: rgba(0, 0, 0, 0.25);
+}

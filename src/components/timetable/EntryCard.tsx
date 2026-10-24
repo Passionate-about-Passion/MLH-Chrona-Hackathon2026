@@ -8,6 +8,7 @@ interface EntryCardProps {
   cols?: number;
   conflict?: boolean;
   onTap?: () => void;
+  onMap?: (e: Entry) => void;
   style?: React.CSSProperties;
 }
 
@@ -15,7 +16,7 @@ interface EntryCardProps {
  * The card is a plain box with a full-size button underneath the content that opens the edit sheet.
  * The location is plain text here; the map links live in the edit sheet.
  */
-export function EntryCard({ entry, col = 0, cols = 1, conflict = false, onTap, style }: EntryCardProps) {
+export function EntryCard({ entry, col = 0, cols = 1, conflict = false, onTap, onMap, style }: EntryCardProps) {
   return (
     <div
       className="tt-card"
@@ -57,7 +58,14 @@ export function EntryCard({ entry, col = 0, cols = 1, conflict = false, onTap, s
       <span className="tt-card-meta">
         <span className="tt-card-time">{range(entry)}</span>
         {entry.location && (
-          <span className="tt-card-loc">
+          <span
+            className="tt-card-loc tt-loc-tap"
+            role="button"
+            tabIndex={0}
+            aria-label={`Lageplan: ${entry.location}`}
+            onClick={(ev) => { ev.stopPropagation(); onMap?.(entry); }}
+            onKeyDown={(ev) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); ev.stopPropagation(); onMap?.(entry); } }}
+          >
             <PinIcon size={13} />
             <span>{entry.location}</span>
           </span>

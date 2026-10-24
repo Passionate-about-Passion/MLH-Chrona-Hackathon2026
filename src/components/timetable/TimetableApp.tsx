@@ -441,6 +441,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
                   entries={entries}
                   onDate={setDate}
                   onEntryTap={(e) => setEditId(e.id)}
+                  onMap={(e) => setMapEntryId(e.id)}
                   padTop={PAD_TOP}
                   padBottom={PAD_BOTTOM}
                 />
@@ -455,6 +456,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
                     setMode("W");
                   }}
                   onEntryTap={(e) => setEditId(e.id)}
+                  onMap={(e) => setMapEntryId(e.id)}
                   onConflictTap={(e) => void openAlternatives(e)}
                 />
               )}
