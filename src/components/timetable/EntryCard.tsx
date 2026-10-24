@@ -1,6 +1,6 @@
 import type { Entry } from "@/types";
 import { LockIcon, PinIcon, RepeatIcon } from "./Icons";
-import { range } from "./logic";
+import { mapsUrl, range } from "./logic";
 
 interface EntryCardProps {
   entry: Entry;
@@ -11,23 +11,31 @@ interface EntryCardProps {
   style?: React.CSSProperties;
 }
 
+/**
+ * The card is a plain box. A conflict card gets a full-size button underneath the content,
+ * so the location can stay a real link (a link inside a button is not allowed).
+ */
 export function EntryCard({ entry, col = 0, cols = 1, conflict = false, onTap, style }: EntryCardProps) {
-  const Tag = onTap ? "button" : "div";
   return (
-    <Tag
+    <div
       className="tt-card"
       data-type={entry.type}
       data-conflict={conflict || undefined}
       data-narrow={cols > 1 || undefined}
-      type={onTap ? "button" : undefined}
-      onClick={onTap}
-      aria-label={onTap ? `${entry.title}, ${range(entry)}, Konflikt. Tippen zeigt Alternativen.` : undefined}
       style={{
         left: `calc(${col} * 100% / ${cols})`,
         width: `calc(100% / ${cols} - 6px)`,
         ...style,
       }}
     >
+      {onTap && (
+        <button
+          type="button"
+          className="tt-card-hit"
+          onClick={onTap}
+          aria-label={`${entry.title}, ${range(entry)}, Konflikt. Tippen zeigt Alternativen.`}
+        />
+      )}
       <span className="tt-card-head">
         <span className="tt-card-title">{entry.title}</span>
         <span className="tt-card-badges">
@@ -49,12 +57,18 @@ export function EntryCard({ entry, col = 0, cols = 1, conflict = false, onTap, s
       <span className="tt-card-meta">
         <span className="tt-card-time">{range(entry)}</span>
         {entry.location && (
-          <span className="tt-card-loc">
+          <a
+            className="tt-card-loc"
+            href={mapsUrl(entry.location)}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${entry.location} in Google Maps öffnen`}
+          >
             <PinIcon size={13} />
             <span>{entry.location}</span>
-          </span>
+          </a>
         )}
       </span>
-    </Tag>
+    </div>
   );
 }

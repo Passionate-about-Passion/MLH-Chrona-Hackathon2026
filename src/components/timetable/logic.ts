@@ -34,6 +34,11 @@ export const fromMin = (n: number) => `${String(Math.floor(n / 60)).padStart(2, 
 
 export const range = (e: { start: string; end: string }) => `${e.start}–${e.end}`;
 
+/** Rooms in the data are short codes ("A 5 B144"), so the campus is added for the map search. */
+const MAP_CAMPUS = "Universität Mannheim";
+export const mapsUrl = (location: string) =>
+  `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${location}, ${MAP_CAMPUS}`)}`;
+
 /* ---------- dates (UTC, so the time zone never shifts a day) ---------- */
 
 const utc = (iso: string) => {
