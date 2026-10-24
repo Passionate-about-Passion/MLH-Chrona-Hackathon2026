@@ -3,19 +3,27 @@
  * SLICE D – SPRECHEN (frontend)
  * Reads text aloud via /api/speak (ElevenLabs); falls back to the browser's speech synthesis.
  */
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export function SpeakButton({ text, lang = "de" }: { text: string; lang?: string }) {
+export function SpeakButton({ text, lang = "de", autoPlay = false }: { text: string; lang?: string; autoPlay?: boolean }) {
   const [state, setState] = useState<"idle" | "loading" | "playing">("idle");
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  async function speak() {
-    if (state === "playing") {
-      audioRef.current?.pause();
-      window.speechSynthesis?.cancel();
-      setState("idle");
-      return;
-    }
+  function stop() {
+    audioRef.current?.pause();
+    window.speechSynthesis?.cancel();
+    setState("idle");
+  }
+
+  // autoPlay: bei neuem Text sofort abspielen (blockt der Browser ohne Nutzergeste, greift der Fallback bzw. der Knopf)
+  const startRef = useRef<() => Promise<void>>(async () => {});
+  useEffect(() => {
+    if (!autoPlay || !text) return;
+    stop();
+    void startRef.current();
+  }, [text, autoPlay]);
+
+  async function start() {
     setState("loading");
     try {
       const res = await fetch("/api/speak", {
@@ -40,8 +48,10 @@ export function SpeakButton({ text, lang = "de" }: { text: string; lang?: string
     }
   }
 
+  startRef.current = start;
+
   return (
-    <button onClick={speak} className="rounded-full border border-neutral-300 px-3 py-1 text-sm dark:border-neutral-700">
+    <button onClick={() => (state === "playing" ? stop() : void start())} className="rounded-full border border-neutral-300 px-3 py-1 text-sm dark:border-neutral-700">
       {state === "loading" ? "…" : state === "playing" ? "⏹ Stopp" : "🔊 Vorlesen"}
     </button>
   );

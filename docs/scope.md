@@ -9,8 +9,8 @@ TODO (wenn das nicht in einem Satz geht, ist die Idee noch nicht einfach genug)
 - Wer zahlt und warum: TODO
 
 ## Kernfeatures (maximal 2)
-1. TODO
-2. TODO
+1. Stundenplan per Sprache umlegen – feste Termine und Wünsche wie „Dienstag frei", wichtige Module (von Gemma gewichtet) setzen sich durch
+2. „Welche Termine habe ich?" – Antwort wird vorgelesen (ElevenLabs)
 
 ## Bewusst nicht gebaut
 - Login / Accounts
@@ -31,7 +31,8 @@ Eintägiger Hack: Die Guidebook-Werte (Freeze = Deadline − 7 h) passen nicht, 
 - Zuständig für Force-Stop (Leader): TODO (Pitcher)
 
 ## Demo-Skript
-1. TODO (Persona stellt Problem vor)
-2. TODO (Foto aufnehmen → Gemma versteht es)
-3. TODO (Aktion auslösen → Ergebnis, ggf. vorlesen)
-4. TODO (optional: Umschalten auf „Lokal" → gleiches Ergebnis, nichts verlässt das Gerät)
+1. Persona stellt vollen Dienstag vor
+2. „Donnerstag 14 bis 16 Uhr habe ich einen Termin" → Statistik-Übung wandert auf Freitag
+3. „Ich will dienstags frei haben" → alles außer der Mathe-Vorlesung zieht um, App sagt warum
+4. „Welche Termine habe ich am Mittwoch?" → wird vorgelesen
+5. optional: alles lokal (Gemma über Ollama)
