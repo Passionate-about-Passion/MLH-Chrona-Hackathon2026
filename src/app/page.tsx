@@ -1,6 +1,6 @@
 /**
  * Main screen: the timetable app (src/components/timetable), wired to the backend via src/adapters.
- * Without ?program=… the start screen asks for study program and semester first.
+ * Without ?program=… the start screen asks for study program and semester first (default BWL, 1st semester; /?reset forgets the saved choice).
  * The old photo slices (CaptureCard, AnalysisView, ActionPanel) are no longer shown; their files stay.
  */
 import type { Viewport } from "next";
