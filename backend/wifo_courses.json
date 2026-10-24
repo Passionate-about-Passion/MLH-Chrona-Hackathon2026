@@ -1,0 +1,1506 @@
+{
+  "schema_version": "1.0",
+  "institution": "Universität Mannheim",
+  "semester": {
+    "name": "Herbst-/Wintersemester 2026",
+    "year": 2026
+  },
+  "study_program": "Bachelor Wirtschaftsinformatik (2013)",
+  "study_program_short": "WIFO",
+  "timezone": "Europe/Berlin",
+  "source": {
+    "type": "user_pasted_text",
+    "filename": "Pasted text.txt",
+    "external_verification": false
+  },
+  "conventions": {
+    "dates": "YYYY-MM-DD",
+    "times": "HH:MM, Europe/Berlin",
+    "recurrence": "weekly, biweekly or once",
+    "cancelled_groups": "cancelled is true when the source says Fällt aus",
+    "missing_values": "empty parallel_groups means no schedules were shown in the pasted source"
+  },
+  "modules": {
+    "IS 201 Wirtschaftsinformatik I: Einführung und Grundlagen": {
+      "name": "IS 201 Wirtschaftsinformatik I: Einführung und Grundlagen",
+      "source_path": "1.6.1.1.1",
+      "event_ids": [
+        "IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__IS_201_IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__Vorlesung",
+        "IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__Tutorium"
+      ],
+      "parallel_group_count": 2
+    },
+    "IS 203 Wirtschaftsinformatik III: Development and Management of Information Systems": {
+      "name": "IS 203 Wirtschaftsinformatik III: Development and Management of Information Systems",
+      "source_path": "1.6.1.1.2",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Formale Grundlagen der Informatik": {
+      "name": "Formale Grundlagen der Informatik",
+      "source_path": "1.6.1.1.3",
+      "event_ids": [
+        "Formale_Grundlagen_der_Informatik__CS_301_Formale_Grundlagen_der_Informatik__Vorlesung",
+        "Formale_Grundlagen_der_Informatik__CS_301_Formale_Grundlagen_der_Informatik__Übung"
+      ],
+      "parallel_group_count": 7
+    },
+    "Praktische Informatik I": {
+      "name": "Praktische Informatik I",
+      "source_path": "1.6.1.1.4",
+      "event_ids": [
+        "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Vorlesung",
+        "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Tutorium",
+        "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Übung",
+        "Praktische_Informatik_I__CS_302_Praktische_Informatik_I_-_Nebenfach_Programmierkurs__Kurs"
+      ],
+      "parallel_group_count": 7
+    },
+    "Programmierpraktikum I": {
+      "name": "Programmierpraktikum I",
+      "source_path": "1.6.1.1.5",
+      "event_ids": [
+        "Programmierpraktikum_I__CS_304_Programmierpraktikum_I__Vorlesung",
+        "Programmierpraktikum_I__CS_304_Programmierpraktikum_I,_Große_Übung__Übung",
+        "Programmierpraktikum_I__CS_304_Tutorium_Programmierpraktikum_I__Tutorium"
+      ],
+      "parallel_group_count": 8
+    },
+    "Algorithmen und Datenstrukturen": {
+      "name": "Algorithmen und Datenstrukturen",
+      "source_path": "1.6.1.1.6",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Datenbanksysteme I": {
+      "name": "Datenbanksysteme I",
+      "source_path": "1.6.1.1.7",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Finanzwirtschaft": {
+      "name": "Finanzwirtschaft",
+      "source_path": "1.6.1.1.8",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Marketing": {
+      "name": "Marketing",
+      "source_path": "1.6.1.1.9",
+      "event_ids": [
+        "Marketing__Marketing__Vorlesung",
+        "Marketing__Marketing__Übung",
+        "Marketing__Marketing__Tutorium"
+      ],
+      "parallel_group_count": 10
+    },
+    "Produktion": {
+      "name": "Produktion",
+      "source_path": "1.6.1.1.10",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "MAT 303 Lineare Algebra I": {
+      "name": "MAT 303 Lineare Algebra I",
+      "source_path": "1.6.1.1.11",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Finanzwirtschaft (Export)": {
+      "name": "Finanzwirtschaft (Export)",
+      "source_path": "1.6.1.1.12",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "ACC 351 International Accounting": {
+      "name": "ACC 351 International Accounting",
+      "source_path": "1.6.1.1.15",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "CS 606 Foundations of Artificial Intelligence: Search and Problem Solving": {
+      "name": "CS 606 Foundations of Artificial Intelligence: Search and Problem Solving",
+      "source_path": "1.6.1.1.16",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "IS 405 Integrated Information Systems (Wifo)": {
+      "name": "IS 405 Integrated Information Systems (Wifo)",
+      "source_path": "1.6.1.1.17",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Grundlagen der Volkswirtschaftslehre": {
+      "name": "Grundlagen der Volkswirtschaftslehre",
+      "source_path": "1.6.1.1.19",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Recht": {
+      "name": "Recht",
+      "source_path": "1.6.1.1.22",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Lineare Optimierung": {
+      "name": "Lineare Optimierung",
+      "source_path": "1.6.1.1.23",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Zeitmanagement (ab HWS 2015)": {
+      "name": "Zeitmanagement (ab HWS 2015)",
+      "source_path": "1.6.1.1.24",
+      "event_ids": [
+        "Zeitmanagement_(ab_HWS_2015)__B.Sc._Wifo_Zeitmanagement__Blockseminar"
+      ],
+      "parallel_group_count": 0
+    },
+    "Präsentationskompetenz und Rhetorik (B.Sc. Wirtschaftsinformatik)": {
+      "name": "Präsentationskompetenz und Rhetorik (B.Sc. Wirtschaftsinformatik)",
+      "source_path": "1.6.1.1.25",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Change- und Projektmanagement (B.Sc. Wirtschaftsinformatik)": {
+      "name": "Change- und Projektmanagement (B.Sc. Wirtschaftsinformatik)",
+      "source_path": "1.6.1.1.26",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Kommunikation im Team (Lang) (B.Sc. Wirtschaftsinformatik)": {
+      "name": "Kommunikation im Team (Lang) (B.Sc. Wirtschaftsinformatik)",
+      "source_path": "1.6.1.1.27",
+      "event_ids": [
+        "Kommunikation_im_Team_(Lang)_(B.Sc._Wirtschaftsinformatik)__Anmeldung_Seminare_(Bachelor)__Anmeldung"
+      ],
+      "parallel_group_count": 0
+    },
+    "Bachelorseminar Prof. Atkinson": {
+      "name": "Bachelorseminar Prof. Atkinson",
+      "source_path": "1.6.1.1.29",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Bachelorseminar Prof. Keuper": {
+      "name": "Bachelorseminar Prof. Keuper",
+      "source_path": "1.6.1.1.30",
+      "event_ids": [],
+      "parallel_group_count": 0
+    },
+    "Bachelorarbeit": {
+      "name": "Bachelorarbeit",
+      "source_path": "1.6.1.1.31",
+      "event_ids": [],
+      "parallel_group_count": 0
+    }
+  },
+  "events": {
+    "IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__IS_201_IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__Vorlesung": {
+      "id": "IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__IS_201_IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__Vorlesung",
+      "title": "IS 201 IS 201 Wirtschaftsinformatik I: Einführung und Grundlagen",
+      "type_label": "Vorlesung",
+      "module_name": "IS 201 Wirtschaftsinformatik I: Einführung und Grundlagen",
+      "source_path": "1.6.1.1.1.1",
+      "parallel_groups": [
+        {
+          "id": "IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__IS_201_IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__Vorlesung__group_1",
+          "number": 1,
+          "label": "IS 201 Business Informatics I: Introduction and Foundations - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-11",
+              "end_date": "2026-10-16",
+              "start_time": "10:15",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SN",
+                "room_label": "SN 169 Röchling Hörsaal",
+                "building": "Schloss Schneckenhof Nord",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Heinzl, Armin"
+              ],
+              "notes": [],
+              "source_text": "Freitag, 11.09.26 - 16.10.26 von 10:15 bis 13:30 Uhr (wöchentlich)SN 169 Röchling Hörsaal (Schloss Schneckenhof Nord)"
+            },
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-24",
+              "end_date": "2026-09-24",
+              "start_time": "08:30",
+              "end_time": "11:45",
+              "recurrence": "once",
+              "location": {
+                "room_code": "B",
+                "room_label": "B 243 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Donnerstag, 24.09.26 von 08:30 bis 11:45 Uhr (Einzeltermin)B 243 Hörsaal (A 5, 6 Bauteil B)"
+            },
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-10-08",
+              "end_date": "2026-10-08",
+              "start_time": "08:30",
+              "end_time": "11:45",
+              "recurrence": "once",
+              "location": {
+                "room_code": "008.1",
+                "room_label": "008.1 Seminarraum",
+                "building": "B 6, 30-32 Bauteil E-F",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Donnerstag, 08.10.26 von 08:30 bis 11:45 Uhr (Einzeltermin)008.1 Seminarraum (B 6, 30-32 Bauteil E-F)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__Tutorium": {
+      "id": "IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__Tutorium",
+      "title": "IS 201 Wirtschaftsinformatik I: Einführung und Grundlagen",
+      "type_label": "Tutorium",
+      "module_name": "IS 201 Wirtschaftsinformatik I: Einführung und Grundlagen",
+      "source_path": "1.6.1.1.1.2",
+      "parallel_groups": [
+        {
+          "id": "IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__IS_201_Wirtschaftsinformatik_I:_Einführung_und_Grundlagen__Tutorium__group_1",
+          "number": 1,
+          "label": "Wirtschaftsinformatik I: Einführung und Grundlagen - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-10-06",
+              "end_date": "2026-10-27",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "B",
+                "room_label": "B 144 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Dienstag, 06.10.26 - 27.10.26 von 17:15 bis 18:45 Uhr (wöchentlich)B 144 Hörsaal (A 5, 6 Bauteil B)"
+            },
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-10-30",
+              "end_date": "2026-10-30",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "once",
+              "location": {
+                "room_code": "B",
+                "room_label": "B 144 Hörsaal",
+                "building": "A 5, 6 Bauteil B",
+                "mode": "in_person"
+              },
+              "instructors": [],
+              "notes": [],
+              "source_text": "Freitag, 30.10.26 von 12:00 bis 13:30 Uhr (Einzeltermin)B 144 Hörsaal (A 5, 6 Bauteil B)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Formale_Grundlagen_der_Informatik__CS_301_Formale_Grundlagen_der_Informatik__Vorlesung": {
+      "id": "Formale_Grundlagen_der_Informatik__CS_301_Formale_Grundlagen_der_Informatik__Vorlesung",
+      "title": "CS 301 Formale Grundlagen der Informatik",
+      "type_label": "Vorlesung",
+      "module_name": "Formale Grundlagen der Informatik",
+      "source_path": "1.6.1.1.3.1",
+      "parallel_groups": [
+        {
+          "id": "Formale_Grundlagen_der_Informatik__CS_301_Formale_Grundlagen_der_Informatik__Vorlesung__group_1",
+          "number": 1,
+          "label": "Formale Grundlagen der Informatik - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A",
+                "room_label": "A 001 Großer Hörsaal",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Krause, Matthias"
+              ],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)A 001 Großer Hörsaal (B 6, 23-25 Bauteil A)"
+            },
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-12-10",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A",
+                "room_label": "A 001 Großer Hörsaal",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Krause, Matthias"
+              ],
+              "notes": [],
+              "source_text": "Donnerstag, 10.09.26 - 10.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)A 001 Großer Hörsaal (B 6, 23-25 Bauteil A)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Formale_Grundlagen_der_Informatik__CS_301_Formale_Grundlagen_der_Informatik__Übung": {
+      "id": "Formale_Grundlagen_der_Informatik__CS_301_Formale_Grundlagen_der_Informatik__Übung",
+      "title": "CS 301 Formale Grundlagen der Informatik",
+      "type_label": "Übung",
+      "module_name": "Formale Grundlagen der Informatik",
+      "source_path": "1.6.1.1.3.2",
+      "parallel_groups": [
+        {
+          "id": "Formale_Grundlagen_der_Informatik__CS_301_Formale_Grundlagen_der_Informatik__Übung__group_1",
+          "number": 1,
+          "label": "Formale Grundlagen der Informatik - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A",
+                "room_label": "A 301 Seminarraum",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Petri, Luca"
+              ],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)A 301 Seminarraum (B 6, 23-25 Bauteil A)"
+            }
+          ]
+        },
+        {
+          "id": "Formale_Grundlagen_der_Informatik__CS_301_Formale_Grundlagen_der_Informatik__Übung__group_2",
+          "number": 2,
+          "label": "Formale Grundlagen der Informatik - 2. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A",
+                "room_label": "A 301 Seminarraum",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Klein, Elisabeth"
+              ],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)A 301 Seminarraum (B 6, 23-25 Bauteil A)"
+            }
+          ]
+        },
+        {
+          "id": "Formale_Grundlagen_der_Informatik__CS_301_Formale_Grundlagen_der_Informatik__Übung__group_3",
+          "number": 3,
+          "label": "Formale Grundlagen der Informatik - 3. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A",
+                "room_label": "A 301 Seminarraum",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Klein, Elisabeth"
+              ],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 17:15 bis 18:45 Uhr (wöchentlich)A 301 Seminarraum (B 6, 23-25 Bauteil A)"
+            }
+          ]
+        },
+        {
+          "id": "Formale_Grundlagen_der_Informatik__CS_301_Formale_Grundlagen_der_Informatik__Übung__group_4",
+          "number": 4,
+          "label": "Formale Grundlagen der Informatik - 4. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-08",
+              "end_date": "2026-12-08",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A",
+                "room_label": "A 301 Seminarraum",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Petri, Luca"
+              ],
+              "notes": [],
+              "source_text": "Dienstag, 08.09.26 - 08.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)A 301 Seminarraum (B 6, 23-25 Bauteil A)"
+            }
+          ]
+        },
+        {
+          "id": "Formale_Grundlagen_der_Informatik__CS_301_Formale_Grundlagen_der_Informatik__Übung__group_5",
+          "number": 5,
+          "label": "Formale Grundlagen der Informatik - 5. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-09",
+              "end_date": "2026-12-09",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A",
+                "room_label": "A 301 Seminarraum",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Schmiedecke, Gabriel"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 09.09.26 - 09.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)A 301 Seminarraum (B 6, 23-25 Bauteil A)"
+            }
+          ]
+        },
+        {
+          "id": "Formale_Grundlagen_der_Informatik__CS_301_Formale_Grundlagen_der_Informatik__Übung__group_6",
+          "number": 6,
+          "label": "Formale Grundlagen der Informatik - 6. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-09",
+              "end_date": "2026-12-09",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A",
+                "room_label": "A 301 Seminarraum",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Schmiedecke, Gabriel"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 09.09.26 - 09.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)A 301 Seminarraum (B 6, 23-25 Bauteil A)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Vorlesung": {
+      "id": "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Vorlesung",
+      "title": "CS 302 Praktische Informatik I",
+      "type_label": "Vorlesung",
+      "module_name": "Praktische Informatik I",
+      "source_path": "1.6.1.1.4.1",
+      "parallel_groups": [
+        {
+          "id": "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Vorlesung__group_1",
+          "number": 1,
+          "label": "Praktische Informatik I - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A",
+                "room_label": "A 001 Großer Hörsaal",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Armknecht, Frederik",
+                "Staudenmaier, Yves"
+              ],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)A 001 Großer Hörsaal (B 6, 23-25 Bauteil A)"
+            },
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-10-02",
+              "end_date": "2026-10-02",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "once",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Armknecht, Frederik",
+                "Staudenmaier, Yves"
+              ],
+              "notes": [],
+              "source_text": "Freitag, 02.10.26 von 15:30 bis 17:00 Uhr (Einzeltermin)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            },
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-10-23",
+              "end_date": "2026-10-23",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "once",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Armknecht, Frederik",
+                "Staudenmaier, Yves"
+              ],
+              "notes": [],
+              "source_text": "Freitag, 23.10.26 von 15:30 bis 17:00 Uhr (Einzeltermin)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            },
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-11-13",
+              "end_date": "2026-11-13",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "once",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Armknecht, Frederik",
+                "Staudenmaier, Yves"
+              ],
+              "notes": [],
+              "source_text": "Freitag, 13.11.26 von 15:30 bis 17:00 Uhr (Einzeltermin)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            },
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-12-04",
+              "end_date": "2026-12-04",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "once",
+              "location": {
+                "room_code": "001.A",
+                "room_label": "001.A Hörsaal",
+                "building": "A 3 Bibl.,Hörsaalgebäude",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Armknecht, Frederik",
+                "Staudenmaier, Yves"
+              ],
+              "notes": [],
+              "source_text": "Freitag, 04.12.26 von 15:30 bis 17:00 Uhr (Einzeltermin)001.A Hörsaal (A 3 Bibl.,Hörsaalgebäude)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Tutorium": {
+      "id": "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Tutorium",
+      "title": "CS 302 Praktische Informatik I",
+      "type_label": "Tutorium",
+      "module_name": "Praktische Informatik I",
+      "source_path": "1.6.1.1.4.2",
+      "parallel_groups": [
+        {
+          "id": "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Tutorium__group_1",
+          "number": 1,
+          "label": "Praktische Informatik I - Tut - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-09",
+              "end_date": "2026-12-09",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C 013 Hörsaal",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Huba, Lennart"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 09.09.26 - 09.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)C 013 Hörsaal (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Tutorium__group_2",
+          "number": 2,
+          "label": "Praktische Informatik I - Tut - 2. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-09",
+              "end_date": "2026-12-09",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C 012 Seminarraum",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Graubitz, Fynn"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 09.09.26 - 09.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)C 012 Seminarraum (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Tutorium__group_3",
+          "number": 3,
+          "label": "Praktische Informatik I - Tut - 3. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-09",
+              "end_date": "2026-12-09",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C 012 Seminarraum",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Bartels, Jette"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 09.09.26 - 09.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)C 012 Seminarraum (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Tutorium__group_4",
+          "number": 4,
+          "label": "Fällt ausFällt ausPraktische Informatik I - Tut - Nebenfach Programmierkurs - 4. Parallelgruppe",
+          "cancelled": true,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-09",
+              "end_date": "2026-12-09",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "weekly",
+              "location": null,
+              "instructors": [
+                "Bartels, Jette",
+                "Graubitz, Fynn",
+                "Huba, Lennart"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 09.09.26 - 09.12.26 von 17:15 bis 18:45 Uhr (wöchentlich)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Übung": {
+      "id": "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Übung",
+      "title": "CS 302 Praktische Informatik I",
+      "type_label": "Übung",
+      "module_name": "Praktische Informatik I",
+      "source_path": "1.6.1.1.4.3",
+      "parallel_groups": [
+        {
+          "id": "Praktische_Informatik_I__CS_302_Praktische_Informatik_I__Übung__group_1",
+          "number": 1,
+          "label": "Praktische Informatik I - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-12-10",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A",
+                "room_label": "A 001 Großer Hörsaal",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Staudenmaier, Yves"
+              ],
+              "notes": [],
+              "source_text": "Donnerstag, 10.09.26 - 10.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)A 001 Großer Hörsaal (B 6, 23-25 Bauteil A)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Praktische_Informatik_I__CS_302_Praktische_Informatik_I_-_Nebenfach_Programmierkurs__Kurs": {
+      "id": "Praktische_Informatik_I__CS_302_Praktische_Informatik_I_-_Nebenfach_Programmierkurs__Kurs",
+      "title": "CS 302 Praktische Informatik I - Nebenfach Programmierkurs",
+      "type_label": "Kurs",
+      "module_name": "Praktische Informatik I",
+      "source_path": "1.6.1.1.4.4",
+      "parallel_groups": [
+        {
+          "id": "Praktische_Informatik_I__CS_302_Praktische_Informatik_I_-_Nebenfach_Programmierkurs__Kurs__group_1",
+          "number": 1,
+          "label": "Praktische Informatik I Tut Nebenfach Programmierkurs - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-09",
+              "end_date": "2026-12-09",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A",
+                "room_label": "A 001 Großer Hörsaal",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Bartels, Jette",
+                "Graubitz, Fynn",
+                "Huba, Lennart"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 09.09.26 - 09.12.26 von 17:15 bis 18:45 Uhr (wöchentlich)A 001 Großer Hörsaal (B 6, 23-25 Bauteil A)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Programmierpraktikum_I__CS_304_Programmierpraktikum_I__Vorlesung": {
+      "id": "Programmierpraktikum_I__CS_304_Programmierpraktikum_I__Vorlesung",
+      "title": "CS 304 Programmierpraktikum I",
+      "type_label": "Vorlesung",
+      "module_name": "Programmierpraktikum I",
+      "source_path": "1.6.1.1.5.1",
+      "parallel_groups": [
+        {
+          "id": "Programmierpraktikum_I__CS_304_Programmierpraktikum_I__Vorlesung__group_1",
+          "number": 1,
+          "label": "Programmierpraktikum I - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-10",
+              "end_date": "2026-12-10",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "A",
+                "room_label": "A 001 Großer Hörsaal",
+                "building": "B 6, 23-25 Bauteil A",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Dr. Rost, Ursula"
+              ],
+              "notes": [],
+              "source_text": "Donnerstag, 10.09.26 - 10.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)A 001 Großer Hörsaal (B 6, 23-25 Bauteil A)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Programmierpraktikum_I__CS_304_Programmierpraktikum_I,_Große_Übung__Übung": {
+      "id": "Programmierpraktikum_I__CS_304_Programmierpraktikum_I,_Große_Übung__Übung",
+      "title": "CS 304 Programmierpraktikum I, Große Übung",
+      "type_label": "Übung",
+      "module_name": "Programmierpraktikum I",
+      "source_path": "1.6.1.1.5.2",
+      "parallel_groups": [
+        {
+          "id": "Programmierpraktikum_I__CS_304_Programmierpraktikum_I,_Große_Übung__Übung__group_1",
+          "number": 1,
+          "label": "Programmierpraktikum I, Große Übung - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C -109 PC-Pool",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Dr. Rost, Ursula"
+              ],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)C -109 PC-Pool (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "Programmierpraktikum_I__CS_304_Programmierpraktikum_I,_Große_Übung__Übung__group_2",
+          "number": 2,
+          "label": "Programmierpraktikum I, Große Übung - 2. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C -109 PC-Pool",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Dr. Rost, Ursula"
+              ],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)C -109 PC-Pool (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "Programmierpraktikum_I__CS_304_Programmierpraktikum_I,_Große_Übung__Übung__group_3",
+          "number": 3,
+          "label": "Programmierpraktikum I, Große Übung - 3. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-08",
+              "end_date": "2026-12-08",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C -109 PC-Pool",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Dr. Rost, Ursula"
+              ],
+              "notes": [],
+              "source_text": "Dienstag, 08.09.26 - 08.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)C -109 PC-Pool (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "Programmierpraktikum_I__CS_304_Programmierpraktikum_I,_Große_Übung__Übung__group_4",
+          "number": 4,
+          "label": "Programmierpraktikum I, Große Übung - 4. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Freitag",
+              "weekday_iso": 5,
+              "start_date": "2026-09-11",
+              "end_date": "2026-12-11",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C -109 PC-Pool",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Dr. Rost, Ursula"
+              ],
+              "notes": [],
+              "source_text": "Freitag, 11.09.26 - 11.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)C -109 PC-Pool (A 5, 6 Bauteil C)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Programmierpraktikum_I__CS_304_Tutorium_Programmierpraktikum_I__Tutorium": {
+      "id": "Programmierpraktikum_I__CS_304_Tutorium_Programmierpraktikum_I__Tutorium",
+      "title": "CS 304 Tutorium Programmierpraktikum I",
+      "type_label": "Tutorium",
+      "module_name": "Programmierpraktikum I",
+      "source_path": "1.6.1.1.5.3",
+      "parallel_groups": [
+        {
+          "id": "Programmierpraktikum_I__CS_304_Tutorium_Programmierpraktikum_I__Tutorium__group_1",
+          "number": 1,
+          "label": "Tutorium Programmierpraktikum I - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-15",
+              "end_date": "2026-12-08",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C -109 PC-Pool",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Becker, Suki"
+              ],
+              "notes": [],
+              "source_text": "Dienstag, 15.09.26 - 08.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)C -109 PC-Pool (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "Programmierpraktikum_I__CS_304_Tutorium_Programmierpraktikum_I__Tutorium__group_2",
+          "number": 2,
+          "label": "Tutorium Programmierpraktikum I - 2. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "12:00",
+              "end_time": "13:30",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "C",
+                "room_label": "C -109 PC-Pool",
+                "building": "A 5, 6 Bauteil C",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Lange, Stefan"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 12:00 bis 13:30 Uhr (wöchentlich)C -109 PC-Pool (A 5, 6 Bauteil C)"
+            }
+          ]
+        },
+        {
+          "id": "Programmierpraktikum_I__CS_304_Tutorium_Programmierpraktikum_I__Tutorium__group_3",
+          "number": 3,
+          "label": "Tutorium Programmierpraktikum I - 3. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-16",
+              "end_date": "2026-12-09",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "W",
+                "room_label": "W 117 Hörsaal",
+                "building": "Schloss Westflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Harenz, Jannis"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 16.09.26 - 09.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)W 117 Hörsaal (Schloss Westflügel)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Marketing__Marketing__Vorlesung": {
+      "id": "Marketing__Marketing__Vorlesung",
+      "title": "Marketing",
+      "type_label": "Vorlesung",
+      "module_name": "Marketing",
+      "source_path": "1.6.1.1.13.1",
+      "parallel_groups": [
+        {
+          "id": "Marketing__Marketing__Vorlesung__group_1",
+          "number": 1,
+          "label": "Marketing - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SO",
+                "room_label": "SO 108 Hörsaal",
+                "building": "Schloss Schneckenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Kraus, Florian"
+              ],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)SO 108 Hörsaal (Schloss Schneckenhof Ost)"
+            }
+          ]
+        },
+        {
+          "id": "Marketing__Marketing__Vorlesung__group_2",
+          "number": 2,
+          "label": "Marketing - 2. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "10:15",
+              "end_time": "11:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SO",
+                "room_label": "SO 108 Hörsaal",
+                "building": "Schloss Schneckenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Prof. Dr. Kraus, Florian"
+              ],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 10:15 bis 11:45 Uhr (wöchentlich)SO 108 Hörsaal (Schloss Schneckenhof Ost)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Marketing__Marketing__Übung": {
+      "id": "Marketing__Marketing__Übung",
+      "title": "Marketing",
+      "type_label": "Übung",
+      "module_name": "Marketing",
+      "source_path": "1.6.1.1.13.2",
+      "parallel_groups": [
+        {
+          "id": "Marketing__Marketing__Übung__group_1",
+          "number": 1,
+          "label": "Marketing - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "15:30",
+              "end_time": "16:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "M",
+                "room_label": "M 003 PWC Hörsaal",
+                "building": "Schloss Mittelbau",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Schedel, Fabian"
+              ],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 15:30 bis 16:15 Uhr (wöchentlich)M 003 PWC Hörsaal (Schloss Mittelbau)"
+            }
+          ]
+        },
+        {
+          "id": "Marketing__Marketing__Übung__group_2",
+          "number": 2,
+          "label": "Marketing - 2. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-07",
+              "end_date": "2026-12-07",
+              "start_time": "16:15",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "M",
+                "room_label": "M 003 PWC Hörsaal",
+                "building": "Schloss Mittelbau",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Schedel, Fabian"
+              ],
+              "notes": [],
+              "source_text": "Montag, 07.09.26 - 07.12.26 von 16:15 bis 17:00 Uhr (wöchentlich)M 003 PWC Hörsaal (Schloss Mittelbau)"
+            }
+          ]
+        },
+        {
+          "id": "Marketing__Marketing__Übung__group_3",
+          "number": 3,
+          "label": "Marketing - 3. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-08",
+              "end_date": "2026-12-08",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "SO",
+                "room_label": "SO 108 Hörsaal",
+                "building": "Schloss Schneckenhof Ost",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Schedel, Fabian"
+              ],
+              "notes": [],
+              "source_text": "Dienstag, 08.09.26 - 08.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)SO 108 Hörsaal (Schloss Schneckenhof Ost)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Marketing__Marketing__Tutorium": {
+      "id": "Marketing__Marketing__Tutorium",
+      "title": "Marketing",
+      "type_label": "Tutorium",
+      "module_name": "Marketing",
+      "source_path": "1.6.1.1.13.3",
+      "parallel_groups": [
+        {
+          "id": "Marketing__Marketing__Tutorium__group_1",
+          "number": 1,
+          "label": "Marketing - 1. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Donnerstag",
+              "weekday_iso": 4,
+              "start_date": "2026-09-24",
+              "end_date": "2026-12-10",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 151 Hans Luik Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Droste, Marie"
+              ],
+              "notes": [],
+              "source_text": "Donnerstag, 24.09.26 - 10.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)O 151 Hans Luik Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Marketing__Marketing__Tutorium__group_2",
+          "number": 2,
+          "label": "Marketing - 2. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Montag",
+              "weekday_iso": 1,
+              "start_date": "2026-09-21",
+              "end_date": "2026-12-07",
+              "start_time": "17:15",
+              "end_time": "18:45",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 151 Hans Luik Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Yu, Lily"
+              ],
+              "notes": [],
+              "source_text": "Montag, 21.09.26 - 07.12.26 von 17:15 bis 18:45 Uhr (wöchentlich)O 151 Hans Luik Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Marketing__Marketing__Tutorium__group_3",
+          "number": 3,
+          "label": "Marketing - 3. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-23",
+              "end_date": "2026-12-09",
+              "start_time": "08:30",
+              "end_time": "10:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 151 Hans Luik Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Hitzelberger, Florian"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 23.09.26 - 09.12.26 von 08:30 bis 10:00 Uhr (wöchentlich)O 151 Hans Luik Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Marketing__Marketing__Tutorium__group_4",
+          "number": 4,
+          "label": "Marketing - 4. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Mittwoch",
+              "weekday_iso": 3,
+              "start_date": "2026-09-23",
+              "end_date": "2026-12-09",
+              "start_time": "13:45",
+              "end_time": "15:15",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 151 Hans Luik Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Herrmann, Sophie-Louise"
+              ],
+              "notes": [],
+              "source_text": "Mittwoch, 23.09.26 - 09.12.26 von 13:45 bis 15:15 Uhr (wöchentlich)O 151 Hans Luik Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        },
+        {
+          "id": "Marketing__Marketing__Tutorium__group_5",
+          "number": 5,
+          "label": "Marketing - 5. Parallelgruppe",
+          "cancelled": false,
+          "instructor_name_from_label": null,
+          "schedules": [
+            {
+              "weekday": "Dienstag",
+              "weekday_iso": 2,
+              "start_date": "2026-09-22",
+              "end_date": "2026-12-08",
+              "start_time": "15:30",
+              "end_time": "17:00",
+              "recurrence": "weekly",
+              "location": {
+                "room_code": "O",
+                "room_label": "O 151 Hans Luik Hörsaal",
+                "building": "Schloss Ostflügel",
+                "mode": "in_person"
+              },
+              "instructors": [
+                "Alesi, Lorenzo"
+              ],
+              "notes": [],
+              "source_text": "Dienstag, 22.09.26 - 08.12.26 von 15:30 bis 17:00 Uhr (wöchentlich)O 151 Hans Luik Hörsaal (Schloss Ostflügel)"
+            }
+          ]
+        }
+      ],
+      "schedule_data_status": "provided"
+    },
+    "Zeitmanagement_(ab_HWS_2015)__B.Sc._Wifo_Zeitmanagement__Blockseminar": {
+      "id": "Zeitmanagement_(ab_HWS_2015)__B.Sc._Wifo_Zeitmanagement__Blockseminar",
+      "title": "B.Sc. Wifo_Zeitmanagement",
+      "type_label": "Blockseminar",
+      "module_name": "Zeitmanagement (ab HWS 2015)",
+      "source_path": "1.6.1.1.24.1",
+      "parallel_groups": [],
+      "schedule_data_status": "not_provided_in_source"
+    },
+    "Kommunikation_im_Team_(Lang)_(B.Sc._Wirtschaftsinformatik)__Anmeldung_Seminare_(Bachelor)__Anmeldung": {
+      "id": "Kommunikation_im_Team_(Lang)_(B.Sc._Wirtschaftsinformatik)__Anmeldung_Seminare_(Bachelor)__Anmeldung",
+      "title": "Anmeldung Seminare (Bachelor)",
+      "type_label": "Anmeldung",
+      "module_name": "Kommunikation im Team (Lang) (B.Sc. Wirtschaftsinformatik)",
+      "source_path": "1.6.1.1.28",
+      "parallel_groups": [],
+      "schedule_data_status": "not_provided_in_source"
+    }
+  },
+  "counts": {
+    "modules": 25,
+    "events": 16,
+    "parallel_groups": 34,
+    "schedule_blocks": 42
+  }
+}
