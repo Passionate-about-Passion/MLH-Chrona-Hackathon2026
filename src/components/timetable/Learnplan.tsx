@@ -1,8 +1,5 @@
 import type { Course, Entry, Group } from "@/types";
 import type { ReactNode } from "react";
-import { WD_SHORT, range } from "./logic";
-
-const KIND_NAME = { V: "Vorlesung", U: "Übung", T: "Tutorium" } as const;
 
 interface LearnplanProps {
   /** e.g. "BWL (B.Sc.) · 1. Semester" */
@@ -14,11 +11,12 @@ interface LearnplanProps {
   onChangeProgram: () => void;
   /** Google calendar connect button / sync status, shown between title and .ics */
   google?: ReactNode;
-  /** optional block above the course list, e.g. the study-time table */
+  /** content of the plan, e.g. the study-time table */
   summary?: ReactNode;
 }
 
-export function Learnplan({ title, courses, groups, entries, onExport, onChangeProgram, google, summary }: LearnplanProps) {
+/** The plan is the study-time table (`summary`); the per-course list of sessions was removed on purpose. */
+export function Learnplan({ title, onExport, onChangeProgram, google, summary }: LearnplanProps) {
   return (
     <section className="tt-plan" aria-label="Lernplan">
       <div className="tt-plan-head">
@@ -36,31 +34,6 @@ export function Learnplan({ title, courses, groups, entries, onExport, onChangeP
       </div>
       <ul className="tt-courses">
         {summary && <li style={{ listStyle: "none" }}>{summary}</li>}
-        {courses.map((c) => {
-          const mine = entries.filter((e) => e.courseId === c.id);
-          return (
-            <li key={c.id} className="tt-course glass-dense">
-              <div className="tt-course-main">
-                <p className="tt-course-name">{c.name}</p>
-                <ul className="tt-course-groups">
-                  {mine.map((e) => {
-                    const g = groups.find((x) => x.id === e.groupId);
-                    return (
-                      <li key={e.id} data-type={e.type}>
-                        <span className="tt-dot" aria-hidden="true" />
-                        {g ? KIND_NAME[g.kind] : e.title} · {WD_SHORT[e.wd ?? 0]} {range(e)}
-                      </li>
-                    );
-                  })}
-                  {mine.length === 0 && <li>Passt nicht in die Woche</li>}
-                </ul>
-              </div>
-              <p className="tt-course-weight" aria-label={`Wichtigkeit ${c.weight}`}>
-                {c.weight}
-              </p>
-            </li>
-          );
-        })}
       </ul>
     </section>
   );

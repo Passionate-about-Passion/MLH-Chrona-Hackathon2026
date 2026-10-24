@@ -46,20 +46,17 @@ import {
   conflictIds,
   entriesOn,
   moveToSession,
-  nextEntry,
   range as timeRange,
-  untilText,
   weekdayOf,
   type Alternative,
 } from "./logic";
 
 /** room for the overlays: header + week strip on top, tab bar at the bottom */
-const PAD_TOP = 148; // top overlays: next pill 56 + gap 10 + week strip 56 + air
+const PAD_TOP = 84; // top overlay: + button and week strip in one row (56) + air
 const PAD_BOTTOM = 112;
 
 const localIso = (d = new Date()) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
-const nowTime = (d = new Date()) => `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
 
 const TODAY = localIso();
 /** open on Monday when today is a weekend day */
@@ -146,13 +143,6 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
     () => (plan ? planToEntries(data, plan, constraints, priorities, extras) : []),
     [data, plan, constraints, priorities, extras],
   );
-  // the countdown in the header ticks every 30 s
-  const [now, setNow] = useState(() => new Date());
-  useEffect(() => {
-    const t = setInterval(() => setNow(new Date()), 30_000);
-    return () => clearInterval(t);
-  }, []);
-  const next = useMemo(() => nextEntry(entries, localIso(now), nowTime(now)), [entries, now]);
 
   /** Ask the solver for a new plan. Mock mode ignores `current`, so apply the wished choice locally then. */
   const replan = async (next: { constraints: Constraint[]; priorities: Priority[]; current: Plan["chosen"] }) => {
@@ -412,20 +402,8 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
                 <button type="button" className="tt-add glass" aria-label="Termin hinzufügen" onClick={() => setAddOpen(true)}>
                   <PlusIcon />
                 </button>
-                {next ? (
-                  <button type="button" className="tt-next glass" onClick={() => setDate(next.date)}>
-                    <span className="tt-next-label">{untilText(next.date, next.entry.start, now)}</span>
-                    <span className="tt-next-title" key={`${next.date}-${next.entry.id}`}>
-                      {next.entry.title}
-                    </span>
-                  </button>
-                ) : (
-                  <div className="tt-next glass">
-                    <span className="tt-next-title">{plan ? "Nichts mehr geplant" : "Plan wird berechnet …"}</span>
-                  </div>
-                )}
+                {mode === "W" && <WeekStrip date={date} today={TODAY} onDate={setDate} />}
               </header>
-              {mode === "W" && <WeekStrip date={date} today={TODAY} onDate={setDate} />}
             </div>
             <DateSlider mode={mode} onMode={setMode} date={date} onDate={setDate} min={range.min} max={range.max} autoDim={mode === "M"} />
           </>
