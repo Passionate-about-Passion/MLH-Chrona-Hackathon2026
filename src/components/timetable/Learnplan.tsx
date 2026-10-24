@@ -1,3 +1,4 @@
+import type { ReactNode } from "react";
 import type { Course, Entry, Group } from "@/types";
 import { WD_SHORT, range } from "./logic";
 
@@ -11,13 +12,16 @@ interface LearnplanProps {
   entries: Entry[];
   onExport: () => void;
   onChangeProgram: () => void;
+  /** Google calendar connect button / sync status, shown between title and .ics */
+  google?: ReactNode;
 }
 
-export function Learnplan({ title, courses, groups, entries, onExport, onChangeProgram }: LearnplanProps) {
+export function Learnplan({ title, courses, groups, entries, onExport, onChangeProgram, google }: LearnplanProps) {
   return (
     <section className="tt-plan" aria-label="Lernplan">
       <div className="tt-plan-head">
         <h1 className="tt-h1">Lernplan</h1>
+        {google}
         <button type="button" className="tt-btn tt-btn-glass glass" onClick={onExport}>
           .ics
         </button>
