@@ -7,6 +7,8 @@ import type { Entry } from "@/types";
 import { getProgram, selectCourses } from "@/data";
 import { describeChanges, describeSchedule } from "@/features/voice/describe";
 import { downloadIcs } from "@/features/export/ics";
+import { StudyTimeTable } from "@/features/learnplan/StudyTimeTable";
+import { studyTime } from "@/features/learnplan/studyTime";
 import {
   DAYS,
   alternativesFor,
@@ -433,6 +435,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
             courses={courses}
             groups={groups}
             entries={entries}
+            summary={<StudyTimeTable {...studyTime(data, entries)} />}
             onExport={() => {
               const n = downloadIcs(entries, { from: data.semester?.start ?? TODAY, until: range.max });
               showToast(`Kalender exportiert: ${n} Termine in stundenplan.ics`);

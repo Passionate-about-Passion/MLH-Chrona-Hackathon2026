@@ -3,8 +3,8 @@ export type Meal = { line?: string; title: string; price?: string };
 
 const SEGMENTS: [RegExp, string, string][] = [
   [/westfl/i, "W", "Ausleihzentrum Schloss Westflügel"],
-  [/ehrenhof/i, "EO", "Schloss Ehrenhof"],
-  [/schneckenhof/i, "SN", "Schloss Schneckenhof"],
+  [/ehrenhof/i, "M", "Schloss Ehrenhof"],
+  [/schneckenhof/i, "S", "Schloss Schneckenhof"],
   [/\bA\s?3\b/, "A3", "Bibliotheksbereich A3"],
   [/\bA\s?5\b/, "A5", "Bibliotheksbereich A5"],
 ];
@@ -37,7 +37,8 @@ export function parseLibrary(html: string): LibLocation[] {
     if (found && !out.some((o) => o.building === found[1]))
       out.push({ name: found[2], percent: +m[2], seats: +m[3], level, building: found[1] });
   });
-  return out;
+  // Ausleihzentrum Westflügel ist kein Lernort (44 Plätze) – erkannt, aber nicht angezeigt
+  return out.filter((o) => o.building !== "W");
 }
 
 /** Tagesplan der Studierendenwerk-API (tl1/menuplan): Zeilen mit Linie, Gericht (ohne Zusatzstoffe), Preis. */
