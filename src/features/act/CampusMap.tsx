@@ -2,12 +2,12 @@
 
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
 import type { LibLocation, Meal } from "./campusLive";
-import { BUILDINGS, ROOM_PREFIX_TO_BUILDING, buildingOf } from "./campusData";
+import { BUILDINGS, DECOR, ROOM_PREFIX_TO_BUILDING, buildingOf } from "./campusData";
 
 export { buildingOf, ROOM_PREFIX_TO_BUILDING };
 
 const WORLD_W = 848;
-const WORLD_H = 480;
+const WORLD_H = 510;
 const WORLD_Y0 = 80; // viewBox beginnt bei y = 80
 const MIN_Z = 1;
 const MAX_Z = 5;
@@ -20,8 +20,8 @@ const MARK_STROKE = "#0a4fa3";
 const PICK = "#ff9f0a";
 const PICK_STROKE = "#b36b00";
 
-const MENSA_AT: [number, number] = [130, 449]; // Mensa am Schloss: Mensawiese, südlich vom Westflügel (Lageplan Uni)
-const MENSA_HALF: [number, number] = [38, 21]; // halbe Breite/Höhe des Mensa-Gebäudes
+const MENSA_AT: [number, number] = [70, 430]; // Mensa am Schloss: Mensawiese, südwestlich vom Westflügel (Lageplan Uni)
+const MENSA_HALF: [number, number] = [44, 22]; // halbe Breite/Höhe des Mensa-Gebäudes
 /** Kurznamen der Bib-Standorte für die Badges */
 const LIB_SHORT: Record<string, string> = { W: "Westflügel", A3: "A3", A5: "A5", EO: "Ehrenhof", SN: "Schneckenhof" };
 const libColor = (p: number) => (p < 60 ? "#34c759" : p <= 85 ? "#ffcc00" : "#ff3b30");
@@ -528,7 +528,24 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
             aria-label={target ? `Lageplan, markiert: ${target.text || id}, ${room}` : "Lageplan ohne Markierung"}
             style={{ display: "block", pointerEvents: "none" }}
           >
-            <rect x="0" y="262" width="848" height="28" fill="#fff" opacity="0.8" />
+            {DECOR.greens.map((p, i) => (
+              <polygon key={`g${i}`} points={p.map((q) => q.join(",")).join(" ")} fill="#cfe7d5" />
+            ))}
+            <rect x={DECOR.road[0]} y={DECOR.road[1]} width={DECOR.road[2]} height={DECOR.road[3]} fill="#fbe7a6" />
+            <text x="424" y={DECOR.road[1] + 20} textAnchor="middle" fontSize="12" fontStyle="italic" fontFamily="system-ui, sans-serif" fill="#7a6a35">
+              Bismarckstraße
+            </text>
+            {DECOR.courts.map((c, i) => (
+              <g key={`c${i}`}>
+                <rect x={c.r[0]} y={c.r[1]} width={c.r[2]} height={c.r[3]} rx="3" fill="#e6e8ec" />
+                {c.text && (
+                  <text x={c.r[0] + c.r[2] / 2} y={c.r[1] + c.r[3] / 2 + 4} textAnchor="middle" fontSize="11" fontFamily="system-ui, sans-serif" fill="#7b818c">
+                    {c.text}
+                  </text>
+                )}
+              </g>
+            ))}
+            <circle cx={DECOR.bastion[0]} cy={DECOR.bastion[1]} r={DECOR.bastion[2]} fill={NEUTRAL} stroke={STROKE} strokeWidth="2" />
             {Object.entries(BUILDINGS).map(([key, b]) => {
               const on = key === id;
               const pk = key === sel;
