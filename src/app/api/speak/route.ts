@@ -1,7 +1,7 @@
 /**
  * SLICE D – SPRECHEN (backend)
  * POST /api/speak  JSON: { text: string, lang?: "de" | "en" }  → audio/mpeg (ElevenLabs)
- * Default voice George speaks German and English; multilingual_v2 detects the language from the text.
+ * Default voice (5KvpaGteYkNayiswuX2h, team choice) speaks German and English; multilingual_v2 detects the language from the text.
  * Returns 501 when no ELEVENLABS_API_KEY is set → frontend falls back to browser speech.
  */
 import { NextResponse } from "next/server";
@@ -15,7 +15,7 @@ export async function POST(req: Request) {
   const apiKey = process.env.ELEVENLABS_API_KEY;
   if (!apiKey) return NextResponse.json({ error: "ELEVENLABS_API_KEY nicht gesetzt" }, { status: 501 });
 
-  const voiceId = process.env.ELEVENLABS_VOICE_ID || "JBFqnCBsd6RMkjVDRZzb" /* George */;
+  const voiceId = process.env.ELEVENLABS_VOICE_ID || "5KvpaGteYkNayiswuX2h";
   const model = process.env.ELEVENLABS_MODEL || "eleven_multilingual_v2";
   const res = await fetch(`https://api.elevenlabs.io/v1/text-to-speech/${voiceId}`, {
     method: "POST",
