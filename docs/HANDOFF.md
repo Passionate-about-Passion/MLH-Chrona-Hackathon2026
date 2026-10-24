@@ -18,7 +18,7 @@ Du übernimmst das Backend des KI-Stundenplan-Assistenten (Hackathon, Sa 24.10.2
 
 ### Nächste Schritte, in dieser Reihenfolge
 
-1. **Google-Sync live testen (TASK-013, Code fertig, ungetestet gegen Google).**
+1. **Google-Sync (TASK-013): erledigt und live getestet** – Login gespeichert, Kalender „Stundenplan" verbunden. Nur bei Problemen die Schritte unten wiederholen.
    - `npm run dev` (Port **3000**, die Redirect-URI hängt daran).
    - `curl -sI localhost:3000/api/google/login` → 307 auf `accounts.google.com` mit `access_type=offline`.
    - Lenny öffnet `http://localhost:3000/api/google/login` im Browser, meldet sich an („App nicht verifiziert" → Weiter). Callback legt Kalender „Stundenplan" an, speichert Token in `.data/google.json` (gitignored) und trägt den Startplan ein (12 wöchentliche Termine ab 26.10.2026).
