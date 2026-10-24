@@ -1,47 +1,67 @@
+"use client";
 /**
- * Start screen: choose study program + semester. Links to /?program=…&term=…, page.tsx then shows the app
- * with exactly these courses (Gemma and the solver only see the courses of this program).
+ * Start screen: for now only BWL, 1st semester (the only program with a real module catalogue).
+ * Chosen once, then remembered in localStorage: the next visit of / goes straight to the app.
  */
 import "@/components/timetable/timetable.css";
 import "@/styles/glass.css";
-import { PROGRAMS } from "@/data";
+import { useEffect } from "react";
+import { getProgram } from "@/data";
 
-const terms = (id: string) =>
-  [...new Set(PROGRAMS[id].courses.flatMap((c) => (c.term != null ? [c.term] : [])))].sort((a, b) => a - b);
+const CHOICE = { program: "bwl", term: 1 };
+const KEY = "tt-program";
+const href = (c: { program: string; term: number }) => `/?program=${c.program}&term=${c.term}`;
 
 export function ProgramPicker() {
+  useEffect(() => {
+    try {
+      const saved = JSON.parse(localStorage.getItem(KEY) ?? "null");
+      if (saved?.program && getProgram(saved.program)) location.replace(href(saved));
+    } catch {
+      // no storage (private mode): just show the picker
+    }
+  }, []);
+
+  const choose = () => {
+    try {
+      localStorage.setItem(KEY, JSON.stringify(CHOICE));
+    } catch {
+      // ignore, the link still works
+    }
+  };
+
+  const data = getProgram(CHOICE.program)!;
+  const courses = data.courses.filter((c) => c.term === CHOICE.term);
+
   return (
     <div className="tt-root" lang="de">
       <div className="tt-phone" style={{ overflowY: "auto" }}>
         <section className="tt-plan" aria-label="Studiengang wählen" style={{ position: "static", paddingBottom: 32 }}>
           <div className="tt-plan-head" style={{ flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
             <h1 className="tt-h1">Dein Stundenplan</h1>
-            <p className="tt-sub">Wähle Studiengang und Semester. Gemma kennt dann alle Module, Gruppen und Räume.</p>
+            <p className="tt-sub">Gemma kennt alle Module, Gruppen und Räume deines Semesters.</p>
           </div>
-          <ul className="tt-courses" style={{ padding: 0, overflow: "visible" }}>
-            {Object.entries(PROGRAMS).map(([id, p]) => (
-              <li key={id} className="tt-course glass-dense" style={{ flexDirection: "column", alignItems: "stretch" }}>
-                <div className="tt-course-main">
-                  <p className="tt-course-name">{p.program?.name ?? id}</p>
-                  <p className="tt-sub" style={{ margin: 0 }}>
-                    {p.courses.length} Module · {p.courses.reduce((n, c) => n + c.groups.length, 0)} Gruppen
-                  </p>
-                </div>
-                <div style={{ display: "flex", flexWrap: "wrap", gap: 8 }}>
-                  {(terms(id).length ? terms(id) : [undefined]).map((t) => (
-                    <a
-                      key={t ?? "all"}
-                      href={`/?program=${id}${t != null ? `&term=${t}` : ""}`}
-                      className="tt-btn tt-btn-primary"
-                      style={{ display: "inline-grid", placeItems: "center", textDecoration: "none" }}
-                    >
-                      {t != null ? `${t}. Semester` : "Starten"}
-                    </a>
-                  ))}
-                </div>
-              </li>
-            ))}
-          </ul>
+          <div className="tt-course glass-dense" style={{ flexDirection: "column", alignItems: "stretch" }}>
+            <div className="tt-course-main">
+              <p className="tt-course-name">{data.program?.name ?? "BWL"} · 1. Semester</p>
+              <ul className="tt-course-groups" style={{ marginTop: 6 }}>
+                {courses.map((c) => (
+                  <li key={c.id}>
+                    <span className="tt-dot" aria-hidden="true" />
+                    {c.name}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <a
+              href={href(CHOICE)}
+              onClick={choose}
+              className="tt-btn tt-btn-primary"
+              style={{ display: "inline-grid", placeItems: "center", textDecoration: "none" }}
+            >
+              Los geht&apos;s
+            </a>
+          </div>
         </section>
       </div>
     </div>
