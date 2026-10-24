@@ -25,7 +25,6 @@ import {
 import { voice, type ParsedIntent } from "@/voice";
 import { AddSheet } from "./AddSheet";
 import { ChangePreview } from "./ChangePreview";
-import { Modal } from "./Modal";
 import { ConflictDialog } from "./ConflictDialog";
 import { DateSlider, type Mode } from "./DateSlider";
 import { PlusIcon } from "./Icons";
@@ -297,13 +296,9 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
                 )}
               </header>
               {mode === "W" && <WeekStrip date={date} today={TODAY} onDate={setDate} />}
-              {gcal.connected === false ? (
+              {gcal.connected === false && (
                 <a className="tt-gcal glass" href="/api/google/login">Mit Google verbinden</a>
-              ) : gcal.connected ? (
-                <span className="tt-gcal glass">
-                  {gcal.last === "error" ? "Google Kalender: Sync fehlgeschlagen" : gcal.last === "ok" ? "Google Kalender ✓ synchron" : "Google Kalender verbunden"}
-                </span>
-              ) : null}
+              )}
             </div>
             <DateSlider mode={mode} onMode={setMode} date={date} onDate={setDate} min={RANGE.min} max={RANGE.max} />
           </>
@@ -323,12 +318,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
       </div>
 
       {mapEntry && (
-        <Modal label="Lageplan zum Termin" onClose={() => setMapEntryId(null)}>
-          <CampusMap room={mapEntry.location} title={mapEntry.title} kind={KIND_NAME[mapEntry.type]} time={range(mapEntry)} />
-          <button type="button" className="tt-btn tt-btn-quiet" onClick={() => setMapEntryId(null)}>
-            Schließen
-          </button>
-        </Modal>
+        <CampusMap room={mapEntry.location} title={mapEntry.title} kind={KIND_NAME[mapEntry.type]} time={range(mapEntry)} onClose={() => setMapEntryId(null)} />
       )}
       {conflict && conflictEntry && (
         <ConflictDialog
