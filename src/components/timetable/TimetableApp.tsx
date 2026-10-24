@@ -5,6 +5,7 @@ import type { Constraint, Plan, Priority } from "@/lib/types";
 import type { Entry } from "@/types";
 import { getProgram } from "@/data";
 import { describeChanges, describeSchedule } from "@/features/voice/describe";
+import { downloadIcs } from "@/features/export/ics";
 import {
   DAYS,
   alternativesFor,
@@ -282,7 +283,10 @@ export function TimetableApp() {
             courses={courses}
             groups={groups}
             entries={entries}
-            onExport={() => showToast("Kalender exportiert (nur im Mockup).")}
+            onExport={() => {
+              const n = downloadIcs(entries, { from: data.semester?.start ?? TODAY, until: RANGE.max });
+              showToast(`Kalender exportiert: ${n} Termine in stundenplan.ics`);
+            }}
           />
         )}
         <TabBar tab={tab} onTab={setTab} onVoice={() => setVoiceOpen(true)} />
