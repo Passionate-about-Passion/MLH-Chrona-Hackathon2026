@@ -60,14 +60,6 @@ cp .env.example .env.local   # MOCK=1 works without any keys
 | Emil | | | |
 | Lenny | | | |
 
-**Bereiche** – jeder baut seinen Bereich vom Backend bis zum Frontend (Details: [docs/ROLLEN.md](docs/ROLLEN.md)):
-
-| Bereich | Baut | Zusatzrolle |
-|:-------:|------|-------------|
-| **A** | Erfassen – Foto/Kamera, Upload | Pitch & Teamlead |
-| **B** | Verstehen – Gemma-Analyse, Ergebnis-Karte | Integration & Deployment |
-| **C** | Handeln – Aktionen, Antwort-Entwurf | Demo-Sicherheit |
-| **D** | Sprechen & Lokal – Vorlesen, lokaler Modus | Design & Persona |
 
 Team docs (German): [Rollen](docs/ROLLEN.md) · [Ablauf](docs/ABLAUF.md) · [Git-Workflow](docs/GIT-WORKFLOW.md) · [Scope](docs/scope.md) · [Schnittstellen](docs/interfaces.md) · [Pitch](docs/pitch.md) · [Playbook](docs/playbook.md) · [Entscheidungen](docs/decisions.md)
 
