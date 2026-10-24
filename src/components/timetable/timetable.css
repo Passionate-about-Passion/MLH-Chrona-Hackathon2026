@@ -790,6 +790,8 @@
   grid-template-rows: repeat(6, 1fr);
   scroll-snap-align: start;
   scroll-snap-stop: always;
+  /* a new month starts with a clearer line */
+  border-top: 2px solid rgba(29, 29, 31, 0.14);
   /* thin line on top of every week row */
   background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, 0.06) 0 1px, transparent 1px calc(var(--mv-grid-h) / 6));
 }
@@ -2216,22 +2218,6 @@
   }
 }
 
-/* "Lernzeit in freie Zeit eintragen": tinted glass, full width above the study cards */
-.tt-study-cta {
-  --glass-fill: rgba(52, 80, 110, 0.82);
-  --glass-fallback: rgba(52, 80, 110, 0.92);
-  --glass-tint: transparent;
-  display: block;
-  width: 100%;
-  min-height: 52px;
-  margin-bottom: 10px;
-  border: 0;
-  border-radius: 26px;
-  font-size: 16px;
-  font-weight: 700;
-  color: #fff;
-  text-shadow: none;
-}
 
 /* per course: put its study time into free slots */
 .tt-study-schedule {

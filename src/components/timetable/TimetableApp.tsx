@@ -489,7 +489,6 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
             groups={groups}
             entries={entries}
             summary={<StudyTimeTable {...studyTime(data, entries)} onSchedule={(id) => planStudy(id)} />}
-            onPlanStudy={() => planStudy()}
             onExport={() => {
               const n = downloadIcs(entries, { from: data.semester?.start ?? TODAY, until: range.max });
               showToast(`Kalender exportiert: ${n} Termine in stundenplan.ics`);

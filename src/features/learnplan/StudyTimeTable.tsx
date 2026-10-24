@@ -160,7 +160,7 @@ export function StudyTimeTable({
               </div>
               {onSchedule && (
                 <button type="button" className="tt-study-schedule" onClick={() => onSchedule(r.id)}>
-                  Lernzeit für {r.code || "dieses Fach"} in freie Zeit eintragen
+                  Lernzeit in Kalender einplanen
                 </button>
               )}
               <p className="tt-study-foot">
