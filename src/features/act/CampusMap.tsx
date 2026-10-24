@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState, type PointerEvent as ReactPointerEvent, type ReactNode } from "react";
+import type { LibLocation, Meal } from "./campusLive";
 import { BUILDINGS, ROOM_PREFIX_TO_BUILDING, buildingOf } from "./campusData";
 
 export { buildingOf, ROOM_PREFIX_TO_BUILDING };
@@ -18,6 +19,13 @@ const MARK = "#007aff";
 const MARK_STROKE = "#0a4fa3";
 const PICK = "#ff9f0a";
 const PICK_STROKE = "#b36b00";
+
+const MENSA_AT: [number, number] = [130, 449]; // Mensa am Schloss: Mensawiese, südlich vom Westflügel (Lageplan Uni)
+const MENSA_HALF: [number, number] = [38, 21]; // halbe Breite/Höhe des Mensa-Gebäudes
+/** Kurznamen der Bib-Standorte für die Badges */
+const LIB_SHORT: Record<string, string> = { W: "Westflügel", A3: "A3", A5: "A5", EO: "Ehrenhof", SN: "Schneckenhof" };
+const libColor = (p: number) => (p < 60 ? "#34c759" : p <= 85 ? "#ffcc00" : "#ff3b30");
+type MensaData = { name: string; date: string; url: string; meals: Meal[] };
 
 const buildingName = (k: string) => (k === "S" ? "Schloss S" : BUILDINGS[k].text);
 
@@ -61,6 +69,9 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
   const id = buildingOf(room);
   const target = id ? BUILDINGS[id] : undefined;
   const [selected, setSelected] = useState<string | null>(null);
+  const [libs, setLibs] = useState<{ at: string; byB: Record<string, LibLocation> } | null>(null);
+  const [mensa, setMensa] = useState<MensaData | null | undefined>(undefined); // undefined = lädt
+  const [mensaOpen, setMensaOpen] = useState(false);
 
   const rootRef = useRef<HTMLDivElement>(null);
   const surfaceRef = useRef<HTMLDivElement>(null);
@@ -68,6 +79,7 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
   const headerRef = useRef<HTMLDivElement>(null);
   const bottomRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
+  const openMensaRef = useRef<() => void>(() => {});
   const flyRef = useRef<() => void>(() => {});
   const closingRef = useRef(false);
   const sheetDrag = useRef<{ y0: number; t0: number; dy: number } | null>(null);
@@ -90,6 +102,9 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
   };
   const dismissRef = useRef(dismiss);
   useEffect(() => {
+    openMensaRef.current = openMensa;
+  });
+  useEffect(() => {
     dismissRef.current = dismiss;
   });
 
@@ -107,6 +122,30 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
       prev?.focus?.({ preventScroll: true });
     };
   }, []);
+
+  // Live-Daten (Bibliothek beim Öffnen); Fehler -> keine Badges
+  useEffect(() => {
+    let alive = true;
+    fetch("/api/campus/library")
+      .then((r) => r.json())
+      .then((j: { updated?: string; locations?: LibLocation[] }) => {
+        if (!alive || !j.locations?.length) return;
+        setLibs({ at: j.updated ?? "", byB: Object.fromEntries(j.locations.map((l) => [l.building, l])) });
+      })
+      .catch(() => {});
+    return () => {
+      alive = false;
+    };
+  }, []);
+
+  const openMensa = () => {
+    setMensaOpen(true);
+    if (mensa !== undefined) return;
+    fetch("/api/campus/mensa")
+      .then((r) => r.json())
+      .then((j: MensaData) => setMensa(j))
+      .catch(() => setMensa(null));
+  };
 
   // Karten-Engine: Pan, Pinch, Inertia, Rubber-Band, Flug. Alles direkt per ref, kein React-State pro Frame.
   useEffect(() => {
@@ -258,6 +297,7 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
       const wx = (x - S.tx) / s;
       const wy = (y - S.ty) / s + WORLD_Y0;
       const pad = 8 / s;
+      if (Math.abs(wx - MENSA_AT[0]) < MENSA_HALF[0] + pad && Math.abs(wy - MENSA_AT[1]) < MENSA_HALF[1] + pad) return "MENSA";
       let best: string | null = null;
       let bestArea = Infinity;
       for (const [k, b] of Object.entries(BUILDINGS))
@@ -363,6 +403,7 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
       lastTap = { t: now, x, y };
       const k = pick(x, y);
       setSelected(k && k !== id ? k : null);
+      if (k === "MENSA") openMensaRef.current();
     };
 
     const up = (e: PointerEvent) => {
@@ -455,6 +496,8 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
   };
 
   const sel = selected && selected !== id ? selected : null;
+  const selLib = sel && sel !== "MENSA" ? libs?.byB[sel] : id ? libs?.byB[id] : undefined;
+  const libTime = libs?.at ? new Date(libs.at).toLocaleTimeString("de-DE", { hour: "2-digit", minute: "2-digit" }) : "";
   const pin = id ? bbox(id) : null;
 
   return (
@@ -513,6 +556,37 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
                 </g>
               );
             })}
+            {libs &&
+              Object.values(libs.byB).map((l) => {
+                const b = BUILDINGS[l.building];
+                if (!b) return null;
+                const bb = bbox(l.building);
+                // Auslastung erst beim Antippen; vorher nur ein Punkt in Ampelfarbe als Bib-Hinweis
+                if (sel !== l.building)
+                  return <circle key={`lib-${l.building}`} cx={bb.cx} cy={bb.y0 - 8} r="6" fill={libColor(l.percent)} stroke="#fff" strokeWidth="2" />;
+                const name = `Bib ${LIB_SHORT[l.building] ?? b.text}`;
+                const w = Math.max(84, name.length * 7 + 20);
+                const c = libColor(l.percent);
+                return (
+                  <g key={`lib-${l.building}`} transform={`translate(${bb.cx - w / 2},${bb.y0 - 46})`}>
+                    <rect width={w} height="42" rx="11" fill="#fff" stroke={c} strokeWidth="2.5" />
+                    <text x={w / 2} y="16" textAnchor="middle" fontSize="12" fontWeight="600" fontFamily="system-ui, sans-serif" fill="#3a3f49">
+                      {name}
+                    </text>
+                    <text x={w / 2} y="30" textAnchor="middle" fontSize="12.5" fontWeight="800" fontFamily="system-ui, sans-serif" fill="#1d1d1f">
+                      {l.percent} % belegt
+                    </text>
+                    <rect x="8" y="34" width={w - 16} height="4" rx="2" fill="#e5e7eb" />
+                    <rect x="8" y="34" width={((w - 16) * Math.min(100, l.percent)) / 100} height="4" rx="2" fill={c} />
+                  </g>
+                );
+              })}
+            <g>
+              <rect x={MENSA_AT[0] - MENSA_HALF[0]} y={MENSA_AT[1] - MENSA_HALF[1]} width={MENSA_HALF[0] * 2} height={MENSA_HALF[1] * 2} rx="4" fill={sel === "MENSA" ? PICK : NEUTRAL} stroke={sel === "MENSA" ? PICK_STROKE : STROKE} strokeWidth="2" />
+              <text x={MENSA_AT[0]} y={MENSA_AT[1] + 6} textAnchor="middle" fontSize="17" fontWeight="600" fontFamily="system-ui, sans-serif" fill={sel === "MENSA" ? "#fff" : "#3a3f49"}>
+                Mensa
+              </text>
+            </g>
             {pin && (
               <g>
                 <circle className="cmap-ring" cx={pin.cx} cy={pin.y0} r="9" />
@@ -533,12 +607,66 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
         style={{ position: "absolute", top: 0, left: 0, right: 0, padding: "calc(env(safe-area-inset-top) + 8px) 12px 6px", touchAction: "none", display: "flex", flexDirection: "column", alignItems: "center", gap: 2 }}
       >
         <div aria-hidden style={{ width: 40, height: 5, borderRadius: 3, background: "rgba(60,60,67,0.3)" }} />
-        <div style={{ alignSelf: "stretch", display: "flex", justifyContent: "flex-end" }}>
+        <div style={{ alignSelf: "stretch", display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+          {libs ? (
+            <span className="glass-dense" style={{ borderRadius: 16, padding: "6px 12px", fontSize: 13, fontWeight: 600, color: "#3c3c43" }}>
+              Bibliotheken live{libTime ? ` · ${libTime}` : ""}
+            </span>
+          ) : (
+            <span />
+          )}
           <button ref={closeRef} type="button" className="cmap-btn glass-dense" onClick={dismiss} aria-label="Lageplan schließen">
             Fertig
           </button>
         </div>
       </div>
+
+      {mensaOpen && (
+        <div
+          className="cmap-card glass-dense"
+          role="region"
+          aria-label="Speiseplan Mensa am Schloss"
+          onPointerDown={(e) => e.stopPropagation()}
+          onPointerUp={(e) => e.stopPropagation()}
+          onClick={(e) => e.stopPropagation()}
+          style={{ position: "absolute", left: 12, right: 12, top: "calc(env(safe-area-inset-top) + 64px)", maxWidth: 520, margin: "0 auto", maxHeight: "48vh", display: "flex", flexDirection: "column", borderRadius: 24, padding: "14px 16px", touchAction: "pan-y", zIndex: 5 }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 8, marginBottom: 8 }}>
+            <div style={{ flex: 1, fontSize: 16, fontWeight: 700 }}>
+              Mensa am Schloss – Speiseplan{mensa?.meals.length ? ` ${new Date(mensa.date + "T12:00:00").toLocaleDateString("de-DE", { weekday: "short", day: "numeric", month: "numeric" })}` : ""}
+            </div>
+            <button type="button" className="cmap-btn" aria-label="Speiseplan schließen" onClick={() => { setMensaOpen(false); setSelected(null); }} style={{ padding: "0 12px" }}>
+              Schließen
+            </button>
+          </div>
+          <div style={{ overflowY: "auto", WebkitOverflowScrolling: "touch", fontSize: 14, lineHeight: 1.4 }}>
+            {mensa === undefined ? (
+              <div>Lädt …</div>
+            ) : mensa && mensa.meals.length ? (
+              mensa.meals.map((m, i) => (
+                <div key={i} style={{ display: "flex", gap: 10, padding: "6px 0", borderTop: i ? "1px solid rgba(60,60,67,0.15)" : "none" }}>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    {m.line && <div style={{ fontSize: 12, fontWeight: 600, color: "#6b6b70" }}>{m.line}</div>}
+                    <div>{m.title}</div>
+                  </div>
+                  {m.price && <div style={{ fontWeight: 600, whiteSpace: "nowrap" }}>{m.price}</div>}
+                </div>
+              ))
+            ) : (
+              <div>Speiseplan gerade nicht verfügbar</div>
+            )}
+            <a
+              href={mensa?.url ?? "https://www.stw-ma.de/essen-trinken/speiseplaene/mensa-am-schloss/"}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="cmap-btn"
+              style={{ display: "inline-flex", alignItems: "center", marginTop: 8, padding: "0 4px", textDecoration: "none" }}
+            >
+              Speiseplan öffnen
+            </a>
+          </div>
+        </div>
+      )}
 
       <div ref={bottomRef} style={{ position: "absolute", left: 0, right: 0, bottom: 0, padding: "12px 12px calc(12px + env(safe-area-inset-bottom))", pointerEvents: "none" }}>
         <div className="cmap-card glass-dense" style={{ borderRadius: 24, padding: "14px 14px 14px 18px", display: "flex", alignItems: "center", gap: 12, pointerEvents: "auto", maxWidth: 560, margin: "0 auto" }}>
@@ -552,8 +680,13 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
               {target ? "" : " (Gebäude unbekannt)"}
             </div>
             <div style={{ fontSize: 14, fontWeight: 600, color: sel ? "#b36b00" : "#0a4fa3", minHeight: "1.35em" }} aria-live="polite">
-              {sel ? `Ausgewählt: Gebäude ${buildingName(sel)}` : id ? `Gebäude ${buildingName(id)}` : " "}
+              {sel === "MENSA" ? "Ausgewählt: Mensa am Schloss" : sel ? `Ausgewählt: Gebäude ${buildingName(sel)}` : id ? `Gebäude ${buildingName(id)}` : " "}
             </div>
+            {selLib && (
+              <div style={{ fontSize: 14, color: "#3c3c43" }}>
+                Bibliothek: {selLib.percent} % belegt von {selLib.seats} Plätzen{libTime ? ` (Stand ${libTime})` : ""}
+              </div>
+            )}
           </div>
           {target && (
             <button
