@@ -1,5 +1,6 @@
+"use client";
+import { useState, type ReactNode } from "react";
 import type { Course, Entry, Group } from "@/types";
-import type { ReactNode } from "react";
 
 interface LearnplanProps {
   /** e.g. "BWL (B.Sc.) · 1. Semester" */
@@ -14,23 +15,29 @@ interface LearnplanProps {
   summary?: ReactNode;
 }
 
-/** The plan is the study-time table (`summary`); the per-course list of sessions was removed on purpose. */
+/**
+ * The plan is the study-time table (`summary`); the per-course list of sessions was removed on purpose.
+ * Content scrolls under a floating glass header whose large title shrinks on scroll, like iOS.
+ */
 export function Learnplan({ title, onExport, google, summary }: LearnplanProps) {
+  const [collapsed, setCollapsed] = useState(false);
   return (
     <section className="tt-plan" aria-label="Lernplan">
-      <div className="tt-plan-head">
-        <h1 className="tt-h1">Lernplan</h1>
-        {google}
-        <button type="button" className="tt-btn tt-btn-glass glass" onClick={onExport}>
-          .ics
-        </button>
+      <div className="tt-plan-scroll" onScroll={(e) => setCollapsed(e.currentTarget.scrollTop > 24)}>
+        {summary}
       </div>
-      <div className="tt-plan-program">
-        <span>{title}</span>
-      </div>
-      <ul className="tt-courses">
-        {summary && <li style={{ listStyle: "none" }}>{summary}</li>}
-      </ul>
+      <header className="tt-plan-top glass" data-collapsed={collapsed || undefined}>
+        <div className="tt-plan-titles">
+          <h1 className="tt-plan-title">Lernplan</h1>
+          <p className="tt-plan-program">{title}</p>
+        </div>
+        <div className="tt-plan-actions">
+          {google}
+          <button type="button" className="tt-gcal glass" onClick={onExport}>
+            .ics
+          </button>
+        </div>
+      </header>
     </section>
   );
 }

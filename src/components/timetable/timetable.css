@@ -1383,10 +1383,69 @@
 .tt-plan {
   position: absolute;
   inset: 0;
+}
+
+/* content scrolls under the floating glass header */
+.tt-plan-scroll {
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  padding: calc(132px + env(safe-area-inset-top)) 12px calc(110px + env(safe-area-inset-bottom));
+  overscroll-behavior: contain;
+}
+
+.tt-plan-top {
+  position: absolute;
+  top: calc(12px + env(safe-area-inset-top));
+  left: 12px;
+  right: 12px;
+  z-index: 4;
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-  padding: calc(20px + env(safe-area-inset-top)) 12px 0;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 10px 14px 18px;
+  border-radius: 28px;
+  transition: padding 0.35s var(--spring);
+}
+
+.tt-plan-titles {
+  flex: 1;
+  min-width: 0;
+}
+
+/* iOS large title that shrinks once the content scrolls */
+.tt-plan-title {
+  margin: 0;
+  font-size: 32px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  transform-origin: left center;
+  transition: font-size 0.35s var(--spring);
+}
+
+.tt-plan-program {
+  margin: 2px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--ink-2);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tt-plan-top[data-collapsed] {
+  padding-block: 8px;
+}
+
+.tt-plan-top[data-collapsed] .tt-plan-title {
+  font-size: 20px;
+}
+
+.tt-plan-actions {
+  display: flex;
+  gap: 8px;
+  flex: none;
 }
 
 .tt-plan-head {
@@ -1479,15 +1538,6 @@
   color: var(--primary);
 }
 
-.tt-plan-program {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 10px;
-  padding: 0 6px;
-  color: var(--ink-2);
-  font-weight: 600;
-}
 
 .tt-link-btn {
   min-height: 44px;
@@ -1791,9 +1841,6 @@
   .tt-bubble {
     animation: tt-zoom-in 0.25s var(--spring);
   }
-  .tt-plan {
-    animation: tt-fade-up 0.4s var(--sheet-curve);
-  }
   /* next appointment changed: the title slides in */
   .tt-next-title {
     animation: tt-fade-up 0.4s var(--sheet-curve);
@@ -1968,5 +2015,208 @@
 @keyframes tt-wave-pulse {
   to {
     transform: scaleY(0.55);
+  }
+}
+
+/* ---------- learning plan: study time (StudyTimeTable) in glass ---------- */
+
+.tt-study {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.tt-study-hero {
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 18px 20px;
+  border-radius: 28px;
+}
+
+.tt-study-ring {
+  flex: none;
+  rotate: -90deg;
+}
+
+.tt-study-ring circle {
+  fill: none;
+  stroke-width: 12;
+  stroke-linecap: round;
+}
+
+.tt-study-ring-track {
+  stroke: rgba(52, 80, 110, 0.12);
+}
+
+.tt-study-ring-fill {
+  stroke: var(--primary);
+  transition:
+    stroke-dashoffset 0.9s var(--sheet-curve, ease),
+    stroke 0.3s ease;
+}
+
+.tt-study-ring-fill[data-done] {
+  stroke: var(--u-bar);
+}
+
+.tt-study-hero-text {
+  min-width: 0;
+}
+
+.tt-study-kicker {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 650;
+  color: var(--ink-2);
+}
+
+.tt-study-big {
+  margin: 0;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+}
+
+.tt-study-sub {
+  margin: 2px 0 0;
+  font-size: 13px;
+  color: var(--ink-2);
+}
+
+.tt-study-h {
+  margin: 12px 8px 2px;
+  font-size: 20px;
+  font-weight: 750;
+}
+
+.tt-study-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.tt-study-card {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px 12px;
+  border-radius: 24px;
+}
+
+.tt-study-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tt-study-name {
+  flex: 1;
+  min-width: 0;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+.tt-study-goal {
+  flex: none;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 13px;
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+  color: var(--primary);
+  background: rgba(52, 80, 110, 0.1);
+}
+
+.tt-study-bar {
+  height: 8px;
+  overflow: hidden;
+  border-radius: 4px;
+  background: rgba(29, 29, 31, 0.08);
+}
+
+.tt-study-fill {
+  height: 100%;
+  border-radius: 4px;
+  background: var(--primary);
+  transition:
+    width 0.6s var(--spring),
+    background-color 0.3s ease;
+}
+
+.tt-study-fill[data-done] {
+  background: var(--u-bar);
+}
+
+.tt-study-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tt-study-left {
+  flex: 1;
+  min-width: 0;
+  font-size: 13.5px;
+  color: var(--ink-2);
+}
+
+.tt-study-left[data-done] {
+  font-weight: 700;
+  color: var(--u-ink);
+}
+
+.tt-study-btn {
+  flex: none;
+  min-width: 52px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 22px;
+  font-size: 15px;
+  font-weight: 750;
+  color: var(--ink);
+}
+
+.tt-study-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* +1 h: tinted glass, like the mic button */
+.tt-study-plus {
+  --glass-fill: rgba(52, 80, 110, 0.82);
+  --glass-fallback: rgba(52, 80, 110, 0.92);
+  --glass-tint: transparent;
+  color: #fff;
+  text-shadow: none;
+}
+
+.tt-study-foot {
+  margin: 0;
+  font-size: 12.5px;
+  color: var(--ink-2);
+}
+
+.tt-study-note {
+  margin: 4px 8px 0;
+  font-size: 12px;
+  color: var(--ink-2);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  /* cards arrive one after another when the tab opens */
+  .tt-study-hero,
+  .tt-study-card {
+    animation: tt-fade-up 0.5s var(--sheet-curve) both;
+    animation-delay: calc(var(--i, 0) * 45ms);
+  }
+  .tt-plan-top {
+    animation: tt-bar-in 0.45s var(--spring);
   }
 }
