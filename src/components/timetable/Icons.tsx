@@ -53,8 +53,18 @@ export function PlusIcon({ size = 24 }: IconProps) {
 export function MicIcon({ size = 28 }: IconProps) {
   return (
     <svg {...svg(size)}>
-      <rect x="9" y="3" width="6" height="12" rx="3" />
-      <path d="M5 11a7 7 0 0 0 14 0M12 18v3" />
+      {/* filled capsule like SF Symbols "mic.fill" */}
+      <rect x="8.5" y="2.5" width="7" height="12.5" rx="3.5" fill="currentColor" stroke="none" />
+      <path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5v3.5M9 21h6" />
+    </svg>
+  );
+}
+
+/** SF Symbols "waveform": shown while recording */
+export function WaveformIcon({ size = 24 }: IconProps) {
+  return (
+    <svg {...svg(size)}>
+      <path d="M3 10v4M6.5 7v10M10 4v16M13.5 8v8M17 5.5v13M20.5 10v4" />
     </svg>
   );
 }

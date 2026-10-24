@@ -16,7 +16,7 @@ export function Learnplan({ courses, groups, entries, onExport }: LearnplanProps
       <div className="tt-plan-head">
         <h1 className="tt-h1">Lernplan</h1>
         <span className="tt-chip">Beispieldaten</span>
-        <button type="button" className="tt-btn tt-btn-glass" onClick={onExport}>
+        <button type="button" className="tt-btn tt-btn-glass glass" onClick={onExport}>
           .ics
         </button>
       </div>
@@ -24,7 +24,7 @@ export function Learnplan({ courses, groups, entries, onExport }: LearnplanProps
         {courses.map((c) => {
           const mine = entries.filter((e) => e.courseId === c.id);
           return (
-            <li key={c.id} className="tt-course">
+            <li key={c.id} className="tt-course glass-dense">
               <div className="tt-course-main">
                 <p className="tt-course-name">{c.name}</p>
                 <ul className="tt-course-groups">
