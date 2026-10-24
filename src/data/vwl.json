@@ -1,0 +1,107 @@
+{
+  "program": {"id":"vwl","name":"VWL (B.Sc.)"},
+  "semester": {"start":"2026-10-26","end":"2027-02-05"},
+  "courses": [
+    { "id": "gvwl", "name": "Grundlagen der VWL", "required": true, "ects": 8, "exam": true, "term": 1,
+      "groups": [
+        {"id":"gvwl-v","kind":"Vorlesung","sessions":[{"day":"Mi","start":"08:30","end":"10:00","room":"A 5 B144"},{"day":"Di","start":"15:30","end":"17:00","room":"L 9 1-2"}]},
+        {"id":"gvwl-u1","kind":"Übung","sessions":[{"day":"Mi","start":"17:15","end":"18:45","room":"SN 163"}]},
+        {"id":"gvwl-u2","kind":"Übung","sessions":[{"day":"Mo","start":"12:00","end":"13:30","room":"O 226"}]},
+        {"id":"gvwl-u3","kind":"Übung","sessions":[{"day":"Fr","start":"17:15","end":"18:45","room":"A 5 B144"}]}
+      ] },
+    { "id": "wg", "name": "Wirtschaftsgeschichte", "required": true, "ects": 6, "exam": true, "term": 1,
+      "groups": [
+        {"id":"wg-v","kind":"Vorlesung","sessions":[{"day":"Di","start":"08:30","end":"10:00","room":"O 048"}]},
+        {"id":"wg-u1","kind":"Übung","sessions":[{"day":"Mo","start":"10:15","end":"11:45","room":"SN 169"}]},
+        {"id":"wg-u2","kind":"Übung","sessions":[{"day":"Mo","start":"13:45","end":"15:15","room":"B 6 A001"}]},
+        {"id":"wg-u3","kind":"Übung","sessions":[{"day":"Mi","start":"08:30","end":"10:00","room":"A 5 C015"}]}
+      ] },
+    { "id": "alga", "name": "Analysis und Lineare Algebra A", "required": true, "ects": 8, "exam": true, "term": 1,
+      "groups": [
+        {"id":"alga-v","kind":"Vorlesung","sessions":[{"day":"Do","start":"15:30","end":"17:00","room":"A 5 B144"},{"day":"Mi","start":"10:15","end":"11:45","room":"A 5 C015"}]},
+        {"id":"alga-u1","kind":"Übung","sessions":[{"day":"Di","start":"17:15","end":"18:45","room":"B 6 A001"}]},
+        {"id":"alga-u2","kind":"Übung","sessions":[{"day":"Do","start":"10:15","end":"11:45","room":"B 6 A104"}]},
+        {"id":"alga-u3","kind":"Übung","sessions":[{"day":"Mi","start":"08:30","end":"10:00","room":"B 6 A104"}]}
+      ] },
+    { "id": "fm", "name": "Finanzmathematik", "required": true, "ects": 3, "exam": false, "term": 1,
+      "groups": [
+        {"id":"fm-v","kind":"Vorlesung","sessions":[{"day":"Do","start":"12:00","end":"13:30","room":"SN 163"}]},
+        {"id":"fm-u1","kind":"Tutorium","sessions":[{"day":"Do","start":"13:45","end":"15:15","room":"B 6 A001"}]},
+        {"id":"fm-u2","kind":"Tutorium","sessions":[{"day":"Fr","start":"17:15","end":"18:45","room":"SN 169"}]}
+      ] },
+    { "id": "recht", "name": "Recht", "required": true, "ects": 6, "exam": true, "term": 1,
+      "groups": [
+        {"id":"recht-v","kind":"Vorlesung","sessions":[{"day":"Di","start":"10:15","end":"11:45","room":"A 5 B144"},{"day":"Mi","start":"17:15","end":"18:45","room":"SN 163"}]}
+      ] },
+    { "id": "wiarb", "name": "Wissenschaftliches Arbeiten", "required": true, "ects": 2, "exam": false, "term": 1,
+      "groups": [
+        {"id":"wiarb-v","kind":"Vorlesung","sessions":[{"day":"Di","start":"13:45","end":"15:15","room":"O 226"}]},
+        {"id":"wiarb-u1","kind":"Tutorium","sessions":[{"day":"Mo","start":"08:30","end":"10:00","room":"L 9 1-2"}]},
+        {"id":"wiarb-u2","kind":"Tutorium","sessions":[{"day":"Fr","start":"08:30","end":"10:00","room":"SN 169"}]}
+      ] },
+    { "id": "makroa", "name": "Makroökonomik A", "required": true, "ects": 8, "exam": true, "term": 2,
+      "groups": [
+        {"id":"makroa-v","kind":"Vorlesung","sessions":[{"day":"Fr","start":"10:15","end":"11:45","room":"O 138"},{"day":"Mo","start":"15:30","end":"17:00","room":"O 226"}]},
+        {"id":"makroa-u1","kind":"Übung","sessions":[{"day":"Di","start":"08:30","end":"10:00","room":"B 6 A104"}]},
+        {"id":"makroa-u2","kind":"Übung","sessions":[{"day":"Fr","start":"17:15","end":"18:45","room":"O 138"}]},
+        {"id":"makroa-u3","kind":"Übung","sessions":[{"day":"Di","start":"12:00","end":"13:30","room":"O 048"}]}
+      ] },
+    { "id": "mikroa", "name": "Mikroökonomik A", "required": true, "ects": 8, "exam": true, "term": 2,
+      "groups": [
+        {"id":"mikroa-v","kind":"Vorlesung","sessions":[{"day":"Fr","start":"13:45","end":"15:15","room":"SN 163"},{"day":"Di","start":"17:15","end":"18:45","room":"SN 163"}]},
+        {"id":"mikroa-u1","kind":"Übung","sessions":[{"day":"Fr","start":"10:15","end":"11:45","room":"O 138"}]},
+        {"id":"mikroa-u2","kind":"Übung","sessions":[{"day":"Di","start":"12:00","end":"13:30","room":"B 6 A001"}]},
+        {"id":"mikroa-u3","kind":"Übung","sessions":[{"day":"Do","start":"13:45","end":"15:15","room":"SN 169"}]}
+      ] },
+    { "id": "stat1", "name": "Statistik I", "required": true, "ects": 8, "exam": true, "term": 2,
+      "groups": [
+        {"id":"stat1-v","kind":"Vorlesung","sessions":[{"day":"Di","start":"08:30","end":"10:00","room":"A 5 C015"},{"day":"Mo","start":"13:45","end":"15:15","room":"A 5 B144"}]},
+        {"id":"stat1-u1","kind":"Übung","sessions":[{"day":"Mi","start":"13:45","end":"15:15","room":"A 5 B144"}]},
+        {"id":"stat1-u2","kind":"Übung","sessions":[{"day":"Do","start":"15:30","end":"17:00","room":"A 5 B144"}]},
+        {"id":"stat1-u3","kind":"Übung","sessions":[{"day":"Do","start":"13:45","end":"15:15","room":"A 5 B144"}]}
+      ] },
+    { "id": "makrob", "name": "Makroökonomik B", "required": true, "ects": 8, "exam": true, "term": 3,
+      "groups": [
+        {"id":"makrob-v","kind":"Vorlesung","sessions":[{"day":"Do","start":"10:15","end":"11:45","room":"SN 169"},{"day":"Fr","start":"13:45","end":"15:15","room":"B 6 A104"}]},
+        {"id":"makrob-u1","kind":"Übung","sessions":[{"day":"Mo","start":"17:15","end":"18:45","room":"A 5 C015"}]},
+        {"id":"makrob-u2","kind":"Übung","sessions":[{"day":"Mo","start":"12:00","end":"13:30","room":"L 9 1-2"}]},
+        {"id":"makrob-u3","kind":"Übung","sessions":[{"day":"Di","start":"17:15","end":"18:45","room":"A 5 C015"}]}
+      ] },
+    { "id": "mikrob", "name": "Mikroökonomik B", "required": true, "ects": 8, "exam": true, "term": 3,
+      "groups": [
+        {"id":"mikrob-v","kind":"Vorlesung","sessions":[{"day":"Mi","start":"08:30","end":"10:00","room":"O 226"},{"day":"Di","start":"13:45","end":"15:15","room":"B 6 A001"}]},
+        {"id":"mikrob-u1","kind":"Übung","sessions":[{"day":"Di","start":"15:30","end":"17:00","room":"A 5 B144"}]},
+        {"id":"mikrob-u2","kind":"Übung","sessions":[{"day":"Di","start":"13:45","end":"15:15","room":"O 138"}]},
+        {"id":"mikrob-u3","kind":"Übung","sessions":[{"day":"Mi","start":"17:15","end":"18:45","room":"SN 163"}]}
+      ] },
+    { "id": "stat2", "name": "Statistik II", "required": true, "ects": 8, "exam": true, "term": 3,
+      "groups": [
+        {"id":"stat2-v","kind":"Vorlesung","sessions":[{"day":"Mi","start":"10:15","end":"11:45","room":"O 138"},{"day":"Mo","start":"12:00","end":"13:30","room":"SN 169"}]},
+        {"id":"stat2-u1","kind":"Übung","sessions":[{"day":"Fr","start":"12:00","end":"13:30","room":"B 6 A001"}]},
+        {"id":"stat2-u2","kind":"Übung","sessions":[{"day":"Mo","start":"17:15","end":"18:45","room":"A 5 B144"}]},
+        {"id":"stat2-u3","kind":"Übung","sessions":[{"day":"Do","start":"15:30","end":"17:00","room":"SN 163"}]}
+      ] },
+    { "id": "wipol", "name": "Wirtschaftspolitik", "required": true, "ects": 8, "exam": true, "term": 4,
+      "groups": [
+        {"id":"wipol-v","kind":"Vorlesung","sessions":[{"day":"Mo","start":"08:30","end":"10:00","room":"A 5 B144"},{"day":"Di","start":"13:45","end":"15:15","room":"O 048"}]},
+        {"id":"wipol-u1","kind":"Übung","sessions":[{"day":"Do","start":"12:00","end":"13:30","room":"B 6 A104"}]},
+        {"id":"wipol-u2","kind":"Übung","sessions":[{"day":"Di","start":"08:30","end":"10:00","room":"SN 169"}]},
+        {"id":"wipol-u3","kind":"Übung","sessions":[{"day":"Do","start":"13:45","end":"15:15","room":"A 5 C015"}]}
+      ] },
+    { "id": "fw", "name": "Finanzwissenschaft", "required": true, "ects": 8, "exam": true, "term": 4,
+      "groups": [
+        {"id":"fw-v","kind":"Vorlesung","sessions":[{"day":"Mo","start":"15:30","end":"17:00","room":"SN 163"},{"day":"Mi","start":"12:00","end":"13:30","room":"O 138"}]},
+        {"id":"fw-u1","kind":"Übung","sessions":[{"day":"Di","start":"10:15","end":"11:45","room":"A 5 C015"}]},
+        {"id":"fw-u2","kind":"Übung","sessions":[{"day":"Do","start":"08:30","end":"10:00","room":"A 5 C015"}]},
+        {"id":"fw-u3","kind":"Übung","sessions":[{"day":"Di","start":"17:15","end":"18:45","room":"O 226"}]}
+      ] },
+    { "id": "oekon", "name": "Grundlagen der Ökonometrie", "required": true, "ects": 6, "exam": true, "term": 4,
+      "groups": [
+        {"id":"oekon-v","kind":"Vorlesung","sessions":[{"day":"Mo","start":"13:45","end":"15:15","room":"SN 163"}]},
+        {"id":"oekon-u1","kind":"Übung","sessions":[{"day":"Do","start":"10:15","end":"11:45","room":"A 5 C015"}]},
+        {"id":"oekon-u2","kind":"Übung","sessions":[{"day":"Mo","start":"13:45","end":"15:15","room":"B 6 A001"}]},
+        {"id":"oekon-u3","kind":"Übung","sessions":[{"day":"Do","start":"08:30","end":"10:00","room":"A 5 C015"}]}
+      ] }
+  ],
+  "fixed": []
+}

@@ -1,0 +1,190 @@
+{
+  "program": {"id":"wifo","name":"Wirtschaftsinformatik (B.Sc.)"},
+  "semester": {"start":"2026-10-26","end":"2027-02-05"},
+  "courses": [
+    { "id": "pi1", "name": "Praktische Informatik I", "required": true, "ects": 8, "exam": true, "term": 1,
+      "groups": [
+        {"id":"pi1-v","kind":"Vorlesung","sessions":[{"day":"Di","start":"10:15","end":"11:45","room":"O 226"},{"day":"Mo","start":"13:45","end":"15:15","room":"A 5 C015"}]},
+        {"id":"pi1-u1","kind":"Übung","sessions":[{"day":"Do","start":"12:00","end":"13:30","room":"B 6 A104"}]},
+        {"id":"pi1-u2","kind":"Übung","sessions":[{"day":"Di","start":"10:15","end":"11:45","room":"B 6 A001"}]},
+        {"id":"pi1-u3","kind":"Übung","sessions":[{"day":"Di","start":"13:45","end":"15:15","room":"A 5 C015"}]}
+      ] },
+    { "id": "fgi", "name": "Formale Grundlagen der Informatik", "required": true, "ects": 6, "exam": true, "term": 1,
+      "groups": [
+        {"id":"fgi-v","kind":"Vorlesung","sessions":[{"day":"Fr","start":"13:45","end":"15:15","room":"O 226"}]},
+        {"id":"fgi-u1","kind":"Übung","sessions":[{"day":"Mo","start":"10:15","end":"11:45","room":"B 6 A001"}]},
+        {"id":"fgi-u2","kind":"Übung","sessions":[{"day":"Do","start":"12:00","end":"13:30","room":"SN 169"}]},
+        {"id":"fgi-u3","kind":"Übung","sessions":[{"day":"Di","start":"10:15","end":"11:45","room":"A 5 B144"}]}
+      ] },
+    { "id": "wi1", "name": "Wirtschaftsinformatik I", "required": true, "ects": 6, "exam": true, "term": 1,
+      "groups": [
+        {"id":"wi1-v","kind":"Vorlesung","sessions":[{"day":"Mi","start":"10:15","end":"11:45","room":"L 9 1-2"}]},
+        {"id":"wi1-u1","kind":"Übung","sessions":[{"day":"Di","start":"10:15","end":"11:45","room":"O 226"}]},
+        {"id":"wi1-u2","kind":"Übung","sessions":[{"day":"Fr","start":"15:30","end":"17:00","room":"O 226"}]},
+        {"id":"wi1-u3","kind":"Übung","sessions":[{"day":"Di","start":"08:30","end":"10:00","room":"SN 163"}]}
+      ] },
+    { "id": "bwl1", "name": "BWL 1 (Schwerpunktmodul)", "required": true, "ects": 6, "exam": true, "term": 1,
+      "groups": [
+        {"id":"bwl1-v","kind":"Vorlesung","sessions":[{"day":"Di","start":"12:00","end":"13:30","room":"SN 163"}]},
+        {"id":"bwl1-u1","kind":"Übung","sessions":[{"day":"Mi","start":"10:15","end":"11:45","room":"A 5 C015"}]},
+        {"id":"bwl1-u2","kind":"Übung","sessions":[{"day":"Mo","start":"10:15","end":"11:45","room":"O 138"}]},
+        {"id":"bwl1-u3","kind":"Übung","sessions":[{"day":"Do","start":"08:30","end":"10:00","room":"L 9 1-2"}]}
+      ] },
+    { "id": "pp1", "name": "Programmierpraktikum I", "required": true, "ects": 5, "exam": true, "term": 1,
+      "groups": [
+        {"id":"pp1-v","kind":"Vorlesung","sessions":[{"day":"Di","start":"08:30","end":"10:00","room":"O 226"}]},
+        {"id":"pp1-u1","kind":"Tutorium","sessions":[{"day":"Fr","start":"13:45","end":"15:15","room":"A 5 C015"}]},
+        {"id":"pp1-u2","kind":"Tutorium","sessions":[{"day":"Fr","start":"13:45","end":"15:15","room":"SN 169"}]},
+        {"id":"pp1-u3","kind":"Tutorium","sessions":[{"day":"Fr","start":"12:00","end":"13:30","room":"O 138"}]}
+      ] },
+    { "id": "zeit", "name": "Zeitmanagement", "required": true, "ects": 1, "exam": false, "term": 1,
+      "groups": [
+        {"id":"zeit-v","kind":"Vorlesung","sessions":[{"day":"Fr","start":"08:30","end":"10:00","room":"A 5 B144"}]}
+      ] },
+    { "id": "pi2", "name": "Praktische Informatik II", "required": true, "ects": 6, "exam": true, "term": 2,
+      "groups": [
+        {"id":"pi2-v","kind":"Vorlesung","sessions":[{"day":"Fr","start":"15:30","end":"17:00","room":"SN 169"}]},
+        {"id":"pi2-u1","kind":"Übung","sessions":[{"day":"Do","start":"15:30","end":"17:00","room":"O 138"}]},
+        {"id":"pi2-u2","kind":"Übung","sessions":[{"day":"Mi","start":"12:00","end":"13:30","room":"B 6 A104"}]},
+        {"id":"pi2-u3","kind":"Übung","sessions":[{"day":"Mi","start":"17:15","end":"18:45","room":"SN 169"}]}
+      ] },
+    { "id": "pp2", "name": "Programmierpraktikum II", "required": true, "ects": 5, "exam": true, "term": 2,
+      "groups": [
+        {"id":"pp2-v","kind":"Vorlesung","sessions":[{"day":"Di","start":"17:15","end":"18:45","room":"SN 163"}]},
+        {"id":"pp2-u1","kind":"Tutorium","sessions":[{"day":"Do","start":"08:30","end":"10:00","room":"B 6 A001"}]},
+        {"id":"pp2-u2","kind":"Tutorium","sessions":[{"day":"Di","start":"17:15","end":"18:45","room":"B 6 A001"}]},
+        {"id":"pp2-u3","kind":"Tutorium","sessions":[{"day":"Mo","start":"15:30","end":"17:00","room":"SN 163"}]}
+      ] },
+    { "id": "bwl2", "name": "BWL 2 (Schwerpunktmodul)", "required": true, "ects": 6, "exam": true, "term": 2,
+      "groups": [
+        {"id":"bwl2-v","kind":"Vorlesung","sessions":[{"day":"Mi","start":"17:15","end":"18:45","room":"SN 169"}]},
+        {"id":"bwl2-u1","kind":"Übung","sessions":[{"day":"Fr","start":"17:15","end":"18:45","room":"O 048"}]},
+        {"id":"bwl2-u2","kind":"Übung","sessions":[{"day":"Mi","start":"08:30","end":"10:00","room":"A 5 B144"}]},
+        {"id":"bwl2-u3","kind":"Übung","sessions":[{"day":"Fr","start":"12:00","end":"13:30","room":"SN 163"}]}
+      ] },
+    { "id": "ana", "name": "Analysis", "required": true, "ects": 8, "exam": true, "term": 2,
+      "groups": [
+        {"id":"ana-v","kind":"Vorlesung","sessions":[{"day":"Do","start":"13:45","end":"15:15","room":"A 5 B144"},{"day":"Di","start":"12:00","end":"13:30","room":"B 6 A001"}]},
+        {"id":"ana-u1","kind":"Übung","sessions":[{"day":"Mi","start":"12:00","end":"13:30","room":"SN 163"}]},
+        {"id":"ana-u2","kind":"Übung","sessions":[{"day":"Di","start":"08:30","end":"10:00","room":"O 138"}]},
+        {"id":"ana-u3","kind":"Übung","sessions":[{"day":"Do","start":"12:00","end":"13:30","room":"A 5 B144"}]}
+      ] },
+    { "id": "sqpool", "name": "SQ aus Pool", "required": false, "ects": 4, "exam": false, "term": 2,
+      "groups": [
+        {"id":"sqpool-v","kind":"Vorlesung","sessions":[{"day":"Di","start":"10:15","end":"11:45","room":"B 6 A001"}]}
+      ] },
+    { "id": "wi3", "name": "Wirtschaftsinformatik III", "required": true, "ects": 6, "exam": true, "term": 3,
+      "groups": [
+        {"id":"wi3-v","kind":"Vorlesung","sessions":[{"day":"Di","start":"13:45","end":"15:15","room":"A 5 B144"}]},
+        {"id":"wi3-u1","kind":"Übung","sessions":[{"day":"Do","start":"12:00","end":"13:30","room":"SN 163"}]},
+        {"id":"wi3-u2","kind":"Übung","sessions":[{"day":"Fr","start":"08:30","end":"10:00","room":"L 9 1-2"}]},
+        {"id":"wi3-u3","kind":"Übung","sessions":[{"day":"Do","start":"13:45","end":"15:15","room":"L 9 1-2"}]}
+      ] },
+    { "id": "bwl3", "name": "BWL 3 (Schwerpunktmodul)", "required": true, "ects": 6, "exam": true, "term": 3,
+      "groups": [
+        {"id":"bwl3-v","kind":"Vorlesung","sessions":[{"day":"Mi","start":"13:45","end":"15:15","room":"A 5 B144"}]},
+        {"id":"bwl3-u1","kind":"Übung","sessions":[{"day":"Do","start":"17:15","end":"18:45","room":"A 5 B144"}]},
+        {"id":"bwl3-u2","kind":"Übung","sessions":[{"day":"Mo","start":"10:15","end":"11:45","room":"SN 169"}]},
+        {"id":"bwl3-u3","kind":"Übung","sessions":[{"day":"Di","start":"10:15","end":"11:45","room":"O 048"}]}
+      ] },
+    { "id": "ads", "name": "Algorithmen und Datenstrukturen", "required": true, "ects": 8, "exam": true, "term": 3,
+      "groups": [
+        {"id":"ads-v","kind":"Vorlesung","sessions":[{"day":"Mi","start":"17:15","end":"18:45","room":"O 138"},{"day":"Mo","start":"10:15","end":"11:45","room":"SN 163"}]},
+        {"id":"ads-u1","kind":"Übung","sessions":[{"day":"Di","start":"17:15","end":"18:45","room":"O 048"}]},
+        {"id":"ads-u2","kind":"Übung","sessions":[{"day":"Di","start":"17:15","end":"18:45","room":"SN 163"}]},
+        {"id":"ads-u3","kind":"Übung","sessions":[{"day":"Mo","start":"15:30","end":"17:00","room":"B 6 A104"}]}
+      ] },
+    { "id": "la1", "name": "Lineare Algebra I", "required": true, "ects": 9, "exam": true, "term": 3,
+      "groups": [
+        {"id":"la1-v","kind":"Vorlesung","sessions":[{"day":"Di","start":"12:00","end":"13:30","room":"SN 169"},{"day":"Do","start":"13:45","end":"15:15","room":"O 048"}]},
+        {"id":"la1-u1","kind":"Übung","sessions":[{"day":"Mo","start":"12:00","end":"13:30","room":"A 5 B144"}]},
+        {"id":"la1-u2","kind":"Übung","sessions":[{"day":"Mo","start":"17:15","end":"18:45","room":"B 6 A001"}]},
+        {"id":"la1-u3","kind":"Übung","sessions":[{"day":"Mo","start":"10:15","end":"11:45","room":"A 5 B144"}]}
+      ] },
+    { "id": "cpm", "name": "Change- und Projektmanagement", "required": true, "ects": 2, "exam": false, "term": 3,
+      "groups": [
+        {"id":"cpm-v","kind":"Vorlesung","sessions":[{"day":"Do","start":"10:15","end":"11:45","room":"A 5 B144"}]}
+      ] },
+    { "id": "wi4", "name": "Wirtschaftsinformatik IV", "required": true, "ects": 6, "exam": true, "term": 4,
+      "groups": [
+        {"id":"wi4-v","kind":"Vorlesung","sessions":[{"day":"Mi","start":"12:00","end":"13:30","room":"O 226"}]},
+        {"id":"wi4-u1","kind":"Übung","sessions":[{"day":"Di","start":"15:30","end":"17:00","room":"A 5 B144"}]},
+        {"id":"wi4-u2","kind":"Übung","sessions":[{"day":"Mi","start":"10:15","end":"11:45","room":"L 9 1-2"}]},
+        {"id":"wi4-u3","kind":"Übung","sessions":[{"day":"Di","start":"08:30","end":"10:00","room":"A 5 B144"}]}
+      ] },
+    { "id": "wi2a", "name": "Wirtschaftsinformatik II a", "required": true, "ects": 3, "exam": false, "term": 4,
+      "groups": [
+        {"id":"wi2a-v","kind":"Vorlesung","sessions":[{"day":"Do","start":"10:15","end":"11:45","room":"SN 169"}]}
+      ] },
+    { "id": "wi2b", "name": "Wirtschaftsinformatik II b", "required": true, "ects": 3, "exam": false, "term": 4,
+      "groups": [
+        {"id":"wi2b-v","kind":"Vorlesung","sessions":[{"day":"Do","start":"13:45","end":"15:15","room":"O 048"}]}
+      ] },
+    { "id": "swt1", "name": "Softwaretechnik I", "required": true, "ects": 6, "exam": true, "term": 4,
+      "groups": [
+        {"id":"swt1-v","kind":"Vorlesung","sessions":[{"day":"Di","start":"10:15","end":"11:45","room":"O 048"}]},
+        {"id":"swt1-u1","kind":"Übung","sessions":[{"day":"Fr","start":"17:15","end":"18:45","room":"A 5 B144"}]},
+        {"id":"swt1-u2","kind":"Übung","sessions":[{"day":"Di","start":"10:15","end":"11:45","room":"O 226"}]},
+        {"id":"swt1-u3","kind":"Übung","sessions":[{"day":"Di","start":"17:15","end":"18:45","room":"SN 169"}]}
+      ] },
+    { "id": "pse", "name": "Praktikum Software Engineering", "required": true, "ects": 5, "exam": true, "term": 4,
+      "groups": [
+        {"id":"pse-v","kind":"Vorlesung","sessions":[{"day":"Mo","start":"08:30","end":"10:00","room":"L 9 1-2"}]},
+        {"id":"pse-u1","kind":"Tutorium","sessions":[{"day":"Fr","start":"12:00","end":"13:30","room":"A 5 B144"}]},
+        {"id":"pse-u2","kind":"Tutorium","sessions":[{"day":"Mo","start":"12:00","end":"13:30","room":"O 138"}]}
+      ] },
+    { "id": "stat", "name": "Grundlagen der Statistik", "required": true, "ects": 8, "exam": true, "term": 4,
+      "groups": [
+        {"id":"stat-v","kind":"Vorlesung","sessions":[{"day":"Fr","start":"10:15","end":"11:45","room":"A 5 C015"},{"day":"Di","start":"15:30","end":"17:00","room":"SN 163"}]},
+        {"id":"stat-u1","kind":"Übung","sessions":[{"day":"Mo","start":"08:30","end":"10:00","room":"O 226"}]},
+        {"id":"stat-u2","kind":"Übung","sessions":[{"day":"Fr","start":"15:30","end":"17:00","room":"A 5 C015"}]},
+        {"id":"stat-u3","kind":"Übung","sessions":[{"day":"Mo","start":"17:15","end":"18:45","room":"A 5 C015"}]}
+      ] },
+    { "id": "bwl4", "name": "BWL 4 (Schwerpunktmodul)", "required": true, "ects": 6, "exam": true, "term": 5,
+      "groups": [
+        {"id":"bwl4-v","kind":"Vorlesung","sessions":[{"day":"Fr","start":"08:30","end":"10:00","room":"O 048"}]},
+        {"id":"bwl4-u1","kind":"Übung","sessions":[{"day":"Di","start":"10:15","end":"11:45","room":"A 5 B144"}]},
+        {"id":"bwl4-u2","kind":"Übung","sessions":[{"day":"Mi","start":"17:15","end":"18:45","room":"O 048"}]},
+        {"id":"bwl4-u3","kind":"Übung","sessions":[{"day":"Di","start":"13:45","end":"15:15","room":"A 5 C015"}]}
+      ] },
+    { "id": "dbs", "name": "Datenbanksysteme", "required": true, "ects": 8, "exam": true, "term": 5,
+      "groups": [
+        {"id":"dbs-v","kind":"Vorlesung","sessions":[{"day":"Mi","start":"12:00","end":"13:30","room":"B 6 A001"},{"day":"Di","start":"10:15","end":"11:45","room":"B 6 A001"}]},
+        {"id":"dbs-u1","kind":"Übung","sessions":[{"day":"Mi","start":"13:45","end":"15:15","room":"SN 169"}]},
+        {"id":"dbs-u2","kind":"Übung","sessions":[{"day":"Do","start":"15:30","end":"17:00","room":"B 6 A104"}]},
+        {"id":"dbs-u3","kind":"Übung","sessions":[{"day":"Do","start":"12:00","end":"13:30","room":"A 5 B144"}]}
+      ] },
+    { "id": "sem", "name": "Seminar", "required": true, "ects": 5, "exam": true, "term": 5,
+      "groups": [
+        {"id":"sem-v","kind":"Vorlesung","sessions":[{"day":"Fr","start":"12:00","end":"13:30","room":"SN 169"}]}
+      ] },
+    { "id": "vert1", "name": "Vertiefung (Wahl)", "required": false, "ects": 6, "exam": true, "term": 5,
+      "groups": [
+        {"id":"vert1-v","kind":"Vorlesung","sessions":[{"day":"Mo","start":"10:15","end":"11:45","room":"O 226"}]},
+        {"id":"vert1-u1","kind":"Übung","sessions":[{"day":"Mi","start":"15:30","end":"17:00","room":"A 5 C015"}]},
+        {"id":"vert1-u2","kind":"Übung","sessions":[{"day":"Mi","start":"13:45","end":"15:15","room":"SN 163"}]}
+      ] },
+    { "id": "wahl5", "name": "Wahlfach", "required": false, "ects": 6, "exam": true, "term": 5,
+      "groups": [
+        {"id":"wahl5-v","kind":"Vorlesung","sessions":[{"day":"Di","start":"08:30","end":"10:00","room":"O 048"}]}
+      ] },
+    { "id": "bwl5", "name": "BWL 5 (Schwerpunktmodul)", "required": true, "ects": 6, "exam": true, "term": 6,
+      "groups": [
+        {"id":"bwl5-v","kind":"Vorlesung","sessions":[{"day":"Fr","start":"10:15","end":"11:45","room":"O 138"}]},
+        {"id":"bwl5-u1","kind":"Übung","sessions":[{"day":"Fr","start":"12:00","end":"13:30","room":"B 6 A104"}]},
+        {"id":"bwl5-u2","kind":"Übung","sessions":[{"day":"Di","start":"10:15","end":"11:45","room":"SN 163"}]},
+        {"id":"bwl5-u3","kind":"Übung","sessions":[{"day":"Mi","start":"08:30","end":"10:00","room":"B 6 A104"}]}
+      ] },
+    { "id": "vert2", "name": "Vertiefung (Wahl)", "required": false, "ects": 6, "exam": true, "term": 6,
+      "groups": [
+        {"id":"vert2-v","kind":"Vorlesung","sessions":[{"day":"Fr","start":"13:45","end":"15:15","room":"SN 169"}]},
+        {"id":"vert2-u1","kind":"Übung","sessions":[{"day":"Fr","start":"13:45","end":"15:15","room":"A 5 B144"}]},
+        {"id":"vert2-u2","kind":"Übung","sessions":[{"day":"Mi","start":"15:30","end":"17:00","room":"A 5 B144"}]}
+      ] },
+    { "id": "prae", "name": "Präsentationskompetenz und Rhetorik", "required": true, "ects": 2, "exam": false, "term": 6,
+      "groups": [
+        {"id":"prae-v","kind":"Vorlesung","sessions":[{"day":"Do","start":"13:45","end":"15:15","room":"O 138"}]}
+      ] }
+  ],
+  "fixed": []
+}
