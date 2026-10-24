@@ -31,7 +31,8 @@ interface MonthViewProps {
 }
 
 const firstOfMonth = (iso: string) => `${iso.slice(0, 8)}01`;
-const monthIndex = (iso: string) => Number(iso.slice(0, 4)) * 12 + Number(iso.slice(5, 7)) - 1;
+const monthIndex = (iso: string) =>
+  Number(iso.slice(0, 4)) * 12 + Number(iso.slice(5, 7)) - 1;
 
 /** up to 3 dots: red first on a conflict day, "+" as third when there are more */
 function dotsFor(list: Entry[], conflict: boolean): string[] {
@@ -61,7 +62,10 @@ function MonthGrid({
       {Array.from({ length: 42 }, (_, i) => {
         const iso = addDays(start, i);
         const list = entriesOn(entries, iso);
-        const bad = conflictIds(list).size > 0 ? list.filter((e) => conflictIds(list).has(e.id)).length : 0;
+        const bad =
+          conflictIds(list).size > 0
+            ? list.filter((e) => conflictIds(list).has(e.id)).length
+            : 0;
         const d = Number(iso.slice(8));
         return (
           <button
@@ -92,18 +96,37 @@ function MonthGrid({
 }
 
 /** iPhone-style month view: scrolling month grid on top, the selected day's appointments below. */
-export function MonthView({ date, today, entries, onSelect, onOpenDay, onEntryTap, onConflictTap }: MonthViewProps) {
+export function MonthView({
+  date,
+  today,
+  entries,
+  onSelect,
+  onOpenDay,
+  onEntryTap,
+  onConflictTap,
+}: MonthViewProps) {
   const scroller = useRef<HTMLDivElement>(null);
   const [base, setBase] = useState(() => firstOfMonth(date));
-  const months = useMemo(() => Array.from({ length: SPAN * 2 + 1 }, (_, i) => addMonths(base, i - SPAN)), [base]);
+  const months = useMemo(
+    () =>
+      Array.from({ length: SPAN * 2 + 1 }, (_, i) => addMonths(base, i - SPAN)),
+    [base],
+  );
   const [visible, setVisible] = useState(SPAN);
 
   const idxOf = (iso: string) => monthIndex(iso) - monthIndex(base) + SPAN;
 
+  /** one month block; the scroller is full screen, the grid sits between the two glass bubbles */
+  const blockH = (s: HTMLDivElement) =>
+    (s.firstElementChild as HTMLElement | null)?.offsetHeight || s.clientHeight;
+
   const scrollToIdx = (idx: number, smooth: boolean) => {
     const s = scroller.current;
     if (!s) return;
-    s.scrollTo({ top: idx * s.clientHeight, behavior: smooth ? "smooth" : "instant" });
+    s.scrollTo({
+      top: idx * blockH(s),
+      behavior: smooth ? "smooth" : "instant",
+    });
   };
 
   // start on the month of the selected day
@@ -125,7 +148,7 @@ export function MonthView({ date, today, entries, onSelect, onOpenDay, onEntryTa
   const onScroll = () => {
     const s = scroller.current;
     if (!s) return;
-    const idx = Math.round(s.scrollTop / s.clientHeight);
+    const idx = Math.round(s.scrollTop / blockH(s));
     if (idx !== visible) setVisible(idx);
   };
 
@@ -139,36 +162,47 @@ export function MonthView({ date, today, entries, onSelect, onOpenDay, onEntryTa
 
   return (
     <section className="tt-mv" aria-label="Monatsansicht">
-      <div className="tt-mv-head">
-        <h1 className="tt-month-title" aria-live="polite">
-          {dayParts(visibleMonth).month}
-        </h1>
-        <button
-          type="button"
-          className="tt-today glass"
-          data-hidden={todayInView || undefined}
-          tabIndex={todayInView ? -1 : 0}
-          aria-hidden={todayInView || undefined}
-          onClick={() => {
-            // selecting today is enough: the date effect below scrolls to its month
-            if (date === today) scrollToIdx(idxOf(today), true);
-            else onSelect(today);
-          }}
-        >
-          Heute
-        </button>
-      </div>
-      <div className="tt-mv-wd" aria-hidden="true">
-        {WD_SHORT.map((wd) => (
-          <span key={wd}>{wd}</span>
-        ))}
+      {/* top glass bubble: month title + weekdays, floating over the grid */}
+      <div className="tt-mv-top glass">
+        <div className="tt-mv-head">
+          <h1 className="tt-month-title" aria-live="polite">
+            {dayParts(visibleMonth).month}
+          </h1>
+          <button
+            type="button"
+            className="tt-today glass"
+            data-hidden={todayInView || undefined}
+            tabIndex={todayInView ? -1 : 0}
+            aria-hidden={todayInView || undefined}
+            onClick={() => {
+              // selecting today is enough: the date effect below scrolls to its month
+              if (date === today) scrollToIdx(idxOf(today), true);
+              else onSelect(today);
+            }}
+          >
+            Heute
+          </button>
+        </div>
+        <div className="tt-mv-wd" aria-hidden="true">
+          {WD_SHORT.map((wd) => (
+            <span key={wd}>{wd}</span>
+          ))}
+        </div>
       </div>
       <div className="tt-mv-months" ref={scroller} onScroll={onScroll}>
         {months.map((m) => (
-          <MonthGrid key={m} month={m} date={date} today={today} entries={entries} onTap={tap} />
+          <MonthGrid
+            key={m}
+            month={m}
+            date={date}
+            today={today}
+            entries={entries}
+            onTap={tap}
+          />
         ))}
       </div>
-      <div className="tt-mv-list">
+      {/* bottom glass bubble: appointments of the selected day */}
+      <div className="tt-mv-list glass">
         <h2 className="tt-mv-list-head">
           {WD_LONG[weekdayOf(date)]},{" "}
           <span>
@@ -188,7 +222,11 @@ export function MonthView({ date, today, entries, onSelect, onOpenDay, onEntryTa
                     className="tt-mv-row"
                     data-type={e.type}
                     data-conflict={conflict || undefined}
-                    onClick={() => (conflict && !e.fixed && e.groupId ? onConflictTap(e) : onEntryTap(e))}
+                    onClick={() =>
+                      conflict && !e.fixed && e.groupId
+                        ? onConflictTap(e)
+                        : onEntryTap(e)
+                    }
                   >
                     <span className="tt-mv-row-main">
                       <span className="tt-mv-row-title">{e.title}</span>
@@ -213,7 +251,10 @@ export function MonthView({ date, today, entries, onSelect, onOpenDay, onEntryTa
                           <LockIcon size={14} />
                         </span>
                       )}
-                      <span className="tt-weight" aria-label={`Wichtigkeit ${e.weight}`}>
+                      <span
+                        className="tt-weight"
+                        aria-label={`Wichtigkeit ${e.weight}`}
+                      >
                         {e.weight}
                       </span>
                     </span>
