@@ -21,7 +21,7 @@ const DIM_AFTER_MS = 3000;
 
 /**
  * Jog dial: drag the pill up or down to change the day (W) or the month (M). Tap W or M to switch;
- * a white thumb slides between the two letters.
+ * a filled thumb slides between the two labels.
  */
 export function DateSlider({ mode, onMode, date, onDate, min, max, autoDim = false }: DateSliderProps) {
   const drag = useRef<{ y: number; base: string; active: boolean } | null>(null);
@@ -112,7 +112,7 @@ export function DateSlider({ mode, onMode, date, onDate, min, max, autoDim = fal
         aria-label="Wochenansicht, tageweise blättern"
         onClick={() => onMode("W")}
       >
-        W
+        Wo
       </button>
       <button
         type="button"
@@ -122,7 +122,7 @@ export function DateSlider({ mode, onMode, date, onDate, min, max, autoDim = fal
         aria-label="Monatsansicht, monatsweise blättern"
         onClick={() => onMode("M")}
       >
-        M
+        Mon
       </button>
       {bubble && (
         <div className="tt-bubble glass-dense" role="status">
