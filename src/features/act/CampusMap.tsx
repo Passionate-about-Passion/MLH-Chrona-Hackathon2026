@@ -20,8 +20,8 @@ const MARK_STROKE = "#0a4fa3";
 const PICK = "#ff9f0a";
 const PICK_STROKE = "#b36b00";
 
-const MENSA_AT: [number, number] = [70, 430]; // Mensa am Schloss: Mensawiese, südwestlich vom Westflügel (Lageplan Uni)
-const MENSA_HALF: [number, number] = [44, 22]; // halbe Breite/Höhe des Mensa-Gebäudes
+const MENSA_AT: [number, number] = [70, 465]; // Mensa am Schloss: Mensawiese, südwestlich vom Westflügel (Lageplan Uni)
+const MENSA_HALF: [number, number] = [44, 58]; // halbe Breite/Höhe, hochkant wie im Uni-Plan
 /** Kurznamen der Bib-Standorte für die Badges */
 const LIB_SHORT: Record<string, string> = { W: "Westflügel", A3: "A3", A5: "A5", M: "Ehrenhof", S: "Schneckenhof" };
 const libColor = (p: number) => (p < 60 ? "#34c759" : p <= 85 ? "#ffcc00" : "#ff3b30");
