@@ -5,7 +5,7 @@
  */
 import { NextResponse } from "next/server";
 import { solve } from "@/features/act/solver";
-import { syncPlan } from "@/features/act/gcal";
+import { busyFromPrimary, syncPlan } from "@/features/act/gcal";
 import { getProgram, selectCourses } from "@/data";
 import { isMock, mockPlan } from "@/lib/mocks";
 import type { Choice, Constraint, Priority } from "@/lib/types";
@@ -21,6 +21,8 @@ export async function POST(req: Request) {
       current?: Choice[];
       /** false = Google-Kalender nicht anfassen */
       sync?: boolean;
+      /** false = private Termine aus dem Google-Hauptkalender nicht einplanen */
+      busy?: boolean;
       program?: string;
       term?: number;
       courseIds?: string[];
@@ -28,11 +30,24 @@ export async function POST(req: Request) {
     const program = getProgram(body.program);
     if (!program) return NextResponse.json({ error: `Unbekannter Studiengang: ${body.program}` }, { status: 400 });
     const data = selectCourses(program, { term: body.term, courseIds: body.courseIds });
-    const plan = isMock() ? mockPlan : solve(data, body.constraints ?? [], body.priorities ?? [], body.current);
+    // private Termine aus dem Google-Hauptkalender als feste Sperrzeiten; Fehler → ohne sie weiterplanen
+    let busy: Constraint[] = [];
+    let busyError: string | undefined;
+    if (!isMock() && body.busy !== false) {
+      busy = await busyFromPrimary(data).catch((e: Error) => {
+        busyError = e.message;
+        console.error("[gcal] busy:", e.message);
+        return [];
+      });
+    }
+    const plan = isMock() ? mockPlan : solve(data, [...(body.constraints ?? []), ...busy], body.priorities ?? [], body.current);
     const ms = Date.now() - t0;
     // Google-Kalender: Fehler oder Timeout ändern nichts am Plan, stehen nur in meta.calendar
     const calendar = isMock() || body.sync === false ? { calendar: "off" } : await syncPlan(data, plan.chosen, body.constraints ?? []);
-    return NextResponse.json({ plan, meta: { provider: "solver", model: "solver", ms, mock: isMock() || undefined, ...calendar } });
+    return NextResponse.json({
+      plan,
+      meta: { provider: "solver", model: "solver", ms, mock: isMock() || undefined, ...calendar, calendarBusy: busy, calendarBusyError: busyError },
+    });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);
     console.error("[act]", message);

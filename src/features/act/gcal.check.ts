@@ -1,7 +1,7 @@
 // Selbsttest ohne Netz: node src/features/act/gcal.check.ts
 import assert from "node:assert";
 import { readFileSync } from "node:fs";
-import { desiredEvents } from "./gcal.ts";
+import { blocksFromEvents, desiredEvents } from "./gcal.ts";
 import { solve } from "./solver.ts";
 import type { CourseData } from "../../lib/types";
 
@@ -25,5 +25,18 @@ assert.equal(events.filter((e) => !after.has(e.id)).length, 1, "stat-u1 → stat
 const withBlock = desiredEvents(data, start, [{ type: "block", day: "Do", start: "14:00", end: "16:00", label: "Fester Termin", hard: true }]);
 assert.equal(withBlock.length, events.length + 1, "harter Termin kommt in den Kalender");
 assert.equal(desiredEvents(data, start, [{ type: "block", day: "Di", start: "08:00", end: "22:00", label: "Frei", hard: false }]).length, events.length, "Wunsch nicht");
+
+// Hauptkalender → Sperrzeiten: privat ja, Kurs/ganztägig/doppelt nein
+const ev = (summary: string, s: string, e: string) => ({ summary, start: { dateTime: s }, end: { dateTime: e } });
+const busy = blocksFromEvents(
+  [
+    ev("Zahnarzt", "2026-10-26T10:05:00+01:00", "2026-10-26T10:35:00+01:00"),
+    ev("Zahnarzt", "2026-10-26T10:05:00+01:00", "2026-10-26T10:35:00+01:00"),
+    ev(data.courses[0].name, "2026-10-27T10:00:00+01:00", "2026-10-27T12:00:00+01:00"),
+    { summary: "Feiertag", start: { date: "2026-10-31" }, end: { date: "2026-11-01" } },
+  ],
+  data,
+);
+assert.deepEqual(busy, [{ type: "block", day: "Mo", start: "10:05", end: "10:35", label: "Zahnarzt", hard: true }], "nur der private Termin, einmal");
 
 console.log(`gcal.check OK (${events.length} Termine)`);

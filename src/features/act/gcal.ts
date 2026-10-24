@@ -100,6 +100,46 @@ async function gfetch(path: string, init: RequestInit = {}) {
   });
 }
 
+/* ───────── Hauptkalender → feste Sperrzeiten ───────── */
+
+type CalItem = { summary?: string; start?: { dateTime?: string; date?: string }; end?: { dateTime?: string; date?: string } };
+const WEEKDAYS: Day[] = ["So", "Mo", "Di", "Mi", "Do", "Fr", "Sa"];
+
+/** Private Termine (nicht ganztägig, kein Kurs aus `data`) werden zu harten Sperrzeiten. Rein, testbar. */
+export function blocksFromEvents(items: CalItem[], data: CourseData): Constraint[] {
+  // Kurs erkennen über Kürzel ("CS 301") oder Titel ("Marketing") – ponytail: Namensabgleich, kann sich irren
+  const keys = data.courses.flatMap((c) => {
+    const [code, title = code] = c.name.split(" · ");
+    return [code, title.split(" (")[0]].map((k) => k.trim().toLowerCase()).filter((k) => k.length >= 4);
+  });
+  const out: Constraint[] = [];
+  for (const e of items) {
+    const s = e.start?.dateTime, en = e.end?.dateTime, label = (e.summary ?? "Termin").trim();
+    if (!s || !en || s.slice(0, 10) !== en.slice(0, 10)) continue; // ganztägig oder über Mitternacht
+    if (keys.some((k) => label.toLowerCase().includes(k))) continue; // Uni-Termin, steht schon in den Kursdaten
+    const block: Constraint = { type: "block", day: WEEKDAYS[new Date(`${s.slice(0, 10)}T12:00:00Z`).getUTCDay()], start: s.slice(11, 16), end: en.slice(11, 16), label, hard: true };
+    if (block.start >= block.end) continue;
+    if (!out.some((b) => b.day === block.day && b.start === block.start && b.end === block.end)) out.push(block);
+  }
+  return out;
+}
+
+/** Liest eine Woche aus dem Hauptkalender (ab Semesterstart bzw. ab heute). Ohne Google-Verbindung: []. */
+export async function busyFromPrimary(data: CourseData, timeoutMs = 3000): Promise<Constraint[]> {
+  if (!oauthConfigured() || !(await readStore()).refresh_token) return [];
+  const from = new Date(Math.max(Date.now(), Date.parse(`${semesterOf(data).start}T00:00:00`)));
+  from.setDate(from.getDate() - ((from.getDay() + 6) % 7)); // Montag dieser Woche
+  from.setHours(0, 0, 0, 0);
+  const to = new Date(from.getTime() + 7 * 864e5);
+  const q = `singleEvents=true&orderBy=startTime&maxResults=250&timeMin=${from.toISOString()}&timeMax=${to.toISOString()}`;
+  const res = await Promise.race([
+    gfetch(`/calendars/primary/events?${q}`),
+    new Promise<never>((_, reject) => setTimeout(() => reject(new Error("Timeout")), timeoutMs)),
+  ]);
+  if (!res.ok) throw new Error(`Hauptkalender lesen: ${res.status}`);
+  return blocksFromEvents(((await res.json()) as { items?: CalItem[] }).items ?? [], data);
+}
+
 /* ───────── Plan → Events (rein, testbar) ───────── */
 
 function firstDate(startIso: string, day: Day): string {
