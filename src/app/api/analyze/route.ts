@@ -7,15 +7,14 @@ import { NextResponse } from "next/server";
 import { ask, type Provider } from "@/lib/ai";
 import { ANALYZE_SYSTEM } from "@/lib/prompts";
 import { isMock, MOCK_UNDERSTANDING } from "@/lib/mocks";
-import courseData from "@/data/courses.json";
-import type { Constraint, Course, CourseData, Day, Priority, Question, Understanding } from "@/lib/types";
+import { getProgram, selectCourses } from "@/data";
+import type { Constraint, Course, Day, Priority, Question, Understanding } from "@/lib/types";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
 
 const DAYS: Day[] = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
 const TIME = /^([01]\d|2[0-3]):[0-5]\d$/;
-const courses = (courseData as CourseData).courses;
 
 const defaultWeight = (c: Course): 1 | 2 | 3 => (c.required ? (c.exam ? 3 : 2) : 1);
 const isDay = (d: unknown): d is Day => DAYS.includes(d as Day);
@@ -23,7 +22,7 @@ const isDay = (d: unknown): d is Day => DAYS.includes(d as Day);
 const todayDay = (): Day => DAYS[(new Date().getDay() + 6) % 7];
 
 /** Gemma kann sich irren: nur gültige Werte durchlassen, fehlende Kurse mit Standardgewicht auffüllen. */
-function clean(raw: Record<string, unknown>, transcript: string, current: Map<string, Priority>): Understanding {
+function clean(raw: Record<string, unknown>, transcript: string, current: Map<string, Priority>, courses: Course[]): Understanding {
   const intent = raw.intent === "query" ? "query" : "reschedule";
   const arr = (v: unknown): Record<string, unknown>[] =>
     Array.isArray(v) ? v.filter((x): x is Record<string, unknown> => !!x && typeof x === "object") : [];
@@ -77,6 +76,7 @@ export async function POST(req: Request) {
     let today: Day | undefined;
     let provider: Provider | undefined;
     let given: unknown[] = [];
+    let sel: { program?: string; term?: number; courseIds?: string[] } = {};
     if ((req.headers.get("content-type") ?? "").includes("multipart/form-data")) {
       const form = await req.formData();
       text = String(form.get("note") ?? "").trim();
@@ -87,8 +87,12 @@ export async function POST(req: Request) {
       today = isDay(body.today) ? body.today : undefined;
       provider = body.provider || undefined;
       given = Array.isArray(body.priorities) ? body.priorities : [];
+      sel = body;
     }
     if (!text) return NextResponse.json({ error: "Bitte Text angeben" }, { status: 400 });
+    const program = getProgram(sel.program);
+    if (!program) return NextResponse.json({ error: `Unbekannter Studiengang: ${sel.program}` }, { status: 400 });
+    const courses = selectCourses(program, sel).courses;
 
     if (isMock()) {
       return NextResponse.json({
@@ -135,7 +139,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({
-      understanding: clean(raw, text, current),
+      understanding: clean(raw, text, current, courses),
       meta: { provider: result.provider, model: result.model, ms: result.ms },
     });
   } catch (err) {

@@ -5,8 +5,7 @@
 import { NextResponse, type NextRequest } from "next/server";
 import { connect, syncPlan } from "@/features/act/gcal";
 import { solve } from "@/features/act/solver";
-import data from "@/data/courses.json";
-import type { CourseData } from "@/lib/types";
+import { getProgram } from "@/data";
 
 export const runtime = "nodejs";
 
@@ -20,8 +19,9 @@ export async function GET(req: NextRequest) {
   }
   try {
     await connect(code);
-    const plan = solve(data as CourseData, [], []);
-    const sync = await syncPlan(data as CourseData, plan.chosen, [], 15000);
+    const data = getProgram()!;
+    const plan = solve(data, [], []);
+    const sync = await syncPlan(data, plan.chosen, [], 15000);
     home.searchParams.set("google", sync.calendar === "synced" ? "ok" : "error");
   } catch (err) {
     console.error("[google/callback]", err instanceof Error ? err.message : err);

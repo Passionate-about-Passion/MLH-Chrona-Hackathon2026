@@ -26,7 +26,7 @@ Nichts löschen: Erledigtes nach unten verschieben. Ab **14:00** nur noch Bugfix
 | 008 | „Welche Termine habe ich?" → Antworttext → ElevenLabs | D | sonnet | Lenny | erledigt (nicht committet) |
 | 009 | Frontend: Sprechen → Rückfragen → Wochenplan → Vorlesen | alle | sonnet | Frontend-Person (nicht Lenny) | offen (nach 006–008) |
 | 013 | Google-Kalender-Sync: nach jeder Planänderung sofort im Google Kalender | C | sonnet | Lenny | erledigt, live getestet (Do 14–16 → Statistik-Übung Fr) |
-| 014 | Stundenplan-Erstellung: Studiengang + Semester wählen → Startplan | B/C | sonnet | Lenny | offen (nach 013) |
+| 014 | Stundenplan-Erstellung: Studiengang + Semester wählen → Startplan | B/C | sonnet | Lenny | erledigt (nicht committet) |
 | 015 | Echte Kursdaten BWL (dann VWL, WiFo) im Format von `src/data/courses.json` | A | haiku | Emil | offen |
 | 016 | Gemma bleibt geladen (keep-alive) + `npm run warmup` | B | sonnet | Lenny | erledigt (nicht committet) |
 | 017 | Gewichte über mehrere Sätze merken + JSON-Retry in `/api/analyze` | B | sonnet | Lenny | erledigt (nicht committet) |
@@ -163,7 +163,7 @@ AKZEPTANZKRITERIEN
 
 ### TASK-014 · Stundenplan-Erstellung: Studiengang + Semester
 - Bereich: B/C · Modell: sonnet · Prio: Feature
-- Status: offen (erst nach TASK-013, berührt `/api/act`)
+- Status: erledigt (nicht committet)
 > Ziel: Ein Plan wird für einen Studiengang und ein Fachsemester erstellt, nicht aus allen Kursen. Pro Studiengang eine Datei `src/data/<id>.json` (`CourseData` mit `program: { id, name }`, Kurse mit `term`). `src/data/courses.json` wird zu `src/data/demo.json` (program `{ id: "demo", name: "Demo (Pitch)" }`, alle Kurse `term: 1`) – das ist der Demo-Datensatz mit vollem Dienstag.
 > Dateien: `src/data/index.ts` (neu), `src/data/demo.json` (umbenannt), `src/app/api/programs/route.ts` (neu), `src/app/api/act/route.ts`, `src/app/api/analyze/route.ts`, `src/features/act/gcal.ts` und alle `*.check.ts`, die `courses.json` lesen (nur Pfad/Import anpassen).
 > - `src/data/index.ts`: `PROGRAMS: Record<string, CourseData>` (statische JSON-Imports, neue Studiengänge = eine Zeile), `getProgram(id = "demo")`, `selectCourses(data, { term?, courseIds? }): CourseData` (courseIds gewinnt, sonst alle mit `term`, sonst alle).

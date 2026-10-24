@@ -6,9 +6,9 @@
 import { NextResponse } from "next/server";
 import { solve } from "@/features/act/solver";
 import { syncPlan } from "@/features/act/gcal";
-import data from "@/data/courses.json";
+import { getProgram, selectCourses } from "@/data";
 import { isMock, mockPlan } from "@/lib/mocks";
-import type { Choice, Constraint, CourseData, Priority } from "@/lib/types";
+import type { Choice, Constraint, Priority } from "@/lib/types";
 
 export const runtime = "nodejs";
 
@@ -21,11 +21,17 @@ export async function POST(req: Request) {
       current?: Choice[];
       /** false = Google-Kalender nicht anfassen */
       sync?: boolean;
+      program?: string;
+      term?: number;
+      courseIds?: string[];
     };
-    const plan = isMock() ? mockPlan : solve(data as CourseData, body.constraints ?? [], body.priorities ?? [], body.current);
+    const program = getProgram(body.program);
+    if (!program) return NextResponse.json({ error: `Unbekannter Studiengang: ${body.program}` }, { status: 400 });
+    const data = selectCourses(program, { term: body.term, courseIds: body.courseIds });
+    const plan = isMock() ? mockPlan : solve(data, body.constraints ?? [], body.priorities ?? [], body.current);
     const ms = Date.now() - t0;
     // Google-Kalender: Fehler oder Timeout ändern nichts am Plan, stehen nur in meta.calendar
-    const calendar = isMock() || body.sync === false ? { calendar: "off" } : await syncPlan(data as CourseData, plan.chosen, body.constraints ?? []);
+    const calendar = isMock() || body.sync === false ? { calendar: "off" } : await syncPlan(data, plan.chosen, body.constraints ?? []);
     return NextResponse.json({ plan, meta: { provider: "solver", model: "solver", ms, mock: isMock() || undefined, ...calendar } });
   } catch (err) {
     const message = err instanceof Error ? err.message : String(err);

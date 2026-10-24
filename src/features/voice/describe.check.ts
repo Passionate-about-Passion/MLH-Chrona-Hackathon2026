@@ -4,7 +4,7 @@ import { readFileSync } from "node:fs";
 import { describeChanges, describeSchedule } from "./describe.ts";
 import type { CourseData, Plan } from "../../lib/types";
 
-const data = JSON.parse(readFileSync(new URL("../../data/courses.json", import.meta.url), "utf8")) as CourseData;
+const data = JSON.parse(readFileSync(new URL("../../data/demo.json", import.meta.url), "utf8")) as CourseData;
 const plan: Plan = {
   chosen: data.courses.flatMap((c) => {
     const kinds = [...new Set(c.groups.map((g) => g.kind))];

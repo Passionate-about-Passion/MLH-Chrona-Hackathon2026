@@ -37,8 +37,9 @@ Meta       { provider: string; model: string; ms: number; mock?: boolean }
 
 | Methode | Pfad | Eingabe | Ausgabe | Besitzer |
 |---|---|---|---|---|
-| POST | `/api/analyze` | JSON: `{ text: string, today?: Day, provider? }` | `{ understanding: Understanding, meta: Meta }` | B |
-| POST | `/api/act` | JSON: `{ constraints?: Constraint[], priorities?: Priority[], current?: Choice[] }` | `{ plan: Plan, meta: Meta }` (`meta.provider` = `solver`) | C |
+| POST | `/api/analyze` | JSON: `{ text: string, today?: Day, provider?, program?: string, term?: number, courseIds?: string[] }` | `{ understanding: Understanding, meta: Meta }` | B |
+| POST | `/api/act` | JSON: `{ constraints?: Constraint[], priorities?: Priority[], current?: Choice[], program?: string, term?: number, courseIds?: string[] }` | `{ plan: Plan, meta: Meta }` (`meta.provider` = `solver`) | C |
+| GET | `/api/programs` | – | `[{ id, name, terms: number[] }]` (Dropdowns Studiengang/Semester) | C |
 | POST | `/api/speak` | JSON: `{ text: string }` | `audio/mpeg` · 501 ohne Key → Browser-Fallback | D |
 
 Fehler immer als `{ error: string }` mit passendem HTTP-Status.

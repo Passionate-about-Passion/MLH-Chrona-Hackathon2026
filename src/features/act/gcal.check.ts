@@ -5,7 +5,7 @@ import { desiredEvents } from "./gcal.ts";
 import { solve } from "./solver.ts";
 import type { CourseData } from "../../lib/types";
 
-const data = JSON.parse(readFileSync(new URL("../../data/courses.json", import.meta.url), "utf8")) as CourseData;
+const data = JSON.parse(readFileSync(new URL("../../data/demo.json", import.meta.url), "utf8")) as CourseData;
 const start = solve(data, [], []).chosen;
 const events = desiredEvents(data, start, []);
 
