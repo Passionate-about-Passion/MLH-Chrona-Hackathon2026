@@ -1,5 +1,5 @@
 "use client";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { addDays, addMonths, clampDate, dayParts } from "./logic";
 
 export type Mode = "W" | "M";
@@ -11,16 +11,39 @@ interface DateSliderProps {
   onDate: (iso: string) => void;
   min: string;
   max: string;
+  /** fade to 40 % after 3 s without touch (month view, so it does not hide numbers) */
+  autoDim?: boolean;
 }
 
 const STEP_PX = 22;
 const TAP_SLOP = 6;
+const DIM_AFTER_MS = 3000;
 
-/** Jog dial: drag the pill up or down to change the day (W) or the month (M). Tap W or M to switch. */
-export function DateSlider({ mode, onMode, date, onDate, min, max }: DateSliderProps) {
+/**
+ * Jog dial: drag the pill up or down to change the day (W) or the month (M). Tap W or M to switch;
+ * a white thumb slides between the two letters.
+ */
+export function DateSlider({ mode, onMode, date, onDate, min, max, autoDim = false }: DateSliderProps) {
   const drag = useRef<{ y: number; base: string; active: boolean } | null>(null);
   const [offset, setOffset] = useState(0);
   const [bubble, setBubble] = useState<string | null>(null);
+  const [dim, setDim] = useState(false);
+  const dimTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const wake = () => {
+    setDim(false);
+    if (dimTimer.current) clearTimeout(dimTimer.current);
+    if (autoDim) dimTimer.current = setTimeout(() => setDim(true), DIM_AFTER_MS);
+  };
+
+  useEffect(() => {
+    wake();
+    return () => {
+      if (dimTimer.current) clearTimeout(dimTimer.current);
+    };
+    // restart the timer when the view changes
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [autoDim]);
 
   const shift = (base: string, steps: number) =>
     clampDate(mode === "W" ? addDays(base, steps) : addMonths(base, steps), min, max);
@@ -34,15 +57,21 @@ export function DateSlider({ mode, onMode, date, onDate, min, max }: DateSliderP
     drag.current = null;
     setOffset(0);
     setBubble(null);
+    wake();
   };
 
   return (
     <div
       className="tt-slider glass"
+      data-mode={mode}
+      data-dim={(autoDim && dim && !bubble) || undefined}
       role="group"
       aria-label={`Datum wechseln, ${mode === "W" ? "tageweise" : "monatsweise"}. Pfeil hoch und runter zum Blättern.`}
-      style={{ touchAction: "none" }}
+      style={{ touchAction: "none", ["--nudge" as string]: `${offset / 4}px` }}
+      onPointerEnter={wake}
+      onFocus={wake}
       onPointerDown={(e) => {
+        wake();
         drag.current = { y: e.clientY, base: date, active: false };
       }}
       onPointerMove={(e) => {
@@ -63,6 +92,7 @@ export function DateSlider({ mode, onMode, date, onDate, min, max }: DateSliderP
       onPointerUp={end}
       onPointerCancel={end}
       onKeyDown={(e) => {
+        wake();
         if (e.key === "ArrowUp") {
           e.preventDefault();
           onDate(shift(date, -1));
@@ -73,6 +103,7 @@ export function DateSlider({ mode, onMode, date, onDate, min, max }: DateSliderP
         }
       }}
     >
+      <span className="tt-slider-thumb" aria-hidden="true" />
       <button
         type="button"
         className="tt-slider-key"
@@ -83,12 +114,6 @@ export function DateSlider({ mode, onMode, date, onDate, min, max }: DateSliderP
       >
         W
       </button>
-      <div className="tt-slider-grip" aria-hidden="true" style={{ transform: `translateY(${offset / 3}px)` }}>
-        <i />
-        <i />
-        <i />
-        <i />
-      </div>
       <button
         type="button"
         className="tt-slider-key"
