@@ -1,3 +1,5 @@
+import type { Priority } from "@/lib/types";
+
 export type Transcript = { text: string; lang: "de" };
 
 export type ParsedIntent =
@@ -9,8 +11,19 @@ export type ParsedIntent =
       title?: string;
       fixed: true;
     }
+  /** a wish such as "dienstags frei" – the solver avoids it if it can */
+  | { type: "free_wish"; date: string; start: string; end: string; title?: string; fixed: false }
   | { type: "set_course_weight"; courseId: string; weight: number /* 1-5 */ }
+  /** "Welche Termine habe ich am Mittwoch?" – date missing = whole week */
+  | { type: "query"; date?: string }
   | { type: "unknown" };
+
+export interface VoiceContext {
+  /** current course weights (backend scale 1-3), so the model keeps them */
+  priorities: Priority[];
+  /** ISO date of today */
+  today: string;
+}
 
 export interface VoiceService {
   startListening(): Promise<void>;
@@ -20,4 +33,6 @@ export interface VoiceService {
   parseIntent(t: Transcript): Promise<ParsedIntent>;
   /** Text-to-Speech (e.g. ElevenLabs) */
   speak(text: string): Promise<void>;
+  /** optional: the UI passes the current plan context before parsing */
+  setContext?(ctx: VoiceContext): void;
 }
