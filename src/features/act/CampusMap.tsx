@@ -23,11 +23,11 @@ const PICK_STROKE = "#b36b00";
 const MENSA_AT: [number, number] = [70, 430]; // Mensa am Schloss: Mensawiese, südwestlich vom Westflügel (Lageplan Uni)
 const MENSA_HALF: [number, number] = [44, 22]; // halbe Breite/Höhe des Mensa-Gebäudes
 /** Kurznamen der Bib-Standorte für die Badges */
-const LIB_SHORT: Record<string, string> = { W: "Westflügel", A3: "A3", A5: "A5", EO: "Ehrenhof", SN: "Schneckenhof" };
+const LIB_SHORT: Record<string, string> = { W: "Westflügel", A3: "A3", A5: "A5", M: "Ehrenhof", S: "Schneckenhof" };
 const libColor = (p: number) => (p < 60 ? "#34c759" : p <= 85 ? "#ffcc00" : "#ff3b30");
 type MensaData = { name: string; date: string; url: string; meals: Meal[] };
 
-const buildingName = (k: string) => (k === "S" ? "Schloss S" : BUILDINGS[k].text);
+const buildingName = (k: string) => (k === "S" ? "Schneckenhof Süd" : BUILDINGS[k].text);
 
 /** Bounding-Box eines Gebäudes in Welt-Koordinaten (y ohne viewBox-Offset). */
 function bbox(key: string) {

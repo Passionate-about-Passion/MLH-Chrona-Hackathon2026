@@ -3,8 +3,8 @@ export type Meal = { line?: string; title: string; price?: string };
 
 const SEGMENTS: [RegExp, string, string][] = [
   [/westfl/i, "W", "Ausleihzentrum Schloss Westflügel"],
-  [/ehrenhof/i, "EO", "Schloss Ehrenhof"],
-  [/schneckenhof/i, "SN", "Schloss Schneckenhof"],
+  [/ehrenhof/i, "M", "Schloss Ehrenhof"],
+  [/schneckenhof/i, "S", "Schloss Schneckenhof"],
   [/\bA\s?3\b/, "A3", "Bibliotheksbereich A3"],
   [/\bA\s?5\b/, "A5", "Bibliotheksbereich A5"],
 ];
