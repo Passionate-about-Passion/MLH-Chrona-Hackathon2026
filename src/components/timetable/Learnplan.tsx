@@ -8,7 +8,6 @@ interface LearnplanProps {
   groups: Group[];
   entries: Entry[];
   onExport: () => void;
-  onChangeProgram: () => void;
   /** Google calendar connect button / sync status, shown between title and .ics */
   google?: ReactNode;
   /** content of the plan, e.g. the study-time table */
@@ -16,7 +15,7 @@ interface LearnplanProps {
 }
 
 /** The plan is the study-time table (`summary`); the per-course list of sessions was removed on purpose. */
-export function Learnplan({ title, onExport, onChangeProgram, google, summary }: LearnplanProps) {
+export function Learnplan({ title, onExport, google, summary }: LearnplanProps) {
   return (
     <section className="tt-plan" aria-label="Lernplan">
       <div className="tt-plan-head">
@@ -28,9 +27,6 @@ export function Learnplan({ title, onExport, onChangeProgram, google, summary }:
       </div>
       <div className="tt-plan-program">
         <span>{title}</span>
-        <button type="button" className="tt-link-btn" onClick={onChangeProgram}>
-          Ändern
-        </button>
       </div>
       <ul className="tt-courses">
         {summary && <li style={{ listStyle: "none" }}>{summary}</li>}

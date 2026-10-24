@@ -75,10 +75,6 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
     (body: Parameters<typeof apiRequestPlan>[0]) => apiRequestPlan({ ...body, program, term }),
     [program, term],
   );
-  /** back to the start screen (ProgramPicker in page.tsx) */
-  const onChangeProgram = () => {
-    window.location.href = "/?reset";
-  };
 
   const [plan, setPlan] = useState<Plan | null>(null);
   const [constraints, setConstraints] = useState<Constraint[]>([]);
@@ -418,7 +414,6 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
               const n = downloadIcs(entries, { from: data.semester?.start ?? TODAY, until: range.max });
               showToast(`Kalender exportiert: ${n} Termine in stundenplan.ics`);
             }}
-            onChangeProgram={onChangeProgram}
             google={
               gcal.connected === false ? (
                 <a className="tt-gcal glass" href="/api/google/login">
