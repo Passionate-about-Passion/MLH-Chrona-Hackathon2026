@@ -9,17 +9,23 @@
   --line: rgba(29, 29, 31, 0.09);
   --font: system-ui, -apple-system, "SF Pro Text", "Segoe UI", sans-serif;
 
-  --v-bg: #dde5ef;
-  --v-ink: #34506e;
-  --u-bg: #dfe9e2;
-  --u-ink: #3a5a47;
-  --t-bg: #e5e1ee;
-  --t-ink: #52476e;
-  --p-bg: #ede7dc;
-  --p-ink: #6a5a3e;
-  --x-bg: #f2dcda;
-  --x-rim: #c25b55;
-  --x-ink: #8e2f2a;
+  /* Apple calendar colours: system colour as bar, a light tint as surface, a dark shade as text (>= 5.5:1) */
+  --v-bar: #007aff; /* Vorlesung: blue */
+  --v-bg: #e1edff;
+  --v-ink: #0a4fa3;
+  --u-bar: #34c759; /* Übung: green */
+  --u-bg: #e0f5e6;
+  --u-ink: #1d6b34;
+  --t-bar: #af52de; /* Tutorium: purple */
+  --t-bg: #f3e6fa;
+  --t-ink: #6e2c91;
+  --p-bar: #ff9500; /* Privat: orange */
+  --p-bg: #fff0db;
+  --p-ink: #8a4b00;
+  --x-bar: #ff3b30; /* Konflikt: red, nowhere else */
+  --x-bg: #ffe3e1;
+  --x-rim: #ff3b30;
+  --x-ink: #a1170f;
 
   --spring: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
@@ -156,6 +162,7 @@
 /* ---------- entry cards ---------- */
 
 .tt-card {
+  --c-bar: var(--v-bar);
   --c-bg: var(--v-bg);
   --c-ink: var(--v-ink);
   position: absolute;
@@ -165,32 +172,38 @@
   justify-content: center;
   gap: 4px;
   min-width: 0;
-  padding: 8px 12px;
+  padding: 8px 12px 8px 10px;
   overflow: hidden;
   text-align: left;
   color: var(--c-ink);
   background: var(--c-bg);
-  border: 1px solid color-mix(in srgb, var(--c-ink) 20%, transparent);
-  border-radius: 16px;
+  border: 0;
+  border-left: 4px solid var(--c-bar);
+  border-radius: 10px;
 }
 
 .tt-card[data-type="U"] {
+  --c-bar: var(--u-bar);
   --c-bg: var(--u-bg);
   --c-ink: var(--u-ink);
 }
 .tt-card[data-type="T"] {
+  --c-bar: var(--t-bar);
   --c-bg: var(--t-bg);
   --c-ink: var(--t-ink);
 }
 .tt-card[data-type="P"] {
+  --c-bar: var(--p-bar);
   --c-bg: var(--p-bg);
   --c-ink: var(--p-ink);
 }
 
 .tt-card[data-conflict] {
+  --c-bar: var(--x-bar);
   --c-bg: var(--x-bg);
   --c-ink: var(--x-ink);
   border: 2px solid var(--x-rim);
+  border-left-width: 4px;
 }
 
 .tt-card > * {
@@ -658,17 +671,17 @@
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background: var(--v-ink);
+  background: var(--v-bar);
 }
 
 .tt-month-dots i[data-type="U"] {
-  background: var(--u-ink);
+  background: var(--u-bar);
 }
 .tt-month-dots i[data-type="T"] {
-  background: var(--t-ink);
+  background: var(--t-bar);
 }
 .tt-month-dots i[data-type="P"] {
-  background: var(--p-ink);
+  background: var(--p-bar);
 }
 .tt-month-dots i[data-conflict] {
   background: var(--x-rim);
@@ -986,7 +999,8 @@
   white-space: nowrap;
   text-overflow: ellipsis;
   color: var(--c-ink);
-  border-radius: 8px;
+  border-left: 3px solid currentColor;
+  border-radius: 6px;
   background: var(--c-bg);
 }
 
@@ -1164,17 +1178,17 @@
 }
 
 .tt-course-groups li {
-  --c: var(--v-ink);
+  --c: var(--v-bar);
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
 .tt-course-groups li[data-type="U"] {
-  --c: var(--u-ink);
+  --c: var(--u-bar);
 }
 .tt-course-groups li[data-type="T"] {
-  --c: var(--t-ink);
+  --c: var(--t-bar);
 }
 
 .tt-dot {

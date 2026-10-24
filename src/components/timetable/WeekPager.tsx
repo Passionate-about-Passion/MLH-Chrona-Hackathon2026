@@ -2,7 +2,7 @@
 import { useEffect, useLayoutEffect, useMemo, useRef } from "react";
 import type { Entry } from "@/types";
 import { EntryCard } from "./EntryCard";
-import { HOUR_END, HOUR_START, addDays, conflictIds, entriesOn, layoutDay, toMin } from "./logic";
+import { DAY_OPEN_HOUR, HOUR_END, HOUR_START, addDays, conflictIds, entriesOn, layoutDay, toMin } from "./logic";
 
 export const HOUR_PX = 72;
 /** the hour labels sit over the previous day; must match scroll-padding-left of .tt-pager */
@@ -68,7 +68,7 @@ export function WeekPager({ date, entries, onDate, onConflictTap, padTop, padBot
   // start near the first appointment of the day
   useEffect(() => {
     const first = entriesOn(entries, date)[0];
-    const from = first ? Math.max(toMin(first.start) - 60, HOUR_START * 60) : HOUR_START * 60;
+    const from = first ? Math.max(toMin(first.start) - 60, HOUR_START * 60) : DAY_OPEN_HOUR * 60;
     vertical.current?.scrollTo({ top: ((from - HOUR_START * 60) / 60) * HOUR_PX });
     // only once, the vertical position is shared by all days afterwards
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -99,7 +99,7 @@ export function WeekPager({ date, entries, onDate, onConflictTap, padTop, padBot
       <div className="tt-cal-content" style={{ height: padTop + gridH + padBottom }}>
         {hours.map((h) => (
           <div key={h} className="tt-hour" style={{ top: padTop + (h - HOUR_START) * HOUR_PX }}>
-            <span>{String(h).padStart(2, "0")}:00</span>
+            <span>{String(h % 24).padStart(2, "0")}:00</span>
           </div>
         ))}
         <div className="tt-pager" ref={pager} style={{ top: padTop, height: gridH }} onScroll={onScroll}>
