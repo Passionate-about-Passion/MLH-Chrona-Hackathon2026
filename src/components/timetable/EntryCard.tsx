@@ -21,39 +21,39 @@ export function EntryCard({ entry, col = 0, cols = 1, conflict = false, onTap, s
       data-narrow={cols > 1 || undefined}
       type={onTap ? "button" : undefined}
       onClick={onTap}
-      aria-label={
-        onTap ? `${entry.title}, ${range(entry)}, Konflikt. Tippen zeigt Alternativen.` : undefined
-      }
+      aria-label={onTap ? `${entry.title}, ${range(entry)}, Konflikt. Tippen zeigt Alternativen.` : undefined}
       style={{
         left: `calc(${col} * 100% / ${cols})`,
-        width: `calc(100% / ${cols} - 4px)`,
+        width: `calc(100% / ${cols} - 6px)`,
         ...style,
       }}
     >
-      <span className="tt-card-title">{entry.title}</span>
-      <span className="tt-card-time">{range(entry)}</span>
-      <span className="tt-card-meta">
-        {entry.location && (
-          <span className="tt-card-loc">
-            <PinIcon size={12} />
-            <span>{entry.location}</span>
-          </span>
-        )}
+      <span className="tt-card-head">
+        <span className="tt-card-title">{entry.title}</span>
         <span className="tt-card-badges">
           {entry.recurring && (
-            <span role="img" aria-label="wiederkehrend" title="wiederkehrend">
-              <RepeatIcon size={13} />
+            <span className="tt-card-repeat" role="img" aria-label="wiederkehrend" title="wiederkehrend">
+              <RepeatIcon size={14} />
             </span>
           )}
           {entry.fixed && (
             <span role="img" aria-label="nicht verschiebbar" title="nicht verschiebbar">
-              <LockIcon size={13} />
+              <LockIcon size={14} />
             </span>
           )}
           <span className="tt-weight" aria-label={`Wichtigkeit ${entry.weight}`}>
             {entry.weight}
           </span>
         </span>
+      </span>
+      <span className="tt-card-meta">
+        <span className="tt-card-time">{range(entry)}</span>
+        {entry.location && (
+          <span className="tt-card-loc">
+            <PinIcon size={13} />
+            <span>{entry.location}</span>
+          </span>
+        )}
       </span>
     </Tag>
   );
