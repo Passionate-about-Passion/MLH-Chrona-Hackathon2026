@@ -155,6 +155,9 @@ export async function requestPlan(body: {
   priorities?: Priority[];
   current?: Choice[];
   sync?: boolean;
+  /** Studiengang id from src/data (e.g. "bwl") and Fachsemester */
+  program?: string;
+  term?: number;
 }): Promise<ActResponse> {
   const res = await fetch("/api/act", {
     method: "POST",

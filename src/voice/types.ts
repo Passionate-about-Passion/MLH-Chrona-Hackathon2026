@@ -23,6 +23,9 @@ export interface VoiceContext {
   priorities: Priority[];
   /** ISO date of today */
   today: string;
+  /** chosen Studiengang and Fachsemester, so the model only sees these courses */
+  program?: string;
+  term?: number;
 }
 
 export interface VoiceService {

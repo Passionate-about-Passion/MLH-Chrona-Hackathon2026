@@ -4,7 +4,7 @@ import "./timetable.css";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { Constraint, Plan, Priority } from "@/lib/types";
 import type { Entry } from "@/types";
-import { getProgram } from "@/data";
+import { getProgram, selectCourses } from "@/data";
 import { describeChanges, describeSchedule } from "@/features/voice/describe";
 import {
   DAYS,
@@ -13,7 +13,7 @@ import {
   calendarNote,
   fullPriorities,
   planToEntries,
-  requestPlan,
+  requestPlan as apiRequestPlan,
   swapChoice,
   toBackendWeight,
   uiCourses,
@@ -33,14 +33,12 @@ import { Toast, type ToastState } from "./Toast";
 import { VoiceOverlay } from "./VoiceOverlay";
 import { WeekPager } from "./WeekPager";
 import { WeekStrip } from "./WeekStrip";
+import { Onboarding, type ProgramChoice } from "./Onboarding";
 import { addDays, conflictIds, entriesOn, moveToSession, nextEntry, weekdayOf, type Alternative } from "./logic";
 
 /** room for the overlays: header + week strip on top, tab bar at the bottom */
 const PAD_TOP = 164;
 const PAD_BOTTOM = 112;
-
-const data = getProgram()!;
-const groups = uiGroups(data);
 
 const localIso = (d = new Date()) =>
   `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
@@ -49,11 +47,36 @@ const nowTime = (d = new Date()) => `${String(d.getHours()).padStart(2, "0")}:${
 const TODAY = localIso();
 /** open on Monday when today is a weekend day */
 const START_DATE = weekdayOf(TODAY) >= 5 ? addDays(TODAY, 7 - weekdayOf(TODAY)) : TODAY;
-const RANGE = { min: addDays(TODAY, -60), max: data.semester?.end ?? addDays(TODAY, 180) };
-
 type Snapshot = { plan: Plan; constraints: Constraint[]; priorities: Priority[] };
+type GoogleStatus = { configured: boolean; connected: boolean };
 
+/** Asks for Studiengang and Fachsemester first, then shows the planner for that choice. */
 export function TimetableApp() {
+  const [choice, setChoice] = useState<ProgramChoice | null>(null);
+  if (!choice) {
+    return (
+      <div className="tt-root" lang="de">
+        <div className="tt-phone tt-phone-center">
+          <Onboarding onDone={setChoice} />
+        </div>
+      </div>
+    );
+  }
+  return (
+    <Planner key={`${choice.program}-${choice.term}`} {...choice} onChangeProgram={() => setChoice(null)} />
+  );
+}
+
+function Planner({ program, term, onChangeProgram }: ProgramChoice & { onChangeProgram: () => void }) {
+  const data = useMemo(() => selectCourses(getProgram(program)!, { term }), [program, term]);
+  const groups = useMemo(() => uiGroups(data), [data]);
+  const range = { min: addDays(TODAY, -60), max: data.semester?.end ?? addDays(TODAY, 180) };
+  /** every solver call is for the chosen Studiengang and Fachsemester */
+  const requestPlan = useCallback(
+    (body: Parameters<typeof apiRequestPlan>[0]) => apiRequestPlan({ ...body, program, term }),
+    [program, term],
+  );
+
   const [plan, setPlan] = useState<Plan | null>(null);
   const [constraints, setConstraints] = useState<Constraint[]>([]);
   const [priorities, setPriorities] = useState<Priority[]>(() => fullPriorities(data, []));
@@ -74,21 +97,36 @@ export function TimetableApp() {
   }, []);
   const dismissToast = useCallback(() => setToast(null), []);
 
+  const [google, setGoogle] = useState<GoogleStatus | null>(null);
+
   // start plan from the solver
   useEffect(() => {
     requestPlan({})
       .then((r) => setPlan(r.plan))
       .catch((e: Error) => setLoadError(e.message));
-  }, []);
+  }, [requestPlan]);
+
+  // Google calendar: status for the connect button, and the result after the OAuth redirect (/?google=ok|error)
+  useEffect(() => {
+    fetch("/api/google/status")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((s: GoogleStatus | null) => setGoogle(s))
+      .catch(() => setGoogle(null));
+    const result = new URLSearchParams(window.location.search).get("google");
+    if (result) {
+      showToast(result === "ok" ? "Mit Google Kalender verbunden." : "Verbindung mit Google fehlgeschlagen.");
+      window.history.replaceState(null, "", window.location.pathname);
+    }
+  }, [showToast]);
 
   useEffect(() => {
-    voice.setContext?.({ priorities, today: TODAY });
-  }, [priorities]);
+    voice.setContext?.({ priorities, today: TODAY, program, term });
+  }, [priorities, program, term]);
 
-  const courses = useMemo(() => uiCourses(data, priorities), [priorities]);
+  const courses = useMemo(() => uiCourses(data, priorities), [data, priorities]);
   const entries = useMemo(
     () => (plan ? planToEntries(data, plan, constraints, priorities, extras) : []),
-    [plan, constraints, priorities, extras],
+    [data, plan, constraints, priorities, extras],
   );
   const next = useMemo(() => nextEntry(entries, TODAY, nowTime()), [entries]);
 
@@ -266,14 +304,17 @@ export function TimetableApp() {
               </header>
               {mode === "W" && <WeekStrip date={date} today={TODAY} onDate={setDate} />}
             </div>
-            <DateSlider mode={mode} onMode={setMode} date={date} onDate={setDate} min={RANGE.min} max={RANGE.max} />
+            <DateSlider mode={mode} onMode={setMode} date={date} onDate={setDate} min={range.min} max={range.max} />
           </>
         ) : (
           <Learnplan
+            title={`${data.program?.name ?? program} · ${term}. Semester`}
             courses={courses}
             groups={groups}
             entries={entries}
+            google={google}
             onExport={() => showToast("Kalender exportiert (nur im Mockup).")}
+            onChangeProgram={onChangeProgram}
           />
         )}
         <TabBar tab={tab} onTab={setTab} onVoice={() => setVoiceOpen(true)} voiceActive={voiceOpen} />
