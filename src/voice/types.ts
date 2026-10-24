@@ -23,6 +23,9 @@ export interface VoiceContext {
   priorities: Priority[];
   /** ISO date of today */
   today: string;
+  /** chosen study program and semester, so Gemma knows its courses */
+  program?: string;
+  term?: number;
 }
 
 export interface VoiceService {

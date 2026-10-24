@@ -6,7 +6,7 @@
  *
  * Switch with AI_PROVIDER in .env.local, or per request.
  */
-import { GoogleGenAI } from "@google/genai";
+import { GoogleGenAI, type ThinkingLevel } from "@google/genai";
 import OpenAI from "openai";
 
 export type Provider = "gemini" | "digitalocean" | "ollama";
@@ -73,15 +73,29 @@ async function askGemini(model: string, system: string, input: AskInput): Promis
   if (input.image) parts.push({ inlineData: { mimeType: input.image.mimeType, data: input.image.base64 } });
   parts.push({ text: input.prompt });
 
-  const res = await ai.models.generateContent({
-    model,
-    contents: [{ role: "user", parts }],
-    config: {
-      ...(system.trim() ? { systemInstruction: system } : {}),
-      ...(input.googleSearch ? { tools: [{ googleSearch: {} }] } : {}),
-    },
-  });
-  return res.text ?? "";
+  // Gemma thinks before answering: ~20 s per request by default, ~5 s with MINIMAL (measured).
+  // GEMINI_THINKING=default turns it back on.
+  const thinking = env("GEMINI_THINKING", "minimal").toUpperCase();
+  const request = () =>
+    ai.models.generateContent({
+      model,
+      contents: [{ role: "user", parts }],
+      config: {
+        ...(system.trim() ? { systemInstruction: system } : {}),
+        ...(input.googleSearch ? { tools: [{ googleSearch: {} }] } : {}),
+        ...(thinking === "DEFAULT" ? {} : { thinkingConfig: { thinkingLevel: thinking as ThinkingLevel } }),
+      },
+    });
+
+  // The API sporadically answers 500 "Internal error" within ~1 s, sometimes twice in a row: up to 3 retries.
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return (await request()).text ?? "";
+    } catch (e) {
+      if (attempt >= 3 || !/"code":\s*5\d\d|INTERNAL|UNAVAILABLE/.test(String(e))) throw e;
+      await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
+    }
+  }
 }
 
 async function askOpenAICompatible(
