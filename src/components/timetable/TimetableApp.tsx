@@ -413,7 +413,9 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
                 {next ? (
                   <button type="button" className="tt-next glass" onClick={() => setDate(next.date)}>
                     <span className="tt-next-label">{untilText(next.date, next.entry.start, now)}</span>
-                    <span className="tt-next-title">{next.entry.title}</span>
+                    <span className="tt-next-title" key={`${next.date}-${next.entry.id}`}>
+                      {next.entry.title}
+                    </span>
                   </button>
                 ) : (
                   <div className="tt-next glass">
