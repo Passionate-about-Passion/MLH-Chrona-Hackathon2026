@@ -36,6 +36,7 @@ import { VoiceOverlay } from "./VoiceOverlay";
 import { WeekPager } from "./WeekPager";
 import { WeekStrip } from "./WeekStrip";
 import { CampusMap } from "@/features/act/CampusMap";
+import { OverlapConfirm } from "./OverlapConfirm";
 import { EditSheet, type EditKind, type EditValues } from "./EditSheet";
 import {
   WD_LONG,
@@ -92,6 +93,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
   const [preview, setPreview] = useState<{ entryId: string; alt: Alternative } | null>(null);
   const [addOpen, setAddOpen] = useState(false);
   const [voiceOpen, setVoiceOpen] = useState(false);
+  const [voicePress, setVoicePress] = useState<number | undefined>();
   const [toast, setToast] = useState<ToastState | null>(null);
   const counter = useRef(1);
   // Google Calendar status: connected (from /api/google/status) + result of the last sync
@@ -255,13 +257,37 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
     }
   };
 
+  /* ---------- new appointment that collides with something without alternative: ask first ---------- */
+  const [overlapAsk, setOverlapAsk] = useState<{
+    title: string;
+    date: string;
+    start: string;
+    end: string;
+    hits: Entry[];
+    onYes: () => void;
+  } | null>(null);
+
+  /** what a new block on `day` would overlap, and whether any of it could move to another group */
+  const collisions = (block: Constraint, day: string) => {
+    const hits = entriesOn(entries, day).filter((e) => e.start < block.end && block.start < e.end);
+    const movable = plan ? hits.filter((e) => !e.fixed && e.groupId && alternativesFor(data, plan, constraints, e).length > 0) : [];
+    return { hits, movable };
+  };
+
   const addEntry = (d: Omit<Entry, "id">) => {
     const block: Constraint = { type: "block", day: DAYS[weekdayOf(date)], start: d.start, end: d.end, label: d.title, hard: true };
-    setExtras({ ...extras, [blockKey(block)]: { location: d.location, weight: d.weight, fixed: d.fixed } });
-    setConstraints([...constraints, block]);
-    if (plan) syncNow([...constraints, block], priorities, plan.chosen);
+    const save = () => {
+      setExtras({ ...extras, [blockKey(block)]: { location: d.location, weight: d.weight, fixed: d.fixed } });
+      setConstraints([...constraints, block]);
+      if (plan) syncNow([...constraints, block], priorities, plan.chosen);
+      setOverlapAsk(null);
+      showToast("Termin gespeichert.");
+    };
     setAddOpen(false);
-    showToast("Termin gespeichert.");
+    const { hits, movable } = collisions(block, date);
+    if (hits.length && !movable.length) {
+      setOverlapAsk({ title: d.title, date, start: d.start, end: d.end, hits, onYes: save });
+    } else save();
   };
 
   /** Runs only after the user confirmed the card in the voice overlay (queries need no confirmation). */
@@ -311,11 +337,31 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
         label: intent.title ?? "Fester Termin",
         hard: true,
       };
-      const all = [...constraints, block];
-      setConstraints(all);
-      syncNow(all, priorities, plan.chosen);
       setDate(intent.date);
       setTab("cal");
+      const all = [...constraints, block];
+      const save = () => {
+        setConstraints(all);
+        syncNow(all, priorities, plan.chosen);
+        setOverlapAsk(null);
+      };
+      const { hits, movable } = collisions(block, intent.date);
+      // nothing in the way can move: ask before saving and show what it collides with
+      if (hits.length && !movable.length) {
+        setOverlapAsk({
+          title: block.label,
+          date: intent.date,
+          start: block.start,
+          end: block.end,
+          hits,
+          onYes: () => {
+            save();
+            showToast("Fester Termin angelegt.");
+          },
+        });
+        return;
+      }
+      save();
       const day = entriesOn(planToEntries(data, plan, all, priorities, extras), intent.date);
       const bad = conflictIds(day);
       const hit = day.find((e) => bad.has(e.id) && !e.fixed && e.groupId);
@@ -403,7 +449,16 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
             }
           />
         )}
-        <TabBar tab={tab} onTab={setTab} onVoice={() => setVoiceOpen(true)} voiceActive={voiceOpen} />
+        <TabBar
+          tab={tab}
+          onTab={setTab}
+          onVoice={(pressedAt) => {
+            if (voiceOpen) return;
+            setVoicePress(pressedAt);
+            setVoiceOpen(true);
+          }}
+          voiceActive={voiceOpen}
+        />
         <Toast toast={toast} onDismiss={dismissToast} />
       </div>
 
@@ -455,8 +510,19 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
           onClose={() => setEditId(null)}
         />
       )}
+      {overlapAsk && (
+        <OverlapConfirm
+          title={overlapAsk.title}
+          date={overlapAsk.date}
+          start={overlapAsk.start}
+          end={overlapAsk.end}
+          hits={overlapAsk.hits}
+          onConfirm={overlapAsk.onYes}
+          onClose={() => setOverlapAsk(null)}
+        />
+      )}
       {addOpen && <AddSheet date={date} onSave={addEntry} onClose={() => setAddOpen(false)} />}
-      {voiceOpen && <VoiceOverlay courses={courses} onConfirm={(i) => void applyIntent(i)} onClose={() => setVoiceOpen(false)} />}
+      {voiceOpen && <VoiceOverlay courses={courses} pressedAt={voicePress} onConfirm={(i) => void applyIntent(i)} onClose={() => setVoiceOpen(false)} />}
     </div>
   );
 }
