@@ -1,4 +1,6 @@
+"use client";
 import { BookIcon, CalendarIcon, MicIcon, WaveformIcon } from "./Icons";
+import { useSquish } from "./useSquish";
 
 export type Tab = "cal" | "plan";
 
@@ -12,10 +14,11 @@ interface TabBarProps {
 }
 
 export function TabBar({ tab, onTab, onVoice, voiceActive = false }: TabBarProps) {
+  const moving = useSquish(tab);
   return (
     <nav className="tt-tabbar glass" aria-label="Hauptnavigation">
       {/* light glass pill that slides to the active tab */}
-      <span className="tt-tab-pill" data-tab={tab} aria-hidden="true" />
+      <span className="tt-tab-pill glass" data-tab={tab} data-moving={moving || undefined} aria-hidden="true" />
       <button
         type="button"
         className="tt-tab"

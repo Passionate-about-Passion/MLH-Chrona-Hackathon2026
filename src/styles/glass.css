@@ -86,3 +86,16 @@
     backdrop-filter: blur(var(--glass-dense-blur)) saturate(180%);
   }
 }
+
+/* liquid response: tappable glass lightens and settles back with a spring */
+:is(button, a).glass:not(.tt-mic) {
+  transition:
+    background-color 0.3s ease,
+    box-shadow 0.3s ease,
+    scale 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+:is(button, a).glass:not(.tt-mic):active {
+  background-color: rgba(255, 255, 255, 0.28);
+  scale: 0.96;
+}

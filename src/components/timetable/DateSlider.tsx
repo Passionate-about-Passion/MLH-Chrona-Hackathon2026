@@ -1,6 +1,7 @@
 "use client";
 import { useEffect, useRef, useState } from "react";
 import { addDays, addMonths, clampDate, dayParts } from "./logic";
+import { useSquish } from "./useSquish";
 
 export type Mode = "W" | "M";
 
@@ -29,6 +30,7 @@ export function DateSlider({ mode, onMode, date, onDate, min, max, autoDim = fal
   const [bubble, setBubble] = useState<string | null>(null);
   const [dim, setDim] = useState(false);
   const dimTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const moving = useSquish(mode);
 
   const wake = () => {
     setDim(false);
@@ -103,7 +105,7 @@ export function DateSlider({ mode, onMode, date, onDate, min, max, autoDim = fal
         }
       }}
     >
-      <span className="tt-slider-thumb" aria-hidden="true" />
+      <span className="tt-slider-thumb" data-moving={moving || undefined} aria-hidden="true" />
       <button
         type="button"
         className="tt-slider-key"
