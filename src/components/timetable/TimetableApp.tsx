@@ -1,17 +1,25 @@
 "use client";
 import "./timetable.css";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
+import type { Constraint, Plan, Priority } from "@/lib/types";
 import type { Entry } from "@/types";
+import { getProgram } from "@/data";
+import { describeChanges, describeSchedule } from "@/features/voice/describe";
 import {
-  SAMPLE_NOW,
-  SAMPLE_RANGE,
-  SAMPLE_TODAY,
-  sampleCourses,
-  sampleEntries,
-  sampleGroups,
-  sampleSessions,
-} from "@/data/sample";
-import type { ParsedIntent } from "@/voice";
+  DAYS,
+  alternativesFor,
+  blockKey,
+  calendarNote,
+  fullPriorities,
+  planToEntries,
+  requestPlan,
+  swapChoice,
+  toBackendWeight,
+  uiCourses,
+  uiGroups,
+  type BlockExtras,
+} from "@/adapters/backend";
+import { voice, type ParsedIntent } from "@/voice";
 import { AddSheet } from "./AddSheet";
 import { ChangePreview } from "./ChangePreview";
 import { ConflictDialog } from "./ConflictDialog";
@@ -19,28 +27,47 @@ import { DateSlider, type Mode } from "./DateSlider";
 import { DayView } from "./DayView";
 import { PinIcon, PlusIcon } from "./Icons";
 import { Learnplan } from "./Learnplan";
+import { MonthView } from "./MonthView";
 import { TabBar, type Tab } from "./TabBar";
 import { Toast, type ToastState } from "./Toast";
 import { VoiceOverlay } from "./VoiceOverlay";
+import { WeekStrip } from "./WeekStrip";
 import {
-  alternativesFor,
+  addDays,
   conflictIds,
-  dayParts,
   entriesOn,
   moveToSession,
   nextEntry,
   range,
   relativeDay,
+  weekdayOf,
   type Alternative,
 } from "./logic";
 
+const data = getProgram()!;
+const groups = uiGroups(data);
+
+const localIso = (d = new Date()) =>
+  `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+const nowTime = (d = new Date()) => `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+
+const TODAY = localIso();
+/** open on Monday when today is a weekend day */
+const START_DATE = weekdayOf(TODAY) >= 5 ? addDays(TODAY, 7 - weekdayOf(TODAY)) : TODAY;
+const RANGE = { min: addDays(TODAY, -60), max: data.semester?.end ?? addDays(TODAY, 180) };
+
+type Snapshot = { plan: Plan; constraints: Constraint[]; priorities: Priority[] };
+
 export function TimetableApp() {
-  const [courses, setCourses] = useState(sampleCourses);
-  const [entries, setEntries] = useState<Entry[]>(sampleEntries);
+  const [plan, setPlan] = useState<Plan | null>(null);
+  const [constraints, setConstraints] = useState<Constraint[]>([]);
+  const [priorities, setPriorities] = useState<Priority[]>(() => fullPriorities(data, []));
+  const [extras, setExtras] = useState<BlockExtras>({});
+  const [loadError, setLoadError] = useState("");
   const [tab, setTab] = useState<Tab>("cal");
   const [mode, setMode] = useState<Mode>("W");
-  const [date, setDate] = useState(SAMPLE_TODAY);
-  const [conflictId, setConflictId] = useState<string | null>(null);
+  const [date, setDate] = useState(START_DATE);
+  const [conflict, setConflict] = useState<{ entryId: string; alternatives: Alternative[] } | null>(null);
   const [preview, setPreview] = useState<{ entryId: string; alt: Alternative } | null>(null);
   const [addOpen, setAddOpen] = useState(false);
   const [voiceOpen, setVoiceOpen] = useState(false);
@@ -52,71 +79,146 @@ export function TimetableApp() {
   }, []);
   const dismissToast = useCallback(() => setToast(null), []);
 
+  // start plan from the solver
+  useEffect(() => {
+    requestPlan({})
+      .then((r) => setPlan(r.plan))
+      .catch((e: Error) => setLoadError(e.message));
+  }, []);
+
+  useEffect(() => {
+    voice.setContext?.({ priorities, today: TODAY });
+  }, [priorities]);
+
+  const courses = useMemo(() => uiCourses(data, priorities), [priorities]);
+  const entries = useMemo(
+    () => (plan ? planToEntries(data, plan, constraints, priorities, extras) : []),
+    [plan, constraints, priorities, extras],
+  );
   const dayEntries = useMemo(() => entriesOn(entries, date), [entries, date]);
-  const next = useMemo(() => nextEntry(entries, SAMPLE_TODAY, SAMPLE_NOW), [entries]);
-  const parts = dayParts(date);
+  const next = useMemo(() => nextEntry(entries, TODAY, nowTime()), [entries]);
 
-  const alternativesOf = (e: Entry) => alternativesFor(e, sampleGroups, sampleSessions);
+  /** Ask the solver for a new plan. Mock mode ignores `current`, so apply the wished choice locally then. */
+  const replan = async (next: { constraints: Constraint[]; priorities: Priority[]; current: Plan["chosen"] }) => {
+    const r = await requestPlan(next);
+    const result = r.meta.mock && plan ? { ...plan, chosen: next.current } : r.plan;
+    setPlan(result);
+    setConstraints(next.constraints);
+    setPriorities(next.priorities);
+    return { plan: result, meta: r.meta };
+  };
 
-  const openAlternatives = (e: Entry) => {
+  const snapshot = (): Snapshot | null => (plan ? { plan, constraints, priorities } : null);
+  const restore = (s: Snapshot) => {
+    setPlan(s.plan);
+    setConstraints(s.constraints);
+    setPriorities(s.priorities);
+    // keep the Google calendar in line with the restored plan
+    requestPlan({ constraints: s.constraints, priorities: s.priorities, current: s.plan.chosen }).catch(() => {});
+  };
+
+  /** Conflict popup: the solver's suggestion first, then other free groups (max. 3). */
+  const openAlternatives = async (e: Entry, withConstraints = constraints, basePlan = plan) => {
+    if (!basePlan) return;
     if (e.fixed) return showToast("Dieser Termin ist fest und lässt sich nicht verschieben.");
-    if (alternativesOf(e).length === 0) return showToast("Für diesen Termin gibt es keine Alternative.");
-    setConflictId(e.id);
+    if (!e.groupId) return showToast("Für diesen Termin gibt es keine Alternative.");
+    let suggested: string | undefined;
+    try {
+      const r = await requestPlan({ constraints: withConstraints, priorities, current: basePlan.chosen, sync: false });
+      suggested = r.plan.chosen.find((c) => c.courseId === e.courseId && groups.find((g) => g.id === c.groupId)?.kind === e.type)
+        ?.groupId;
+    } catch {
+      // without the solver the popup still lists the free groups
+    }
+    const alternatives = alternativesFor(data, basePlan, withConstraints, e, suggested !== e.groupId ? suggested : undefined);
+    if (!alternatives.length) return showToast("Für diesen Termin gibt es keine Alternative.");
+    setConflict({ entryId: e.id, alternatives });
   };
 
-  const conflictEntry = entries.find((e) => e.id === conflictId);
+  const conflictEntry = conflict && entries.find((e) => e.id === conflict.entryId);
   const previewEntry = preview && entries.find((e) => e.id === preview.entryId);
+  const courseOf = (e: Entry) => courses.find((c) => c.id === e.courseId)!;
 
-  const applyMove = () => {
-    if (!preview || !previewEntry) return;
-    const course = courses.find((c) => c.id === previewEntry.courseId);
-    if (!course) return;
-    const before = entries;
-    const moved = moveToSession(previewEntry, preview.alt, course);
-    setEntries(entries.map((e) => (e.id === moved.id ? moved : e)));
+  const applyMove = async () => {
+    if (!preview || !previewEntry || !plan || !previewEntry.courseId || !previewEntry.groupId) return;
+    const before = snapshot()!;
     setPreview(null);
-    showToast("Termin verschoben.", () => setEntries(before));
+    try {
+      const chosen = swapChoice(plan.chosen, previewEntry.courseId, previewEntry.groupId, preview.alt.group.id);
+      const r = await replan({ constraints, priorities, current: chosen });
+      showToast(`Termin verschoben.${calendarNote(r.meta)}`, () => restore(before));
+    } catch (err) {
+      showToast(`Planer nicht erreichbar: ${(err as Error).message}`);
+    }
   };
 
-  const addEntry = (data: Omit<Entry, "id">) => {
-    const e: Entry = { ...data, id: `p-${counter.current++}` };
-    setEntries([...entries, e]);
-    if (e.date) setDate(e.date);
+  const addEntry = (d: Omit<Entry, "id">) => {
+    const block: Constraint = { type: "block", day: DAYS[weekdayOf(date)], start: d.start, end: d.end, label: d.title, hard: true };
+    setExtras({ ...extras, [blockKey(block)]: { location: d.location, weight: d.weight, fixed: d.fixed } });
+    setConstraints([...constraints, block]);
     setAddOpen(false);
     showToast("Termin gespeichert.");
   };
 
-  /** Runs only after the user confirmed the card in the voice overlay. */
-  const applyIntent = (intent: ParsedIntent) => {
+  /** Runs only after the user confirmed the card in the voice overlay (queries need no confirmation). */
+  const applyIntent = async (intent: ParsedIntent) => {
     setVoiceOpen(false);
-    if (intent.type === "set_course_weight") {
-      setCourses(courses.map((c) => (c.id === intent.courseId ? { ...c, weight: intent.weight } : c)));
-      setEntries(entries.map((e) => (e.courseId === intent.courseId ? { ...e, weight: intent.weight } : e)));
-      showToast("Wichtigkeit geändert.");
-      return;
+    if (!plan) return;
+    try {
+      if (intent.type === "query") {
+        const text = describeSchedule(data, plan, intent.date ? DAYS[weekdayOf(intent.date)] : "week", constraints);
+        if (intent.date) setDate(intent.date);
+        showToast(text);
+        voice.speak(text).catch(() => {});
+        return;
+      }
+      if (intent.type === "set_course_weight") {
+        const before = snapshot()!;
+        const next = priorities.map((p) =>
+          p.courseId === intent.courseId ? { ...p, weight: toBackendWeight(intent.weight), reason: "per Sprache geändert" } : p,
+        );
+        const r = await replan({ constraints, priorities: next, current: plan.chosen });
+        showToast(`Wichtigkeit geändert.${calendarNote(r.meta)}`, () => restore(before));
+        return;
+      }
+      if (intent.type === "free_wish") {
+        const before = snapshot()!;
+        const wish: Constraint = {
+          type: "block",
+          day: DAYS[weekdayOf(intent.date)],
+          start: intent.start,
+          end: intent.end,
+          label: intent.title ?? "Frei",
+          hard: false,
+        };
+        const r = await replan({ constraints: [...constraints, wish], priorities, current: plan.chosen });
+        setDate(intent.date);
+        const text = describeChanges(data, r.plan);
+        showToast(text, () => restore(before));
+        voice.speak(text).catch(() => {});
+        return;
+      }
+      if (intent.type !== "block_time") return;
+      const block: Constraint = {
+        type: "block",
+        day: DAYS[weekdayOf(intent.date)],
+        start: intent.start,
+        end: intent.end,
+        label: intent.title ?? "Fester Termin",
+        hard: true,
+      };
+      const all = [...constraints, block];
+      setConstraints(all);
+      setDate(intent.date);
+      setTab("cal");
+      const day = entriesOn(planToEntries(data, plan, all, priorities, extras), intent.date);
+      const bad = conflictIds(day);
+      const hit = day.find((e) => bad.has(e.id) && !e.fixed && e.groupId);
+      if (hit) await openAlternatives(hit, all, plan);
+      else showToast("Fester Termin angelegt.");
+    } catch (err) {
+      showToast(`Das hat nicht geklappt: ${(err as Error).message}`);
     }
-    if (intent.type !== "block_time") return;
-    const block: Entry = {
-      id: `p-${counter.current++}`,
-      title: intent.title ?? "Fester Termin",
-      type: "P",
-      start: intent.start,
-      end: intent.end,
-      location: "",
-      weight: 5,
-      recurring: false,
-      fixed: true,
-      date: intent.date,
-    };
-    const all = [...entries, block];
-    setEntries(all);
-    setDate(intent.date);
-    setTab("cal");
-    const day = entriesOn(all, intent.date);
-    const bad = conflictIds(day);
-    const hit = day.find((e) => bad.has(e.id) && !e.fixed && alternativesOf(e).length > 0);
-    if (hit) setConflictId(hit.id);
-    else showToast("Fester Termin angelegt.");
   };
 
   return (
@@ -131,7 +233,7 @@ export function TimetableApp() {
               </button>
               {next ? (
                 <button type="button" className="tt-next tt-glass" onClick={() => setDate(next.date)}>
-                  <span className="tt-next-label">Next up · {relativeDay(next.date, SAMPLE_TODAY)}</span>
+                  <span className="tt-next-label">Next up · {relativeDay(next.date, TODAY)}</span>
                   <span className="tt-next-title">{next.entry.title}</span>
                   <span className="tt-next-meta">
                     {range(next.entry)}
@@ -145,29 +247,40 @@ export function TimetableApp() {
                 </button>
               ) : (
                 <div className="tt-next tt-glass">
-                  <span className="tt-next-title">Nichts mehr geplant</span>
+                  <span className="tt-next-title">{plan ? "Nichts mehr geplant" : "Plan wird berechnet …"}</span>
                 </div>
               )}
             </header>
-            <h1 className="tt-date">
-              <span className="tt-date-wd">{parts.wd.toUpperCase()}</span> {parts.day}
-            </h1>
-            <main className="tt-main tt-glass">
-              <DayView date={date} entries={dayEntries} onConflictTap={openAlternatives} />
-            </main>
-            <DateSlider
-              mode={mode}
-              onMode={setMode}
-              date={date}
-              onDate={setDate}
-              min={SAMPLE_RANGE.min}
-              max={SAMPLE_RANGE.max}
-            />
+            {mode === "W" ? (
+              <>
+                <WeekStrip date={date} today={TODAY} entries={entries} onDate={setDate} />
+                <main className="tt-main tt-glass">
+                  {loadError ? (
+                    <p className="tt-empty">Der Planer ist nicht erreichbar: {loadError}</p>
+                  ) : (
+                    <DayView date={date} entries={dayEntries} onConflictTap={(e) => void openAlternatives(e)} />
+                  )}
+                </main>
+              </>
+            ) : (
+              <main className="tt-main tt-glass tt-main-month">
+                <MonthView
+                  date={date}
+                  today={TODAY}
+                  entries={entries}
+                  onPick={(iso) => {
+                    setDate(iso);
+                    setMode("W");
+                  }}
+                />
+              </main>
+            )}
+            <DateSlider mode={mode} onMode={setMode} date={date} onDate={setDate} min={RANGE.min} max={RANGE.max} />
           </>
         ) : (
           <Learnplan
             courses={courses}
-            groups={sampleGroups}
+            groups={groups}
             entries={entries}
             onExport={() => showToast("Kalender exportiert (nur im Mockup).")}
           />
@@ -176,33 +289,33 @@ export function TimetableApp() {
         <Toast toast={toast} onDismiss={dismissToast} />
       </div>
 
-      {conflictEntry && (
+      {conflict && conflictEntry && (
         <ConflictDialog
           entry={conflictEntry}
           entries={entries}
-          alternatives={alternativesOf(conflictEntry)}
+          alternatives={conflict.alternatives}
           shownDate={date}
           onChoose={(alt) => {
             setPreview({ entryId: conflictEntry.id, alt });
-            setConflictId(null);
+            setConflict(null);
           }}
-          onClose={() => setConflictId(null)}
+          onClose={() => setConflict(null)}
         />
       )}
       {preview && previewEntry && (
         <ChangePreview
           before={previewEntry}
-          after={moveToSession(previewEntry, preview.alt, courses.find((c) => c.id === previewEntry.courseId)!)}
+          after={moveToSession(previewEntry, preview.alt, courseOf(previewEntry))}
           onBack={() => {
-            setConflictId(previewEntry.id);
             setPreview(null);
+            void openAlternatives(previewEntry);
           }}
-          onApply={applyMove}
+          onApply={() => void applyMove()}
           onClose={() => setPreview(null)}
         />
       )}
       {addOpen && <AddSheet date={date} onSave={addEntry} onClose={() => setAddOpen(false)} />}
-      {voiceOpen && <VoiceOverlay courses={courses} onConfirm={applyIntent} onClose={() => setVoiceOpen(false)} />}
+      {voiceOpen && <VoiceOverlay courses={courses} onConfirm={(i) => void applyIntent(i)} onClose={() => setVoiceOpen(false)} />}
     </div>
   );
 }
