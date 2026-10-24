@@ -14,6 +14,27 @@ Photo / note ──► Capture ──► Understand (Gemma 4) ──► Act (Gem
 - **Runs where you want it:** Gemini API, DigitalOcean Inference, or fully local via Ollama (Gemma 4 E4B) so sensitive data never leaves the device.
 - **Multimodal:** understands photos of real-world documents, not just text.
 
+## Stundenplan-UI-Mockup
+
+Die App plant für Studierende den Stundenplan. Vorlesungen, Übungen und Tutorien werden einmal importiert und mit privaten Terminen und Hobbys zu einem Plan ohne Überschneidungen kombiniert. Wichtige Kurse werden bei Konflikten bevorzugt, weil jeder Kurs eine Wichtigkeit von 1 bis 5 hat. Bei einem Konflikt zeigt die App Alternativen nebeneinander und ändert nichts ohne Bestätigung. Spontane Änderungen sagt man per Sprache, die App legt die Woche neu.
+
+Der Prototyp ist ein klickbares Mockup mit erfundenen Beispieldaten, ohne Backend. Er läuft unter `/mockup` und ist für ein iPhone-Format (390 × 844) gebaut.
+
+```bash
+npm install
+npm run dev     # dann http://localhost:3000/mockup öffnen
+```
+
+| Pfad | Inhalt |
+|------|--------|
+| `src/app/mockup/page.tsx` | Route des Mockups |
+| `src/components/timetable/` | Oberfläche: Tagesansicht, Regler, Dialoge, Lernplan, `timetable.css` |
+| `src/types.ts` | Datenmodell (Course, Group, Session, Entry) |
+| `src/data/sample.ts` | Beispielkurse, -gruppen und -termine |
+| `src/voice/` | Schnittstelle `VoiceService` und Mock-Implementierung |
+
+Die Sprachfunktion (Speech-to-Text, Sprachverständnis, Text-to-Speech) wird nur in `src/voice/` eingebaut: [`docs/voice-integration.md`](docs/voice-integration.md)
+
 ## Quick start
 
 ```bash
