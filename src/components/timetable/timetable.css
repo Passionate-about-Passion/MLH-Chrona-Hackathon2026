@@ -172,6 +172,146 @@
   overflow: hidden;
 }
 
+/* ---------- week strip ---------- */
+
+.tt-week {
+  flex: none;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+  margin-right: 64px;
+}
+
+.tt-week-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  min-height: 56px;
+  padding: 4px 0;
+  border: 1px solid transparent;
+  border-radius: 18px;
+  background: transparent;
+}
+
+.tt-week-wd {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.tt-week-num {
+  font-size: 19px;
+  font-weight: 750;
+  font-variant-numeric: tabular-nums;
+}
+
+.tt-week-day[data-today] .tt-week-num {
+  color: var(--accent);
+}
+
+.tt-week-day[aria-current="date"] {
+  background: var(--glass-strong);
+  border-color: var(--edge);
+  box-shadow: var(--shadow);
+}
+
+.tt-week-dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+}
+
+.tt-week-dot[data-on] {
+  background: var(--ink-2);
+}
+
+/* ---------- month view ---------- */
+
+.tt-main-month {
+  overflow-y: auto;
+}
+
+.tt-month {
+  padding: 16px 12px 12px;
+}
+
+.tt-month-title {
+  margin: 0 4px 12px;
+  font-size: 26px;
+  font-weight: 750;
+  letter-spacing: -0.01em;
+}
+
+.tt-month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 2px;
+}
+
+.tt-month-wd {
+  padding-bottom: 4px;
+  text-align: center;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink-2);
+}
+
+.tt-month-day {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  min-height: 52px;
+  padding: 6px 0;
+  border: 0;
+  border-radius: 14px;
+  background: transparent;
+  font-weight: 650;
+  font-variant-numeric: tabular-nums;
+}
+
+.tt-month-day[data-out] {
+  color: var(--ink-2);
+  opacity: 0.55;
+}
+
+.tt-month-day[data-today] > span:first-child {
+  color: var(--accent);
+}
+
+.tt-month-day[aria-current="date"] {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 2px 8px rgba(40, 50, 100, 0.12);
+}
+
+.tt-month-dots {
+  display: flex;
+  gap: 2px;
+  min-height: 5px;
+}
+
+.tt-month-dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--c-v);
+}
+
+.tt-month-dots i[data-type="U"] {
+  background: var(--c-u);
+}
+.tt-month-dots i[data-type="T"] {
+  background: var(--c-t);
+}
+.tt-month-dots i[data-type="P"] {
+  background: var(--c-p);
+}
+.tt-month-dots i[data-conflict] {
+  background: var(--conflict);
+}
+
 /* ---------- day view ---------- */
 
 .tt-scroll {
