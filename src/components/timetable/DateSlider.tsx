@@ -81,7 +81,7 @@ export function DateSlider({ mode, onMode, date, onDate, min, max }: DateSliderP
         aria-label="Wochenansicht, tageweise blättern"
         onClick={() => onMode("W")}
       >
-        W
+        Wo
       </button>
       <div className="tt-slider-grip" aria-hidden="true" style={{ transform: `translateY(${offset / 3}px)` }}>
         <i />
@@ -97,7 +97,7 @@ export function DateSlider({ mode, onMode, date, onDate, min, max }: DateSliderP
         aria-label="Monatsansicht, monatsweise blättern"
         onClick={() => onMode("M")}
       >
-        M
+        Mon
       </button>
       {bubble && (
         <div className="tt-bubble glass-dense" role="status">

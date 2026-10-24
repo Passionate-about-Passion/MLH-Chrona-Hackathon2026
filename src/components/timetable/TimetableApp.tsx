@@ -39,7 +39,7 @@ import { CampusMap } from "@/features/act/CampusMap";
 import { addDays, conflictIds, range, entriesOn, moveToSession, nextEntry, weekdayOf, type Alternative } from "./logic";
 
 /** room for the overlays: header + week strip on top, tab bar at the bottom */
-const PAD_TOP = 164;
+const PAD_TOP = 148; // top overlays: next pill 56 + gap 10 + week strip 56 + air
 const PAD_BOTTOM = 112;
 
 const KIND_NAME = { V: "Vorlesung", U: "Übung", T: "Tutorium", P: "Termin" } as const;
