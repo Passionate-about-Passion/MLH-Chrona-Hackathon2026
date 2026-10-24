@@ -37,7 +37,8 @@ export function parseLibrary(html: string): LibLocation[] {
     if (found && !out.some((o) => o.building === found[1]))
       out.push({ name: found[2], percent: +m[2], seats: +m[3], level, building: found[1] });
   });
-  return out;
+  // Ausleihzentrum Westflügel ist kein Lernort (44 Plätze) – erkannt, aber nicht angezeigt
+  return out.filter((o) => o.building !== "W");
 }
 
 /** Tagesplan der Studierendenwerk-API (tl1/menuplan): Zeilen mit Linie, Gericht (ohne Zusatzstoffe), Preis. */
