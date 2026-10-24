@@ -39,7 +39,7 @@ Meta       { provider: string; model: string; ms: number; mock?: boolean }
 |---|---|---|---|---|
 | POST | `/api/analyze` | JSON: `{ text: string, today?: Day, provider? }` | `{ understanding: Understanding, meta: Meta }` | B |
 | POST | `/api/act` | JSON: `{ constraints?: Constraint[], priorities?: Priority[], current?: Choice[] }` | `{ plan: Plan, meta: Meta }` (`meta.provider` = `solver`) | C |
-| POST | `/api/speak` | JSON: `{ text: string }` | `audio/mpeg` · 501 ohne Key → Browser-Fallback | D |
+| POST | `/api/speak` | JSON: `{ text: string, lang?: "de" \| "en" }` (lang optional, Standardmodell erkennt die Sprache selbst) | `audio/mpeg` · 501 ohne Key → Browser-Fallback | D |
 
 Fehler immer als `{ error: string }` mit passendem HTTP-Status.
 
