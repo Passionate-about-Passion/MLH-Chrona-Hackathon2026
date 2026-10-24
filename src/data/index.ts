@@ -1,9 +1,15 @@
 import type { CourseData } from "@/lib/types";
 import demo from "./demo.json";
+import bwl from "./bwl.json";
+import wifo from "./wifo.json";
+import vwl from "./vwl.json";
 
 /** Neuer Studiengang = Import + eine Zeile hier. */
 export const PROGRAMS: Record<string, CourseData> = {
   demo: demo as CourseData,
+  bwl: bwl as CourseData,
+  wifo: wifo as CourseData,
+  vwl: vwl as CourseData,
 };
 
 export const getProgram = (id = "demo"): CourseData | undefined => PROGRAMS[id];

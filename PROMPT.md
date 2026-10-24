@@ -33,6 +33,7 @@ Nichts löschen: Erledigtes nach unten verschieben. Ab **14:00** nur noch Bugfix
 | 018 | Einmaliger Termin („nur nächsten Donnerstag") → Ausweichtermin diese Woche + Kalender-Ausnahme | B/C | sonnet | Lenny | gestrichen (Rückfrage aus Prompt entfernt, immer wöchentlich) |
 | 019 | Selbsttests in `scripts/check.sh` (`npm test`) | – | haiku | Lenny | erledigt (nicht committet) |
 | 020 | Prompt: Frontend an Lennys Backend anbinden (Sprache, Rückfragen, Plan, Vorlesen, Google-Status) | alle | sonnet | Frontend-Person | offen (zu TASK-009) |
+| 021 | Integration: Leos Frontend + Lennys Backend zusammenführen (Adapter, echter VoiceService, Demo-Durchlauf) | alle | opus → sonnet | Lenny | offen (wartet auf Leos Commit) |
 | 010 | Test: versteht Gemma 4 Audio direkt (Ollama)? | B | sonnet | Lenny | erledigt: ja, `/api/analyze {audio}` → Gemma (`input_audio`), < 1 s |
 | 011 | `scripts/voice.py` je nach Ergebnis von 010 entfernen oder umbauen | D | haiku | Lenny | erledigt: ersetzt durch `/api/analyze {audio}` + `recordWav.ts`; `voice.py` ungenutzt |
 | 012 | Doku: `interfaces.md`, `decisions.md`, `scope.md` an Stundenplan anpassen | – | haiku | Lenny | erledigt (nicht committet) |
@@ -89,6 +90,43 @@ Nichts löschen: Erledigtes nach unten verschieben. Ab **14:00** nur noch Bugfix
 > Fertig, wenn: `bash scripts/check.sh` grün und im Browser (MOCK=0, `AI_PROVIDER=ollama`) die drei Demo-Sätze funktionieren: „Donnerstag 14 bis 16 Uhr habe ich einen Termin" · „Ich will dienstags frei haben" · „Welche Termine habe ich am Mittwoch?". Screenshot bei 390 px.
 > Nicht anfassen: Solver-, Prompt- und Routen-Logik (nur aufrufen).
 
+### TASK-021 · Integration: Leos Frontend + Lennys Backend
+- Bereich: alle · Modell: Opus plant + prüft, Sonnet baut · Prio: Demo-kritisch (gilt als Bugfix/Stabilität, auch nach 14:00)
+- Status: offen – startet, sobald Leos Frontend-Commit auf `main` ist
+> Ziel: Die Demo läuft Ende-zu-Ende auf Leos Oberfläche mit echtem Backend: Mikro → Gemma (Audio) → Plan → Google-Kalender → Vorlesen. Kein Mock mehr in der Demo.
+>
+> **Schritt 0 – Bestandsaufnahme (Opus, nur lesen, 5 Min.)**
+> `git pull` auf `main`, dann `lenny/stundenplan` per `git merge main` nachziehen. Klären: Nutzt Leos UI schon den Backend-Vertrag (`src/lib/types.ts`, `/api/analyze`, `/api/act`, TASK-020) oder noch das Mockup-Modell (`src/types.ts`, `src/data/sample.ts`, `src/voice/` mit `mockVoiceService`)? Welche Seite ist die Demo (`/` oder `/mockup`)? Wo hält die UI ihren Zustand (Entries, Gewichte)? Ergebnis: kurze Liste „passt / muss gemappt werden / fehlt“.
+>
+> **Fall A – UI spricht schon den Backend-Vertrag:** nur Lücken schließen (Schritt 3–5), kein Adapter.
+>
+> **Fall B – UI nutzt das Mockup-Modell (wahrscheinlich):** Backend-Vertrag bleibt unverändert, Anpassung nur auf Frontend-Seite über einen Adapter:
+>
+> **Schritt 1 – Adapter `src/voice/adapter.ts` (Sonnet, reine Funktionen + `adapter.check.ts`)**
+> - Tag: `Day` „Mo…So“ ↔ `wd` 0…6 (0 = Mo). Bei `date` (einmalig): Wochentag aus dem Datum ableiten – gilt immer wöchentlich (TASK-018 gestrichen).
+> - Art: „Vorlesung/Übung/Tutorium“ ↔ `V/U/T`; Sperrzeiten/Wünsche → `type: "P"`.
+> - Gewicht: Backend 1–3 ↔ UI 1–5 (hin: 1→1, 2→3, 3→5; zurück: 1–2→1, 3→2, 4–5→3).
+> - `planToEntries(data, plan, constraints): Entry[]` – je Session der `plan.chosen`-Gruppen ein Entry (`title` = Kursname, `location` = room, `fixed` = false, `courseId`, `groupId`, `recurring: true`); `data.fixed` + harte Constraints → `fixed: true`, Wünsche (`hard: false`) → `fixed: false`, `type: "P"`.
+> - `intentToRequest(ParsedIntent)` nur falls die UI eigene Intents erzeugt (Block → `Constraint`, Gewicht → `Priority`).
+>
+> **Schritt 2 – echter VoiceService `src/voice/gemmaVoiceService.ts` (Sonnet)**
+> - `startListening/stopListening` → `startRecording()` aus `src/features/voice/recordWav.ts`; `stopListening` schickt `{ audio }` an `/api/analyze` und liefert `transcript`. Fehler/kein Mikro → Fallback Web Speech API.
+> - `parseIntent` → Ergebnis aus `/api/analyze` (`understanding`) auf `ParsedIntent` mappen; Rückfragen (`questions`) und `intent: "query"` brauchen einen Weg in die UI – wenn das Interface zu schmal ist, `VoiceService` um **optionale** Methoden/Felder ergänzen (mit Leo absprechen, nichts umbenennen).
+> - Neu planen: `POST /api/act { constraints (alle bisherigen), priorities, current: vorheriges plan.chosen }` → `planToEntries` → UI-State. `plan.changes` als Hervorhebung, `meta.calendar`/`calendarStats` als dezenter Hinweis.
+> - `speak` → `/api/speak`, bei 501 `speechSynthesis` (wie `SpeakButton`). Text aus `describeChanges` bzw. `describeSchedule` (`src/features/voice/describe.ts`).
+> - In `src/voice/index.ts` die eine Zeile auf `gemmaVoiceService` umstellen.
+>
+> **Schritt 3 – Startplan + Google (Sonnet)**
+> Beim Laden `POST /api/act {}` statt `sample.ts`. `GET /api/google/status` → Knopf „Mit Google verbinden“ (Link `/api/google/login`), `/?google=ok|error` auswerten.
+>
+> **Schritt 4 – Demo-Durchlauf (Opus prüft im Browser, localhost:3000, nach `npm run warmup`)**
+> 1. Startplan erscheint. 2. Mikro: „Donnerstag 14 bis 16 Uhr habe ich einen festen Termin“ → nur Statistik-Übung wandert auf Fr 12–14, wird vorgelesen, Google zeigt die Änderung. 3. „Ich will dienstags frei haben“ → Wunsch, Pflichttermine bleiben mit Begründung. 4. „Welche Termine habe ich am Mittwoch?“ → Antwort vorgelesen, kein Neuplanen. 5. Reset. Jeden Fehler sofort in `BUGS.md`.
+>
+> **Schritt 5 – Abschluss**
+> `bash scripts/check.sh` grün → commit → `main` (ff-only) → push. Vor der Demo: `MOCK=0`, `npm run warmup`, Google verbunden, Mockup-Mock nicht mehr im Pfad.
+>
+> Regeln: Backend-Vertrag (`src/lib/types.ts`, API-Routen) nur optional ergänzen; Leos Komponenten nur dort anfassen, wo sie Daten holen – Layout/Design bleibt Leos. Nie zwei Agents auf dieselbe Datei (Adapter und VoiceService nacheinander oder klar getrennt). Agents committen nicht. Nach 14:00 nur, was für die Demo nötig ist.
+
 ### TASK-020 · Frontend an Lennys Backend anbinden (Prompt für TASK-009)
 - Bereich: alle (gemeinsam `page.tsx`) · Modell: sonnet · Prio: Feature
 - Status: offen · Wer: Frontend-Person, nicht Lenny
@@ -100,6 +138,7 @@ Baue das Frontend (TASK-009 in PROMPT.md) so, dass es Lennys Backend direkt und 
 Vorhanden und wiederzuverwenden: src/features/voice/SpeakButton.tsx (Props text, lang, autoPlay; nutzt /api/speak, Fallback speechSynthesis ist eingebaut), src/features/voice/describe.ts (describeSchedule, describeChanges). Alt und aus page.tsx zu entfernen (Dateien stehen lassen): CaptureCard, AnalysisView, ActionPanel (Typen Analysis/ActResult gelten nicht mehr).
 
 ABLAUF
+0. Studiengang + Semester: Beim Start fragt die App zuerst Studiengang und Fachsemester ab (zwei Dropdowns/Auswahlkarten aus GET /api/programs: name + terms; "Demo (Pitch)" ist vorausgewählt bzw. erste Option). Die Auswahl wird bei jedem POST /api/act und /api/analyze als program + term mitgeschickt.
 1. Beim Laden: POST /api/act {} -> { plan, meta }. Das ist der Startplan. Kursdaten für die Anzeige: import data from "@/data/courses.json" (CourseData: courses, fixed, semester).
 2. Eingabe: großer Mikrofon-Knopf plus Textfeld. Der Knopf nutzt `startRecording()` aus src/features/voice/recordWav.ts und schickt `POST /api/analyze { audio }` (base64 WAV; Gemma transkribiert lokal, meta.input = "audio"). Bei Fehler (400 "Audio nicht verstanden", kein Mikro, keine Erlaubnis) Fallback: Web Speech API (lang "de-DE", nur wenn window.SpeechRecognition / webkitSpeechRecognition da ist) bzw. Textfeld.
 3. POST /api/analyze, JSON { text: string, priorities?: Priority[] } (optional today?: Day, provider?: Provider). Immer die aktuellen priorities mitschicken, sonst springen Gewichte zurück. Antwort { understanding, meta }. Understanding: { intent: "reschedule" | "query", transcript, constraints: Constraint[], priorities: Priority[], questions: Question[], queryDay?: Day | "week" }. Fehler: { error } (400 kein Text, 502 Modell ohne gültiges JSON, 500). Zeige Fehler dezent und lass Eingabe nutzbar.
@@ -174,7 +213,7 @@ AKZEPTANZKRITERIEN
 
 ### TASK-015 · Echte Kursdaten BWL (dann VWL, WiFo)
 - Bereich: A · Modell: haiku · Prio: Feature · Wer: Emil
-- Status: offen
+- Status: erledigt (nicht committet), BWL + WiFo + VWL (Module laut Studienverlaufsplan, Termine = Beispieltermine)
 > Ziel: Echte Termine der Uni als `src/data/bwl.json` (später `vwl.json`, `wifo.json`), genau im Format von `src/data/courses.json` bzw. `CourseData` in `src/lib/types.ts`. `backend/bwl_courses.json` ist bisher leer – dort nichts weiter pflegen.
 > Format pro Datei: `{ "program": { "id": "bwl", "name": "BWL (B.Sc.)" }, "semester": { "start": "YYYY-MM-DD", "end": "YYYY-MM-DD" }, "courses": [ { "id": "kurz-und-eindeutig", "name": "…", "required": true, "ects": 6, "exam": true, "term": 1, "groups": [ { "id": "<kurs>-v", "kind": "Vorlesung", "sessions": [ { "day": "Mo", "start": "10:15", "end": "11:45", "room": "…" } ] }, { "id": "<kurs>-u1", "kind": "Übung", "sessions": [ … ] } ] } ], "fixed": [] }`.
 > Regeln: Tage `Mo|Di|Mi|Do|Fr|Sa|So`, Zeiten `HH:MM` 24 h; jede parallele Übung/jedes Tutorium = eigene Gruppe; Vorlesung mit mehreren Terminen pro Woche = eine Gruppe mit mehreren `sessions`; `term` = empfohlenes Fachsemester; für die Demo reicht **ein Semester** (z. B. 1. Semester BWL, 5–7 Kurse). In `src/data/index.ts` (TASK-014) eine Zeile ergänzen.
