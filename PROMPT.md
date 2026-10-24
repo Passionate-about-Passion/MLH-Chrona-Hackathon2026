@@ -25,7 +25,7 @@ Nichts löschen: Erledigtes nach unten verschieben. Ab **14:00** nur noch Bugfix
 | 007 | Planer `/api/act`: Gewichte, fest/Wunsch, wenig Änderungen | C | sonnet | Lenny | erledigt (nicht committet) |
 | 008 | „Welche Termine habe ich?" → Antworttext → ElevenLabs | D | sonnet | Lenny | erledigt (nicht committet) |
 | 009 | Frontend: Sprechen → Rückfragen → Wochenplan → Vorlesen | alle | sonnet | Frontend-Person (nicht Lenny) | offen (nach 006–008) |
-| 013 | Google-Kalender-Sync: nach jeder Planänderung sofort im Google Kalender | C | sonnet | Lenny | offen |
+| 013 | Google-Kalender-Sync: nach jeder Planänderung sofort im Google Kalender | C | sonnet | Lenny | gebaut, Live-Test mit Google offen |
 | 014 | Stundenplan-Erstellung: Studiengang + Semester wählen → Startplan | B/C | sonnet | Lenny | offen (nach 013) |
 | 015 | Echte Kursdaten BWL (dann VWL, WiFo) im Format von `src/data/courses.json` | A | haiku | Emil | offen |
 | 016 | Gemma bleibt geladen (keep-alive) + `npm run warmup` | B | sonnet | Lenny | erledigt (nicht committet) |
