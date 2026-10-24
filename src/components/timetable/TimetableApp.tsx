@@ -60,7 +60,6 @@ const TODAY = localIso();
 /** open on Monday when today is a weekend day */
 const START_DATE = weekdayOf(TODAY) >= 5 ? addDays(TODAY, 7 - weekdayOf(TODAY)) : TODAY;
 type Snapshot = { plan: Plan; constraints: Constraint[]; priorities: Priority[] };
-type GoogleStatus = { configured: boolean; connected: boolean };
 
 export function TimetableApp({ program = "demo", term }: { program?: string; term?: number }) {
   // chosen study program (page.tsx remounts the app with a new key when it changes)
@@ -91,32 +90,42 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
   const [voiceOpen, setVoiceOpen] = useState(false);
   const [toast, setToast] = useState<ToastState | null>(null);
   const counter = useRef(1);
+  // Google Calendar status: connected (from /api/google/status) + result of the last sync
+  const [gcal, setGcal] = useState<{ connected: boolean | null; last: "ok" | "error" | null }>({ connected: null, last: null });
+  const track = useCallback((r: Awaited<ReturnType<typeof requestPlan>>) => {
+    const c = r.meta.calendar;
+    if (c === "synced") setGcal((g) => ({ ...g, last: "ok" }));
+    else if (c?.startsWith("error")) setGcal((g) => ({ ...g, last: "error" }));
+    return r;
+  }, []);
 
   const showToast = useCallback((message: string, undo?: () => void) => {
     setToast({ id: counter.current++, message, undo });
   }, []);
   const dismissToast = useCallback(() => setToast(null), []);
 
-  const [google, setGoogle] = useState<GoogleStatus | null>(null);
 
   // start plan from the solver
   useEffect(() => {
+    fetch("/api/google/status")
+      .then((r) => r.json())
+      .then((j: { configured?: boolean; connected?: boolean }) => setGcal((g) => ({ ...g, connected: !!(j.configured && j.connected) })))
+      .catch(() => setGcal((g) => ({ ...g, connected: false })));
+  }, []);
+
+  useEffect(() => {
     setSelection({ program, term });
     requestPlan({})
-      .then((r) => setPlan(r.plan))
+      .then((r) => setPlan(track(r).plan))
       .catch((e: Error) => setLoadError(e.message));
-  }, [requestPlan, program, term]);
+  }, [requestPlan, program, term, track]);
 
-  // Google calendar: status for the connect button, and the result after the OAuth redirect (/?google=ok|error)
+  // result of the Google login redirect (/?google=ok|error)
   useEffect(() => {
-    fetch("/api/google/status")
-      .then((r) => (r.ok ? r.json() : null))
-      .then((s: GoogleStatus | null) => setGoogle(s))
-      .catch(() => setGoogle(null));
     const result = new URLSearchParams(window.location.search).get("google");
     if (result) {
       showToast(result === "ok" ? "Mit Google Kalender verbunden." : "Verbindung mit Google fehlgeschlagen.");
-      window.history.replaceState(null, "", window.location.pathname);
+      window.history.replaceState(null, "", window.location.pathname + window.location.search.replace(/[?&]google=[^&]*/, ""));
     }
   }, [showToast]);
 
@@ -139,12 +148,17 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
 
   /** Ask the solver for a new plan. Mock mode ignores `current`, so apply the wished choice locally then. */
   const replan = async (next: { constraints: Constraint[]; priorities: Priority[]; current: Plan["chosen"] }) => {
-    const r = await requestPlan(next);
+    const r = track(await requestPlan(next));
     const result = r.meta.mock && plan ? { ...plan, chosen: next.current } : r.plan;
     setPlan(result);
     setConstraints(next.constraints);
     setPriorities(next.priorities);
     return { plan: result, meta: r.meta };
+  };
+
+  /** Push the current state to the calendar without touching the UI plan. */
+  const syncNow = (c: Constraint[], p: Priority[], chosen: Plan["chosen"]) => {
+    requestPlan({ constraints: c, priorities: p, current: chosen }).then(track).catch(() => setGcal((g) => ({ ...g, last: "error" })));
   };
 
   const snapshot = (): Snapshot | null => (plan ? { plan, constraints, priorities } : null);
@@ -153,7 +167,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
     setConstraints(s.constraints);
     setPriorities(s.priorities);
     // keep the Google calendar in line with the restored plan
-    requestPlan({ constraints: s.constraints, priorities: s.priorities, current: s.plan.chosen }).catch(() => {});
+    syncNow(s.constraints, s.priorities, s.plan.chosen);
   };
 
   /** Conflict popup: the solver's suggestion first, then other free groups (max. 3). */
@@ -239,6 +253,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
     const block: Constraint = { type: "block", day: DAYS[weekdayOf(date)], start: d.start, end: d.end, label: d.title, hard: true };
     setExtras({ ...extras, [blockKey(block)]: { location: d.location, weight: d.weight, fixed: d.fixed } });
     setConstraints([...constraints, block]);
+    if (plan) syncNow([...constraints, block], priorities, plan.chosen);
     setAddOpen(false);
     showToast("Termin gespeichert.");
   };
@@ -292,6 +307,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
       };
       const all = [...constraints, block];
       setConstraints(all);
+      syncNow(all, priorities, plan.chosen);
       setDate(intent.date);
       setTab("cal");
       const day = entriesOn(planToEntries(data, plan, all, priorities, extras), intent.date);
@@ -350,6 +366,13 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
                 )}
               </header>
               {mode === "W" && <WeekStrip date={date} today={TODAY} onDate={setDate} />}
+              {gcal.connected === false ? (
+                <a className="tt-gcal glass" href="/api/google/login">Mit Google verbinden</a>
+              ) : gcal.connected ? (
+                <span className="tt-gcal glass">
+                  {gcal.last === "error" ? "Google Kalender: Sync fehlgeschlagen" : gcal.last === "ok" ? "Google Kalender ✓ synchron" : "Google Kalender verbunden"}
+                </span>
+              ) : null}
             </div>
             <DateSlider mode={mode} onMode={setMode} date={date} onDate={setDate} min={range.min} max={range.max} />
           </>
@@ -359,7 +382,6 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
             courses={courses}
             groups={groups}
             entries={entries}
-            google={google}
             onExport={() => {
               const n = downloadIcs(entries, { from: data.semester?.start ?? TODAY, until: range.max });
               showToast(`Kalender exportiert: ${n} Termine in stundenplan.ics`);

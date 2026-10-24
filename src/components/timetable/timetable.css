@@ -1440,8 +1440,19 @@ a.tt-card-loc {
   gap: 8px;
 }
 
+.tt-group-map figure {
+  padding: 8px 8px 0;
+}
+
+.tt-group-map figcaption {
+  padding: 0 6px 8px;
+  color: var(--ink-2);
+}
+
 .tt-group-action {
   justify-content: center;
+  gap: 6px;
+  text-decoration: none;
   font-weight: 600;
   color: var(--primary);
 }
@@ -1460,4 +1471,15 @@ a.tt-card-loc {
   .tt-pager {
     scroll-behavior: auto;
   }
+}
+
+.tt-gcal {
+  align-self: flex-start;
+  margin: 8px 0 0 4px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-2);
+  text-decoration: none;
 }

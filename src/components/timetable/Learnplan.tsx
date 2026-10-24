@@ -9,45 +9,11 @@ interface LearnplanProps {
   courses: Course[];
   groups: Group[];
   entries: Entry[];
-  /** GET /api/google/status, null while loading or unreachable */
-  google: { configured: boolean; connected: boolean } | null;
   onExport: () => void;
   onChangeProgram: () => void;
 }
 
-function GoogleSync({ google }: { google: LearnplanProps["google"] }) {
-  if (!google) return null;
-  return (
-    <div className="tt-google glass-dense">
-      <div>
-        <p className="tt-google-title">Google Kalender</p>
-        <p className="tt-google-sub">
-          {google.connected
-            ? "Verbunden. Jede Änderung landet im Kalender „Stundenplan“."
-            : google.configured
-              ? "Verbinde dein Konto, dann landet jede Änderung im Kalender."
-              : "Noch nicht eingerichtet: Google-Zugang fehlt auf dem Server (docs/backend.md)."}
-        </p>
-      </div>
-      {google.connected ? (
-        <span className="tt-google-ok" role="img" aria-label="verbunden">
-          ✓
-        </span>
-      ) : google.configured ? (
-        // full navigation: the OAuth flow redirects back to /?google=ok
-        <a className="tt-btn tt-btn-primary tt-google-btn" href="/api/google/login">
-          Verbinden
-        </a>
-      ) : (
-        <button type="button" className="tt-btn tt-btn-quiet tt-google-btn" disabled>
-          Verbinden
-        </button>
-      )}
-    </div>
-  );
-}
-
-export function Learnplan({ title, courses, groups, entries, google, onExport, onChangeProgram }: LearnplanProps) {
+export function Learnplan({ title, courses, groups, entries, onExport, onChangeProgram }: LearnplanProps) {
   return (
     <section className="tt-plan" aria-label="Lernplan">
       <div className="tt-plan-head">
@@ -63,9 +29,6 @@ export function Learnplan({ title, courses, groups, entries, google, onExport, o
         </button>
       </div>
       <ul className="tt-courses">
-        <li>
-          <GoogleSync google={google} />
-        </li>
         {courses.map((c) => {
           const mine = entries.filter((e) => e.courseId === c.id);
           return (

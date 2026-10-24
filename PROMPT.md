@@ -90,6 +90,16 @@ Nichts löschen: Erledigtes nach unten verschieben. Ab **14:00** nur noch Bugfix
 > Fertig, wenn: `bash scripts/check.sh` grün und im Browser (MOCK=0, `AI_PROVIDER=ollama`) die drei Demo-Sätze funktionieren: „Donnerstag 14 bis 16 Uhr habe ich einen Termin" · „Ich will dienstags frei haben" · „Welche Termine habe ich am Mittwoch?". Screenshot bei 390 px.
 > Nicht anfassen: Solver-, Prompt- und Routen-Logik (nur aufrufen).
 
+### TASK-022 · Lageplan beim Klick auf einen Termin
+- Bereich: Frontend (gemeinsam) · Modell: sonnet · Prio: nach Freeze, nur wenn Zeit bleibt (nicht Demo-kritisch) · Wer: Frontend-Person
+- Status: erledigt (Lageplan, Lenny)
+> Ziel: Klick auf einen Termin in der Wochenansicht öffnet ein Popup mit einem schlichten Grundriss des Campus (Schloss + Quadrate), ohne Legende. Das Gebäude des Termins ist mit einem blauen Fenster markiert, darin Kurs, Art (Vorlesung/Übung), Uhrzeit, Raum.
+> Vorlage: https://www.uni-mannheim.de/media/Einrichtungen/abteilung_marketing/Dokumente/Corporate_Design/UniMaPlan_Hoersaal_2022_DE.pdf – PDF nicht einbetten, sondern einen eigenen leeren Grundriss als Inline-SVG nachzeichnen (Gebäude grau, keine Legende, keine Logos).
+> Raum → Gebäude über das erste Wort von `room`. In den Daten kommen vor: `O`, `SN`, `EO`, `S`, `Aula` (alle Schloss), `A`, `B`, `C`, `D`, `L`, `001.A`/`001` – Lage jeweils im PDF nachsehen, im Zweifel am vollen Raumtext. `ZOOM-…`, `PC-Pool`, `Sprachenzentrum` und Unbekanntes → Plan ohne Markierung plus Text „Raum: …".
+> Dateien: neu `src/features/act/CampusMap.tsx` (SVG + Zuordnung), Klick-Handler in der vorhandenen Termin-Komponente der Wochenansicht. Skill `frontend-design`.
+> Fertig, wenn: Klick auf je einen Termin in O, SN und B 6 markiert das richtige Gebäude blau; Popup schließt per Klick daneben und Esc; `bash scripts/check.sh` grün.
+> Nicht anfassen: Backend-Routen, `src/lib/`, `src/data/`.
+
 ### TASK-021 · Integration: Leos Frontend + Lennys Backend
 - Bereich: alle · Modell: Opus plant + prüft, Sonnet baut · Prio: Demo-kritisch (gilt als Bugfix/Stabilität, auch nach 14:00)
 - Status: offen – startet, sobald Leos Frontend-Commit auf `main` ist

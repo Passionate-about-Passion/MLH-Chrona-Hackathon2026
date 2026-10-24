@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import type { Entry } from "@/types";
+import { CampusMap } from "@/features/act/CampusMap";
 import { Modal } from "./Modal";
 import { PinIcon } from "./Icons";
 import { mapsUrl, range, toMin } from "./logic";
@@ -114,19 +115,26 @@ export function EditSheet({
         ) : (
           <>
             <Row label="Titel">{entry.title}</Row>
-            <Row label="Ort">
-              {entry.location ? (
-                <a className="tt-group-link" href={mapsUrl(entry.location)} target="_blank" rel="noopener noreferrer">
-                  <PinIcon size={13} />
-                  {entry.location}
-                </a>
-              ) : (
-                "–"
-              )}
-            </Row>
+            <Row label="Ort">{entry.location || "–"}</Row>
           </>
         )}
       </div>
+
+      {entry.location && (
+        <div className="tt-group tt-group-map">
+          {/* campus site plan (Lenny, TASK-022) */}
+          <CampusMap room={entry.location} title={entry.title} kind={KIND_NAME[entry.type]} time={range(entry)} />
+          <a
+            className="tt-group-row tt-group-action"
+            href={mapsUrl(entry.location)}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            <PinIcon size={14} />
+            In Google Maps öffnen
+          </a>
+        </div>
+      )}
 
       <div className="tt-group">
         <Row label="Tag">{dayName}</Row>
