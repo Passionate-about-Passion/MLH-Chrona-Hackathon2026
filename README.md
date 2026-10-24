@@ -22,8 +22,6 @@ cd Hacktober26
 bash setup.sh                # Claude-Code-Plugins & Skills holen (einmal pro Rechner)
 npm install
 cp .env.example .env.local   # MOCK=1 works without any keys
-npm run dev                  # http://localhost:3000
-npm run test:gemma           # smoke-test every configured Gemma backend
 ```
 
 - `setup.sh` installiert das Team-Plugin, superpowers, context7, frontend-design und typescript-lsp und kopiert lose Skills nach `~/.claude/skills/`. Mehrfach ausführbar. Danach Claude Code neu starten und mit `claude plugin list` prüfen.
