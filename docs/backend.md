@@ -89,3 +89,9 @@ Plan       { chosen: { courseId: string; groupId: string }[];
 
 ## Vor der Demo
 `npm run warmup` lädt `gemma4:e4b` und hält es im Speicher (`keep_alive: -1`, `ollama ps` zeigt `UNTIL Forever`). Setzt außerdem `OLLAMA_KEEP_ALIVE=-1` per `launchctl`; das gilt erst nach einem Neustart der Ollama-App. `ask()` schickt `keep_alive: -1` auch bei jeder Anfrage über `/v1` mit.
+
+**iPhone mit Mikro: `npm run phone`** (HTTPS-Proxy auf Port 3443 vor `localhost:3000`, Zertifikate in `.data/https/`). Einmalig am iPhone:
+1. `https://<Mac-IP>:3443/ca.crt` in Safari öffnen, Profil laden.
+2. Einstellungen › Allgemein › VPN und Geräteverwaltung › Profil installieren.
+3. Einstellungen › Allgemein › Info › Zertifikatsvertrauenseinstellungen › „Hacktober26 Dev CA“ voll vertrauen.
+4. `https://<Mac-IP>:3443` öffnen. Ändert sich die IP, erzeugt das Skript das Server-Zertifikat neu (CA bleibt).

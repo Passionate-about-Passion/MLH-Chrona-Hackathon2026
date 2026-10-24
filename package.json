@@ -11,6 +11,7 @@
     "typecheck": "tsc --noEmit",
     "test": "bash scripts/test.sh",
     "warmup": "bash scripts/warmup.sh",
+    "phone": "node scripts/phone-https.mjs",
     "prepare": "husky"
   },
   "dependencies": {
