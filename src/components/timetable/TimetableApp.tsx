@@ -276,12 +276,16 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
 
   /* ---------- study time: put weekly study blocks into free slots ---------- */
   const STUDY_PREFIX = "Lernen: ";
-  const planStudy = () => {
-    const { rows } = studyTime(data, entries);
+  /** all courses, or only `courseId` (button under one course in Lernziel) */
+  const planStudy = (courseId?: string) => {
+    const all = studyTime(data, entries).rows;
+    const rows = courseId ? all.filter((r) => r.id === courseId) : all;
+    const label = (r: (typeof all)[number]) => `${STUDY_PREFIX}${r.name}`;
+    const replaced = new Set(rows.map(label));
     const monday = dateInWeek(date, 0);
-    // pressing again replaces the earlier study blocks instead of adding more
-    const kept = constraints.filter((c) => !c.label.startsWith(STUDY_PREFIX));
-    const base = entries.filter((e) => !e.title.startsWith(STUDY_PREFIX));
+    // pressing again replaces the earlier study blocks of these courses instead of adding more
+    const kept = constraints.filter((c) => !replaced.has(c.label));
+    const base = entries.filter((e) => !replaced.has(e.title));
     const added: Constraint[] = [];
     const busyOn = (wd: number) => [
       ...entriesOn(base, addDays(monday, wd)),
@@ -298,7 +302,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
         const len = Math.min(2, need);
         for (let h = 8; h + len <= 20; h++) {
           if (free(wd, hh(h), hh(h + len))) {
-            added.push({ type: "block", day: DAYS[wd], start: hh(h), end: hh(h + len), label: `${STUDY_PREFIX}${row.name}`, hard: true });
+            added.push({ type: "block", day: DAYS[wd], start: hh(h), end: hh(h + len), label: label(row), hard: true });
             need -= len;
             break;
           }
@@ -313,8 +317,10 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
     setConstraints(next);
     setExtras(nextExtras);
     if (plan) syncNow(next, priorities, plan.chosen);
-    setTab("cal");
-    setMode("W");
+    if (!courseId) {
+      setTab("cal");
+      setMode("W");
+    }
     const hours = added.reduce((n, b) => n + (Number(b.end.slice(0, 2)) - Number(b.start.slice(0, 2))), 0);
     showToast(`${added.length} Lernblöcke (${hours} h) eingetragen.`, () => {
       setConstraints(before.constraints);
@@ -482,8 +488,8 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
             courses={courses}
             groups={groups}
             entries={entries}
-            summary={<StudyTimeTable {...studyTime(data, entries)} />}
-            onPlanStudy={planStudy}
+            summary={<StudyTimeTable {...studyTime(data, entries)} onSchedule={(id) => planStudy(id)} />}
+            onPlanStudy={() => planStudy()}
             onExport={() => {
               const n = downloadIcs(entries, { from: data.semester?.start ?? TODAY, until: range.max });
               showToast(`Kalender exportiert: ${n} Termine in stundenplan.ics`);

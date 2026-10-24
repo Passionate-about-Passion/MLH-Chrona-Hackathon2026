@@ -22,6 +22,35 @@ export interface StudyRow {
   perWeek: number;
   /** share of all self-study, 0–1 */
   share: number;
+  /** contact hours per week (lectures, exercises, tutorials in the plan) */
+  contactWeek: number;
+  /** contact hours of this week that are already over (counted as attended) */
+  attended: number;
+}
+
+const pad = (n: number) => String(n).padStart(2, "0");
+const isoOf = (d: Date) => `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+
+/** hours of the course's sessions in the current week (Mon–Sun) that have already ended at `now` */
+function attendedHours(entries: Entry[], courseId: string, now: Date): number {
+  const monday = new Date(now);
+  monday.setDate(now.getDate() - ((now.getDay() + 6) % 7));
+  const today = isoOf(now);
+  const nowTime = `${pad(now.getHours())}:${pad(now.getMinutes())}`;
+  return entries
+    .filter((e) => e.courseId === courseId)
+    .filter((e) => {
+      let day: string;
+      if (e.recurring) {
+        const d = new Date(monday);
+        d.setDate(monday.getDate() + (e.wd ?? 0));
+        day = isoOf(d);
+      } else {
+        day = e.date ?? "";
+      }
+      return day < today || (day === today && e.end <= nowTime);
+    })
+    .reduce((h, e) => h + (minutes(e.end) - minutes(e.start)) / 60, 0);
 }
 
 const minutes = (t: string) => Number(t.slice(0, 2)) * 60 + Number(t.slice(3, 5));
@@ -34,7 +63,11 @@ export function semesterWeeks(data: CourseData): number {
   return Math.max(1, Math.round(days / 7));
 }
 
-export function studyTime(data: CourseData, entries: Entry[]): { rows: StudyRow[]; weeks: number; total: StudyRow } {
+export function studyTime(
+  data: CourseData,
+  entries: Entry[],
+  now = new Date(),
+): { rows: StudyRow[]; weeks: number; total: StudyRow } {
   const weeks = semesterWeeks(data);
   const rows = data.courses
     .filter((c) => c.exam)
@@ -56,6 +89,8 @@ export function studyTime(data: CourseData, entries: Entry[]): { rows: StudyRow[
         self,
         perWeek: Math.round((self / weeks) * 10) / 10,
         share: 0,
+        contactWeek: Math.round(weekly * 10) / 10,
+        attended: Math.round(attendedHours(entries, c.id, now) * 10) / 10,
       };
     })
     .sort((a, b) => b.self - a.self);
@@ -73,6 +108,8 @@ export function studyTime(data: CourseData, entries: Entry[]): { rows: StudyRow[
     self: rows.reduce((n, r) => n + r.self, 0),
     perWeek: Math.round((rows.reduce((n, r) => n + r.self, 0) / weeks) * 10) / 10,
     share: 1,
+    contactWeek: Math.round(rows.reduce((n, r) => n + r.contactWeek, 0) * 10) / 10,
+    attended: Math.round(rows.reduce((n, r) => n + r.attended, 0) * 10) / 10,
   };
   return { rows, weeks, total };
 }

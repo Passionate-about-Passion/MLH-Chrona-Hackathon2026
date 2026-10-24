@@ -62,7 +62,21 @@ function Ring({ value, max }: { value: number; max: number }) {
   );
 }
 
-export function StudyTimeTable({ rows, weeks, total }: { rows: StudyRow[]; weeks: number; total: StudyRow }) {
+/** weekly goal = self-study + the course's lectures, exercises and tutorials */
+const goalOf = (r: StudyRow) => Math.round((r.perWeek + r.contactWeek) * 10) / 10;
+
+export function StudyTimeTable({
+  rows,
+  weeks,
+  total,
+  onSchedule,
+}: {
+  rows: StudyRow[];
+  weeks: number;
+  total: StudyRow;
+  /** put this course's study time into free calendar slots */
+  onSchedule?: (courseId: string) => void;
+}) {
   const [log, setLog] = useState<Log>({ week: "", done: {}, semester: {} });
   useEffect(() => setLog(load()), []);
 
@@ -86,17 +100,20 @@ export function StudyTimeTable({ rows, weeks, total }: { rows: StudyRow[]; weeks
     });
   };
 
-  const weekDone = rows.reduce((n, r) => n + Math.min(log.done[r.id] ?? 0, r.perWeek), 0);
+  // attended sessions count automatically once they are over; logged hours come on top
+  const doneOf = (r: StudyRow) => (log.done[r.id] ?? 0) + r.attended;
+  const weekGoal = goalOf(total);
+  const weekDone = rows.reduce((n, r) => n + Math.min(doneOf(r), goalOf(r)), 0);
 
   return (
     <div className="tt-study">
       <section className="tt-study-hero glass-dense" style={{ ["--i" as string]: 0 }}>
-        <Ring value={weekDone} max={total.perWeek} />
+        <Ring value={weekDone} max={weekGoal} />
         <div className="tt-study-hero-text">
           <p className="tt-study-kicker">Diese Woche</p>
           <p className="tt-study-big">{h(weekDone)}</p>
           <p className="tt-study-sub">
-            von {h(total.perWeek)} Lernzeit · {weeks} Wochen Semester
+            von {h(weekGoal)} · davon {h(total.attended)} in Veranstaltungen · {weeks} Wochen Semester
           </p>
         </div>
       </section>
@@ -104,16 +121,21 @@ export function StudyTimeTable({ rows, weeks, total }: { rows: StudyRow[]; weeks
       <h2 className="tt-study-h">Lernzeit pro Klausur</h2>
       <ul className="tt-study-list">
         {rows.map((r, i) => {
-          const done = log.done[r.id] ?? 0;
-          const left = Math.max(0, r.perWeek - done);
+          const logged = log.done[r.id] ?? 0;
+          const done = doneOf(r);
+          const goal = goalOf(r);
+          const left = Math.max(0, goal - done);
           const sem = log.semester[r.id] ?? 0;
           return (
             <li key={r.id} className="tt-study-card glass-dense" style={{ ["--i" as string]: i + 1 }}>
               <div className="tt-study-head">
                 <span className="tt-study-name">{r.name}</span>
-                <span className="tt-study-goal">{h(r.perWeek)}/Wo</span>
+                <span className="tt-study-goal">{h(goal)}/Wo</span>
               </div>
-              <Bar value={done} max={r.perWeek} />
+              <Bar value={done} max={goal} />
+              <p className="tt-study-foot">
+                {h(r.attended)} von {h(r.contactWeek)} Veranstaltung besucht · {h(logged)} selbst gelernt
+              </p>
               <div className="tt-study-row">
                 <span className="tt-study-left" data-done={left <= 0 || undefined}>
                   {left > 0 ? `noch ${h(left)} diese Woche` : "✓ Wochenziel erreicht"}
@@ -122,7 +144,7 @@ export function StudyTimeTable({ rows, weeks, total }: { rows: StudyRow[]; weeks
                   type="button"
                   className="tt-study-btn glass"
                   onClick={() => add(r.id, -STEP)}
-                  disabled={done <= 0}
+                  disabled={logged <= 0}
                   aria-label={`${r.name}: eine Stunde weniger`}
                 >
                   −
@@ -136,16 +158,21 @@ export function StudyTimeTable({ rows, weeks, total }: { rows: StudyRow[]; weeks
                   +1 h
                 </button>
               </div>
+              {onSchedule && (
+                <button type="button" className="tt-study-schedule" onClick={() => onSchedule(r.id)}>
+                  Lernzeit für {r.code || "dieses Fach"} in freie Zeit eintragen
+                </button>
+              )}
               <p className="tt-study-foot">
-                {r.code ? `${r.code} · ` : ""}Semester {h(sem)} / {h(r.self)}
+                {r.code ? `${r.code} · ` : ""}Semester {h(sem)} / {h(r.self)} selbst
               </p>
             </li>
           );
         })}
       </ul>
       <p className="tt-study-note">
-        Annahme: 1 ECTS = {HOURS_PER_ECTS} h Aufwand, abzüglich deiner Vorlesungen, Übungen und Tutorien ({h(total.contact)}),
-        verteilt auf {weeks} Wochen.
+        Annahme: 1 ECTS = {HOURS_PER_ECTS} h Aufwand pro Semester, verteilt auf {weeks} Wochen. Vorlesungen, Übungen und
+        Tutorien zählen mit, sobald sie in dieser Woche vorbei sind.
       </p>
     </div>
   );
