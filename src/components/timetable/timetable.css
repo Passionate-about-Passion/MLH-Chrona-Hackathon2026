@@ -2215,3 +2215,20 @@
     animation: tt-bar-in 0.45s var(--spring);
   }
 }
+
+/* "Lernzeit in freie Zeit eintragen": tinted glass, full width above the study cards */
+.tt-study-cta {
+  --glass-fill: rgba(52, 80, 110, 0.82);
+  --glass-fallback: rgba(52, 80, 110, 0.92);
+  --glass-tint: transparent;
+  display: block;
+  width: 100%;
+  min-height: 52px;
+  margin-bottom: 10px;
+  border: 0;
+  border-radius: 26px;
+  font-size: 16px;
+  font-weight: 700;
+  color: #fff;
+  text-shadow: none;
+}

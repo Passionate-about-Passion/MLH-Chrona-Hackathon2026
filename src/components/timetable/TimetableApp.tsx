@@ -44,6 +44,7 @@ import {
   WD_LONG,
   addDays,
   conflictIds,
+  dateInWeek,
   entriesOn,
   moveToSession,
   nextEntry,
@@ -273,6 +274,55 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
     return { hits, movable };
   };
 
+  /* ---------- study time: put weekly study blocks into free slots ---------- */
+  const STUDY_PREFIX = "Lernen: ";
+  const planStudy = () => {
+    const { rows } = studyTime(data, entries);
+    const monday = dateInWeek(date, 0);
+    // pressing again replaces the earlier study blocks instead of adding more
+    const kept = constraints.filter((c) => !c.label.startsWith(STUDY_PREFIX));
+    const base = entries.filter((e) => !e.title.startsWith(STUDY_PREFIX));
+    const added: Constraint[] = [];
+    const busyOn = (wd: number) => [
+      ...entriesOn(base, addDays(monday, wd)),
+      ...added.filter((b) => b.day === DAYS[wd]),
+    ];
+    const free = (wd: number, start: string, end: string) =>
+      busyOn(wd).every((b) => !(b.start < end && start < b.end));
+    const hh = (n: number) => `${String(n).padStart(2, "0")}:00`;
+
+    // biggest weekly goal first; at most one block per course and day, 1–2 h, Mo–Fr 08–20
+    for (const row of [...rows].sort((a, b) => b.perWeek - a.perWeek)) {
+      let need = Math.ceil(row.perWeek);
+      for (let wd = 0; wd < 5 && need > 0; wd++) {
+        const len = Math.min(2, need);
+        for (let h = 8; h + len <= 20; h++) {
+          if (free(wd, hh(h), hh(h + len))) {
+            added.push({ type: "block", day: DAYS[wd], start: hh(h), end: hh(h + len), label: `${STUDY_PREFIX}${row.name}`, hard: true });
+            need -= len;
+            break;
+          }
+        }
+      }
+    }
+    if (!added.length) return showToast("Diese Woche ist keine Lücke für Lernzeit frei.");
+    const before = { constraints, extras };
+    const nextExtras = { ...extras };
+    for (const b of added) nextExtras[blockKey(b)] = { weight: 3, fixed: false };
+    const next = [...kept, ...added];
+    setConstraints(next);
+    setExtras(nextExtras);
+    if (plan) syncNow(next, priorities, plan.chosen);
+    setTab("cal");
+    setMode("W");
+    const hours = added.reduce((n, b) => n + (Number(b.end.slice(0, 2)) - Number(b.start.slice(0, 2))), 0);
+    showToast(`${added.length} Lernblöcke (${hours} h) eingetragen.`, () => {
+      setConstraints(before.constraints);
+      setExtras(before.extras);
+      if (plan) syncNow(before.constraints, priorities, plan.chosen);
+    });
+  };
+
   const addEntry = (d: Omit<Entry, "id">) => {
     const block: Constraint = { type: "block", day: DAYS[weekdayOf(date)], start: d.start, end: d.end, label: d.title, hard: true };
     const save = () => {
@@ -433,6 +483,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
             groups={groups}
             entries={entries}
             summary={<StudyTimeTable {...studyTime(data, entries)} />}
+            onPlanStudy={planStudy}
             onExport={() => {
               const n = downloadIcs(entries, { from: data.semester?.start ?? TODAY, until: range.max });
               showToast(`Kalender exportiert: ${n} Termine in stundenplan.ics`);

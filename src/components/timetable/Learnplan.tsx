@@ -13,17 +13,24 @@ interface LearnplanProps {
   google?: ReactNode;
   /** content of the plan, e.g. the study-time table */
   summary?: ReactNode;
+  /** puts the weekly study time into free calendar slots */
+  onPlanStudy?: () => void;
 }
 
 /**
  * The plan is the study-time table (`summary`); the per-course list of sessions was removed on purpose.
  * Content scrolls under a floating glass header whose large title shrinks on scroll, like iOS.
  */
-export function Learnplan({ title, onExport, google, summary }: LearnplanProps) {
+export function Learnplan({ title, onExport, google, summary, onPlanStudy }: LearnplanProps) {
   const [collapsed, setCollapsed] = useState(false);
   return (
     <section className="tt-plan" aria-label="Lernziel">
       <div className="tt-plan-scroll" onScroll={(e) => setCollapsed(e.currentTarget.scrollTop > 24)}>
+        {onPlanStudy && (
+          <button type="button" className="tt-study-cta glass" onClick={onPlanStudy}>
+            Lernzeit in freie Zeit eintragen
+          </button>
+        )}
         {summary}
       </div>
       <header className="tt-plan-top glass" data-collapsed={collapsed || undefined}>
