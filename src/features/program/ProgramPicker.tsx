@@ -1,6 +1,6 @@
 "use client";
 /**
- * Start screen: choose study program + semester once (default BWL, 1st semester – the demo case).
+ * Start screen: choose study program + semester once (default WiFo, 1st semester – the demo case).
  * The choice is remembered in localStorage: the next visit of / goes straight to the app.
  */
 import "@/components/timetable/timetable.css";
@@ -9,11 +9,11 @@ import { useEffect, useState } from "react";
 import { PROGRAMS, getProgram } from "@/data";
 
 const KEY = "tt-program";
-const DEFAULT = { program: "bwl", term: 1 };
+const DEFAULT = { program: "wifo", term: 1 };
 const href = (c: { program: string; term?: number }) => `/?program=${c.program}${c.term ? `&term=${c.term}` : ""}`;
 
-/** BWL first, the internal demo data last */
-const ORDER = Object.keys(PROGRAMS).sort((a, b) => Number(b === "bwl") - Number(a === "bwl") || Number(a === "demo") - Number(b === "demo"));
+/** default program first, the internal demo data last */
+const ORDER = Object.keys(PROGRAMS).sort((a, b) => Number(b === DEFAULT.program) - Number(a === DEFAULT.program) || Number(a === "demo") - Number(b === "demo"));
 
 const termsOf = (id: string) =>
   [...new Set(PROGRAMS[id].courses.flatMap((c) => (c.term != null ? [c.term] : [])))].sort((a, b) => a - b);

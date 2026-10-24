@@ -1,6 +1,6 @@
 /**
  * Main screen: the timetable app (src/components/timetable), wired to the backend via src/adapters.
- * Without ?program=… the app opens WiFo, 1st semester (pitch data); /?program=wahl shows the program/semester picker.
+ * Without ?program=… the start screen asks for study program and semester first (default WiFo, 1st semester).
  * The old photo slices (CaptureCard, AnalysisView, ActionPanel) are no longer shown; their files stay.
  */
 import type { Viewport } from "next";
@@ -11,10 +11,8 @@ import { ProgramPicker } from "@/features/program/ProgramPicker";
 export const viewport: Viewport = { width: "device-width", initialScale: 1, viewportFit: "cover" };
 
 export default async function Home({ searchParams }: { searchParams: Promise<{ program?: string; term?: string }> }) {
-  const { program: p, term } = await searchParams;
-  // ohne ?program startet der Pitch-Datensatz WiFo, 1. Semester; Auswahl über /?program=wahl
-  const program = p ?? "wifo";
-  if (!getProgram(program)) return <ProgramPicker />;
-  const t = term ? Number(term) : p ? undefined : 1;
+  const { program, term } = await searchParams;
+  if (!program || !getProgram(program)) return <ProgramPicker />;
+  const t = term ? Number(term) : undefined;
   return <TimetableApp key={`${program}-${t}`} program={program} term={Number.isFinite(t) ? t : undefined} />;
 }
