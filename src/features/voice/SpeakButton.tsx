@@ -5,7 +5,15 @@
  */
 import { useRef, useState } from "react";
 
-export function SpeakButton({ text, lang = "de" }: { text: string; lang?: string }) {
+export function SpeakButton({
+  text,
+  lang = "de",
+  label = "🔊 Vorlesen",
+}: {
+  text: string;
+  lang?: string;
+  label?: string;
+}) {
   const [state, setState] = useState<"idle" | "loading" | "playing">("idle");
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -42,7 +50,7 @@ export function SpeakButton({ text, lang = "de" }: { text: string; lang?: string
 
   return (
     <button onClick={speak} className="rounded-full border border-neutral-300 px-3 py-1 text-sm dark:border-neutral-700">
-      {state === "loading" ? "…" : state === "playing" ? "⏹ Stopp" : "🔊 Vorlesen"}
+      {state === "loading" ? "…" : state === "playing" ? "⏹ Stopp" : label}
     </button>
   );
 }
