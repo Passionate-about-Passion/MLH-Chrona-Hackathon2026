@@ -39,7 +39,8 @@ export function MonthView({ date, today, entries, onPick }: MonthViewProps) {
             >
               <span>{Number(iso.slice(8))}</span>
               <span className="tt-month-dots" aria-hidden="true">
-                {list.slice(0, 4).map((e) => (
+                {/* max. 3 dots; on a conflict day the last one is red */}
+                {list.slice(0, conflict ? 2 : 3).map((e) => (
                   <i key={e.id} data-type={e.type} />
                 ))}
                 {conflict && <i data-conflict />}

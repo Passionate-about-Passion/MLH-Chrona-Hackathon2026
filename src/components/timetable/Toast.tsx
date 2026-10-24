@@ -22,7 +22,7 @@ export function Toast({ toast, onDismiss }: ToastProps) {
   return (
     <div className="tt-toast-slot" role="status" aria-live="polite">
       {toast && (
-        <div className="tt-toast" key={toast.id}>
+        <div className="tt-toast glass-dense" key={toast.id}>
           <span>{toast.message}</span>
           {toast.undo && (
             <button

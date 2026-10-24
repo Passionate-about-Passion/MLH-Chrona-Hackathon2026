@@ -28,7 +28,7 @@ export function Modal({ label, variant = "center", onClose, children }: ModalPro
         if (e.target === ref.current) onClose();
       }}
     >
-      <div className="tt-panel">{children}</div>
+      <div className="tt-panel glass-dense">{children}</div>
     </dialog>
   );
 }
