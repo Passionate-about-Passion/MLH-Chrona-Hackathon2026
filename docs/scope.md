@@ -9,13 +9,8 @@ Ein KI-Stundenplan-Assistent, der Vorlesungs-, Übungs- und Tutoriumstermine mit
 - Wer zahlt und warum: TODO
 
 ## Kernfeatures (maximal 2)
-<<<<<<< HEAD
-1. Stundenplan per Sprache umlegen – feste Termine und Wünsche wie „Dienstag frei", wichtige Module (von Gemma gewichtet) setzen sich durch
-2. „Welche Termine habe ich?" – Antwort wird vorgelesen (ElevenLabs)
-=======
-1. Stundenplan-Optimierung: aus allen Terminoptionen ein konfliktfreier Plan, Kursgewichte entscheiden bei Konflikten.
-2. Spontane Änderung per Sprache („Donnerstag 14–16 Uhr habe ich einen Termin"): Woche neu legen, Ausweichtermine vorschlagen.
->>>>>>> origin/main
+1. Stundenplan-Optimierung: aus allen Terminoptionen ein konfliktfreier Plan, Kursgewichte (von Gemma bestimmt) entscheiden bei Konflikten.
+2. Spontane Änderung per Sprache („Donnerstag 14–16 Uhr habe ich einen Termin", „Ich will dienstags frei haben"): Woche neu legen, Ausweichtermine vorschlagen, live im Google Kalender. Dazu „Welche Termine habe ich?" → wird vorgelesen (ElevenLabs).
 
 ## Bewusst nicht gebaut
 - Login / Accounts
