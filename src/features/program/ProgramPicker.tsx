@@ -1,18 +1,39 @@
 "use client";
 /**
- * Start screen: for now only BWL, 1st semester (the only program with a real module catalogue).
- * Chosen once, then remembered in localStorage: the next visit of / goes straight to the app.
+ * Start screen: choose study program + semester once (default BWL, 1st semester – the demo case).
+ * The choice is remembered in localStorage: the next visit of / goes straight to the app.
  */
 import "@/components/timetable/timetable.css";
 import "@/styles/glass.css";
-import { useEffect } from "react";
-import { getProgram } from "@/data";
+import { useEffect, useState } from "react";
+import { PROGRAMS, getProgram } from "@/data";
 
-const CHOICE = { program: "bwl", term: 1 };
 const KEY = "tt-program";
-const href = (c: { program: string; term: number }) => `/?program=${c.program}&term=${c.term}`;
+const DEFAULT = { program: "bwl", term: 1 };
+const href = (c: { program: string; term?: number }) => `/?program=${c.program}${c.term ? `&term=${c.term}` : ""}`;
+
+/** BWL first, the internal demo data last */
+const ORDER = Object.keys(PROGRAMS).sort((a, b) => Number(b === "bwl") - Number(a === "bwl") || Number(a === "demo") - Number(b === "demo"));
+
+const termsOf = (id: string) =>
+  [...new Set(PROGRAMS[id].courses.flatMap((c) => (c.term != null ? [c.term] : [])))].sort((a, b) => a - b);
+
+const selectStyle = {
+  minHeight: 48,
+  padding: "0 14px",
+  borderRadius: 14,
+  border: "1px solid rgba(29, 29, 31, 0.14)",
+  background: "rgba(255, 255, 255, 0.9)",
+  fontSize: 16,
+  fontWeight: 500,
+  color: "var(--ink)",
+} as const;
 
 export function ProgramPicker() {
+  const [program, setProgram] = useState(DEFAULT.program);
+  const [term, setTerm] = useState(DEFAULT.term);
+  const terms = termsOf(program);
+
   useEffect(() => {
     try {
       const saved = JSON.parse(localStorage.getItem(KEY) ?? "null");
@@ -22,47 +43,57 @@ export function ProgramPicker() {
     }
   }, []);
 
-  const choose = () => {
-    try {
-      localStorage.setItem(KEY, JSON.stringify(CHOICE));
-    } catch {
-      // ignore, the link still works
-    }
+  const pickProgram = (id: string) => {
+    setProgram(id);
+    const t = termsOf(id);
+    if (!t.includes(term)) setTerm(t[0] ?? 1);
   };
 
-  const data = getProgram(CHOICE.program)!;
-  const courses = data.courses.filter((c) => c.term === CHOICE.term);
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const choice = { program, term: terms.length ? term : undefined };
+    try {
+      localStorage.setItem(KEY, JSON.stringify(choice));
+    } catch {
+      // ignore, navigation still works
+    }
+    location.assign(href(choice));
+  };
 
   return (
     <div className="tt-root" lang="de">
-      <div className="tt-phone" style={{ overflowY: "auto" }}>
-        <section className="tt-plan" aria-label="Studiengang wählen" style={{ position: "static", paddingBottom: 32 }}>
-          <div className="tt-plan-head" style={{ flexDirection: "column", alignItems: "flex-start", gap: 4 }}>
-            <h1 className="tt-h1">Dein Stundenplan</h1>
-            <p className="tt-sub">Gemma kennt alle Module, Gruppen und Räume deines Semesters.</p>
-          </div>
-          <div className="tt-course glass-dense" style={{ flexDirection: "column", alignItems: "stretch" }}>
-            <div className="tt-course-main">
-              <p className="tt-course-name">{data.program?.name ?? "BWL"} · 1. Semester</p>
-              <ul className="tt-course-groups" style={{ marginTop: 6 }}>
-                {courses.map((c) => (
-                  <li key={c.id}>
-                    <span className="tt-dot" aria-hidden="true" />
-                    {c.name}
-                  </li>
+      <div className="tt-phone" style={{ display: "grid", placeItems: "center", padding: 20 }}>
+        <form className="tt-panel glass-dense" onSubmit={submit} style={{ width: "100%" }}>
+          <h1 className="tt-h1">Willkommen</h1>
+          <p className="tt-sub">Wähle einmal deinen Studiengang und dein Semester.</p>
+          <div className="tt-form">
+            <label className="tt-field">
+              Studiengang
+              <select value={program} onChange={(e) => pickProgram(e.target.value)} style={selectStyle}>
+                {ORDER.map((id) => (
+                  <option key={id} value={id}>
+                    {PROGRAMS[id].program?.name ?? id}
+                  </option>
                 ))}
-              </ul>
-            </div>
-            <a
-              href={href(CHOICE)}
-              onClick={choose}
-              className="tt-btn tt-btn-primary"
-              style={{ display: "inline-grid", placeItems: "center", textDecoration: "none" }}
-            >
-              Los geht&apos;s
-            </a>
+              </select>
+            </label>
+            {terms.length > 0 && (
+              <label className="tt-field">
+                Semester
+                <select value={term} onChange={(e) => setTerm(Number(e.target.value))} style={selectStyle}>
+                  {terms.map((t) => (
+                    <option key={t} value={t}>
+                      {t}. Semester
+                    </option>
+                  ))}
+                </select>
+              </label>
+            )}
+            <button type="submit" className="tt-btn tt-btn-primary" style={{ marginTop: 8 }}>
+              Weiter
+            </button>
           </div>
-        </section>
+        </form>
       </div>
     </div>
   );
