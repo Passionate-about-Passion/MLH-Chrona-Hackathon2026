@@ -1,0 +1,71 @@
+/*
+ * Clear Liquid Glass – tune here.
+ * Values follow the reference photo (very clear, light blur, bright rim top-left), not the prompt's starting values:
+ * fill 16 % white (prompt 12-18 %), blur 8px (prompt 10-14px, the photo shows the background almost sharp),
+ * a slightly cool tint and a rim that fades from white (top left) to grey-blue (bottom right).
+ */
+:root {
+  --glass-fill: rgba(255, 255, 255, 0.16);
+  --glass-blur: 8px;
+  --glass-tint: rgba(214, 224, 238, 0.12);
+  --glass-rim: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(255, 255, 255, 0.45) 40%, rgba(120, 134, 158, 0.42) 100%);
+  --glass-highlight: inset 0 1px 0 rgba(255, 255, 255, 0.75), inset 0 -1px 0 rgba(120, 134, 158, 0.12);
+  --glass-shadow: 0 8px 24px rgba(29, 29, 31, 0.1), 0 1px 3px rgba(29, 29, 31, 0.06);
+  --glass-sheen: linear-gradient(118deg, rgba(255, 255, 255, 0.42) 0%, rgba(255, 255, 255, 0.08) 32%, transparent 55%);
+
+  /* dense variant for popups, sheets and the toast */
+  --glass-dense-fill: rgba(255, 255, 255, 0.68);
+  --glass-dense-blur: 28px;
+
+  /* fallback without backdrop-filter */
+  --glass-fallback: rgba(255, 255, 255, 0.85);
+}
+
+.glass,
+.glass-dense {
+  position: relative;
+  isolation: isolate;
+  background-color: var(--glass-fallback);
+  box-shadow: var(--glass-highlight), var(--glass-shadow);
+}
+
+/* gradient rim: 1px ring masked out of a gradient */
+.glass::before,
+.glass-dense::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  padding: 1px;
+  border-radius: inherit;
+  background: var(--glass-rim);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+/* diagonal sheen */
+.glass::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: var(--glass-sheen);
+  pointer-events: none;
+}
+
+@supports (backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px)) {
+  .glass {
+    background-color: var(--glass-fill);
+    background-image: linear-gradient(var(--glass-tint), var(--glass-tint));
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(190%) brightness(1.06);
+    backdrop-filter: blur(var(--glass-blur)) saturate(190%) brightness(1.06);
+  }
+  .glass-dense {
+    background-color: var(--glass-dense-fill);
+    -webkit-backdrop-filter: blur(var(--glass-dense-blur)) saturate(180%);
+    backdrop-filter: blur(var(--glass-dense-blur)) saturate(180%);
+  }
+}
