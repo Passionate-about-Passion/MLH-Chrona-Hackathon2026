@@ -92,7 +92,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
   useEffect(() => {
     fetch("/api/google/status")
       .then((r) => r.json())
-      .then((j: { configured?: boolean; connected?: boolean }) => setGcal((g) => ({ ...g, connected: !!(j.configured && j.connected) })))
+      .then((j: { configured?: boolean; connected?: boolean }) => setGcal((g) => ({ ...g, connected: j.configured ? !!j.connected : null })))
       .catch(() => setGcal((g) => ({ ...g, connected: false })));
   }, []);
 

@@ -125,11 +125,15 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
     };
     const bx = (s: number): [number, number] => {
       const cw = WORLD_W * s;
-      return cw <= S.W ? [(S.W - cw) / 2, (S.W - cw) / 2] : [S.W - cw, 0];
+      if (cw <= S.W) return [(S.W - cw) / 2, (S.W - cw) / 2];
+      // Spielraum: jeder Kartenpunkt darf in die Mitte des sichtbaren Bereichs
+      return [Math.min(S.W - cw, S.W / 2 - cw), Math.max(0, S.W / 2)];
     };
     const by = (s: number): [number, number] => {
       const ch = WORLD_H * s;
-      return ch <= S.vh ? [S.top + (S.vh - ch) / 2, S.top + (S.vh - ch) / 2] : [S.top + S.vh - ch, S.top];
+      if (ch <= S.vh) return [S.top + (S.vh - ch) / 2, S.top + (S.vh - ch) / 2];
+      const fy = S.top + S.vh / 2;
+      return [Math.min(S.top + S.vh - ch, fy - ch), Math.max(S.top, fy)];
     };
     const clampPt = (tx: number, ty: number, s: number): [number, number] => {
       const [x0, x1] = bx(s);
@@ -408,7 +412,10 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
     surface.addEventListener("pointerup", up);
     surface.addEventListener("pointercancel", up);
     surface.addEventListener("wheel", wheel, { passive: false });
+    const eat = (e: Event) => e.stopPropagation();
+    surface.addEventListener("click", eat);
     return () => {
+      surface.removeEventListener("click", eat);
       stop();
       window.clearTimeout(flyTimer);
       ro.disconnect();
@@ -457,7 +464,12 @@ export function CampusMap({ room, title, kind, time, onClose }: CampusMapProps):
       role="dialog"
       aria-modal="true"
       aria-label={`Lageplan: ${title}`}
-      style={{ position: "fixed", inset: 0, zIndex: 1000, background: "#eef0f3", overflow: "hidden", color: "#1d1d1f", fontFamily: "var(--font, system-ui, sans-serif)" }}
+      onClick={(e) => e.stopPropagation()}
+      onPointerDown={(e) => e.stopPropagation()}
+      onPointerUp={(e) => e.stopPropagation()}
+      onTouchStart={(e) => e.stopPropagation()}
+      onTouchEnd={(e) => e.stopPropagation()}
+      style={{ position: "fixed", inset: 0, zIndex: 1000, touchAction: "none", overscrollBehavior: "none", background: "#eef0f3", overflow: "hidden", color: "#1d1d1f", fontFamily: "var(--font, system-ui, sans-serif)" }}
     >
       <style>{CSS}</style>
       <div
