@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState } from "react";
 import type { Course } from "@/types";
 import { voice, type ParsedIntent } from "@/voice";
-import { Modal } from "./Modal";
+import { CloseIcon, SendIcon, WaveformIcon } from "./Icons";
 import { WD_LONG, weekdayOf } from "./logic";
 
 /** stop the microphone without sending the recording anywhere */
@@ -32,19 +32,25 @@ function questionFor(intent: ParsedIntent, courses: Course[]): string | null {
   return null;
 }
 
-/** holding the mic longer than this = push-to-talk (release sends); shorter = tap to start, tap stop to send */
+/** holding the mic longer than this = push-to-talk (release sends); shorter = tap to start, tap again to send */
 const HOLD_MS = 350;
 
 interface VoiceOverlayProps {
   courses: Course[];
   /** performance.now() of the press on the mic button; undefined when opened by keyboard */
   pressedAt?: number;
+  /** increases when the mic button is tapped again while listening: stop and send */
+  stopSignal?: number;
   /** called only after the user said "Ja" */
   onConfirm: (intent: ParsedIntent) => void;
   onClose: () => void;
 }
 
-export function VoiceOverlay({ courses, pressedAt, onConfirm, onClose }: VoiceOverlayProps) {
+/**
+ * Listening: only a slim glass input bar above the tab bar (speak, or type).
+ * After sending: a compact glass card; the confirmation always comes before the plan changes.
+ */
+export function VoiceOverlay({ courses, pressedAt, stopSignal = 0, onConfirm, onClose }: VoiceOverlayProps) {
   const [phase, setPhase] = useState<Phase>({ k: "listening" });
   const [speakAnswer, setSpeakAnswer] = useState(true);
   const [typed, setTyped] = useState("");
@@ -53,6 +59,7 @@ export function VoiceOverlay({ courses, pressedAt, onConfirm, onClose }: VoiceOv
   const finishRef = useRef<() => Promise<void>>(async () => {});
 
   const listen = () => {
+    setTyped("");
     setPhase({ k: "listening" });
     voice.startListening().catch(() => alive.current && setPhase({ k: "error" }));
   };
@@ -63,6 +70,7 @@ export function VoiceOverlay({ courses, pressedAt, onConfirm, onClose }: VoiceOv
     return () => {
       alive.current = false;
     };
+    // start once when the overlay opens
   }, []);
 
   const finish = async () => {
@@ -90,7 +98,7 @@ export function VoiceOverlay({ courses, pressedAt, onConfirm, onClose }: VoiceOv
 
   finishRef.current = finish;
 
-  // push-to-talk: the finger is still on the mic button when the overlay opens
+  // push-to-talk: the finger is still on the mic button when the bar appears
   useEffect(() => {
     if (pressedAt == null) return;
     const up = () => {
@@ -105,106 +113,113 @@ export function VoiceOverlay({ courses, pressedAt, onConfirm, onClose }: VoiceOv
     };
   }, [pressedAt]);
 
+  // second tap on the mic while listening = stop and send (like Voice Memos)
+  const firstSignal = useRef(stopSignal);
+  const phaseRef = useRef(phase);
+  phaseRef.current = phase;
+  useEffect(() => {
+    if (stopSignal !== firstSignal.current && phaseRef.current.k === "listening") void finishRef.current();
+  }, [stopSignal]);
+
   const cancel = () => {
     stopWithoutTranscript().catch(() => {});
     onClose();
   };
 
+  // Esc closes, like the sheets
+  const cancelRef = useRef(cancel);
+  cancelRef.current = cancel;
+  useEffect(() => {
+    const key = (e: KeyboardEvent) => {
+      if (e.key === "Escape") cancelRef.current();
+    };
+    window.addEventListener("keydown", key);
+    return () => window.removeEventListener("keydown", key);
+  }, []);
+
+  if (phase.k === "listening") {
+    return (
+      <form
+        className="tt-voicebar glass"
+        role="dialog"
+        aria-label="Spracheingabe"
+        onSubmit={(e) => {
+          e.preventDefault();
+          void finish();
+        }}
+      >
+        <span className="tt-voicebar-wave" aria-hidden="true">
+          <WaveformIcon size={22} />
+        </span>
+        <input
+          className="tt-voicebar-input"
+          value={typed}
+          onChange={(e) => setTyped(e.target.value)}
+          placeholder={holding ? "Loslassen zum Senden" : "Ich höre zu … oder tippen"}
+          aria-label="Was soll sich ändern?"
+        />
+        <button type="submit" className="tt-voicebar-btn tt-voicebar-send" aria-label="Senden">
+          <SendIcon />
+        </button>
+        <button type="button" className="tt-voicebar-btn" aria-label="Abbrechen" onClick={cancel}>
+          <CloseIcon />
+        </button>
+      </form>
+    );
+  }
+
   return (
-    <Modal label="Sprachsteuerung" variant="sheet" onClose={cancel}>
-      <div className="tt-voice">
-        {phase.k === "listening" && (
-          <>
-            <div className="tt-wave" aria-hidden="true">
-              {Array.from({ length: 21 }, (_, i) => (
-                <span key={i} style={{ animationDelay: `${(i % 7) * 90}ms` }} />
-              ))}
-            </div>
-            <p className="tt-transcript" aria-live="polite">
-              Ich höre zu …
-            </p>
-            <p className="tt-sub">
-              {holding ? "Loslassen zum Senden" : "Zum Beispiel: „Donnerstag 14 bis 16 Uhr habe ich einen festen Termin“"}
-            </p>
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                void finish();
-              }}
-            >
-              <label className="tt-field">
-                <span>Oder tippen</span>
-                <input value={typed} onChange={(e) => setTyped(e.target.value)} placeholder="Was soll sich ändern?" />
-              </label>
-            </form>
-            {/* like Voice Memos: one round button that stops the recording and sends it */}
-            <div className="tt-rec-row">
-              <button type="button" className="tt-btn tt-btn-quiet" onClick={cancel}>
-                Abbrechen
-              </button>
-              <button
-                type="button"
-                className="tt-rec-stop"
-                aria-label={typed.trim() ? "Senden" : "Aufnahme stoppen und senden"}
-                onClick={() => void finish()}
-              >
-                <span aria-hidden="true" />
-              </button>
-              <span className="tt-rec-hint" aria-hidden="true">
-                {typed.trim() ? "Senden" : "Stopp"}
-              </span>
-            </div>
-          </>
-        )}
-        {phase.k === "thinking" && (
-          <>
-            <p className="tt-transcript">„{phase.text}“</p>
-            <p className="tt-sub" role="status">
-              Ich überlege …
-            </p>
-          </>
-        )}
-        {phase.k === "confirm" && (
-          <>
-            <p className="tt-sub">Du hast gesagt: „{phase.text}“</p>
-            <p className="tt-question">{phase.question}</p>
-            <div className="tt-actions">
-              <button type="button" className="tt-btn tt-btn-quiet" onClick={cancel}>
-                Nein
-              </button>
-              <button type="button" className="tt-btn tt-btn-primary" onClick={() => onConfirm(phase.intent)}>
-                Ja
-              </button>
-            </div>
-          </>
-        )}
-        {phase.k === "unknown" && (
-          <>
-            <p className="tt-question">{phase.text ? "Das habe ich nicht verstanden." : "Ich habe nichts gehört."}</p>
-            {phase.text && <p className="tt-sub">Du hast gesagt: „{phase.text}“</p>}
-            <div className="tt-actions">
-              <button type="button" className="tt-btn tt-btn-quiet" onClick={cancel}>
-                Schließen
-              </button>
-              <button type="button" className="tt-btn tt-btn-primary" onClick={listen}>
-                Nochmal sprechen
-              </button>
-            </div>
-          </>
-        )}
-        {phase.k === "error" && (
-          <>
-            <p className="tt-question">Die Sprachfunktion ist gerade nicht erreichbar.</p>
-            <div className="tt-actions">
-              <button type="button" className="tt-btn tt-btn-quiet" onClick={cancel}>
-                Schließen
-              </button>
-              <button type="button" className="tt-btn tt-btn-primary" onClick={listen}>
-                Nochmal versuchen
-              </button>
-            </div>
-          </>
-        )}
+    <div className="tt-voicecard glass-dense" role="dialog" aria-label="Sprachsteuerung" aria-live="polite">
+      {phase.k === "thinking" && (
+        <>
+          <p className="tt-sub">„{phase.text}“</p>
+          <p className="tt-question" role="status">
+            Ich überlege …
+          </p>
+        </>
+      )}
+      {phase.k === "confirm" && (
+        <>
+          <p className="tt-sub">Du hast gesagt: „{phase.text}“</p>
+          <p className="tt-question">{phase.question}</p>
+          <div className="tt-actions">
+            <button type="button" className="tt-btn tt-btn-quiet" onClick={cancel}>
+              Nein
+            </button>
+            <button type="button" className="tt-btn tt-btn-primary" onClick={() => onConfirm(phase.intent)}>
+              Ja
+            </button>
+          </div>
+        </>
+      )}
+      {phase.k === "unknown" && (
+        <>
+          <p className="tt-question">{phase.text ? "Das habe ich nicht verstanden." : "Ich habe nichts gehört."}</p>
+          {phase.text && <p className="tt-sub">Du hast gesagt: „{phase.text}“</p>}
+          <div className="tt-actions">
+            <button type="button" className="tt-btn tt-btn-quiet" onClick={cancel}>
+              Schließen
+            </button>
+            <button type="button" className="tt-btn tt-btn-primary" onClick={listen}>
+              Nochmal
+            </button>
+          </div>
+        </>
+      )}
+      {phase.k === "error" && (
+        <>
+          <p className="tt-question">Die Sprachfunktion ist gerade nicht erreichbar.</p>
+          <div className="tt-actions">
+            <button type="button" className="tt-btn tt-btn-quiet" onClick={cancel}>
+              Schließen
+            </button>
+            <button type="button" className="tt-btn tt-btn-primary" onClick={listen}>
+              Nochmal
+            </button>
+          </div>
+        </>
+      )}
+      {phase.k !== "thinking" && (
         <div className="tt-row">
           <span id="tts-label">Antwort vorlesen</span>
           <button
@@ -216,7 +231,7 @@ export function VoiceOverlay({ courses, pressedAt, onConfirm, onClose }: VoiceOv
             onClick={() => setSpeakAnswer((v) => !v)}
           />
         </div>
-      </div>
-    </Modal>
+      )}
+    </div>
   );
 }

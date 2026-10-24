@@ -86,3 +86,19 @@ export function BookIcon({ size = 22 }: IconProps) {
     </svg>
   );
 }
+
+export function SendIcon({ size = 20 }: IconProps) {
+  return (
+    <svg {...svg(size)}>
+      <path d="M12 19V5M6 11l6-6 6 6" />
+    </svg>
+  );
+}
+
+export function CloseIcon({ size = 18 }: IconProps) {
+  return (
+    <svg {...svg(size)}>
+      <path d="M6 6l12 12M18 6L6 18" />
+    </svg>
+  );
+}

@@ -96,6 +96,7 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
   const [addOpen, setAddOpen] = useState(false);
   const [voiceOpen, setVoiceOpen] = useState(false);
   const [voicePress, setVoicePress] = useState<number | undefined>();
+  const [voiceStop, setVoiceStop] = useState(0);
   const [toast, setToast] = useState<ToastState | null>(null);
   const counter = useRef(1);
   // Google Calendar status: connected (from /api/google/status) + result of the last sync
@@ -454,11 +455,21 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
             }
           />
         )}
+        {voiceOpen && (
+          <VoiceOverlay
+            courses={courses}
+            pressedAt={voicePress}
+            stopSignal={voiceStop}
+            onConfirm={(i) => void applyIntent(i)}
+            onClose={() => setVoiceOpen(false)}
+          />
+        )}
         <TabBar
           tab={tab}
           onTab={setTab}
           onVoice={(pressedAt) => {
-            if (voiceOpen) return;
+            // mic tapped again while the bar is open: stop and send
+            if (voiceOpen) return setVoiceStop((n) => n + 1);
             setVoicePress(pressedAt);
             setVoiceOpen(true);
           }}
@@ -527,7 +538,6 @@ export function TimetableApp({ program = "demo", term }: { program?: string; ter
         />
       )}
       {addOpen && <AddSheet date={date} onSave={addEntry} onClose={() => setAddOpen(false)} />}
-      {voiceOpen && <VoiceOverlay courses={courses} pressedAt={voicePress} onConfirm={(i) => void applyIntent(i)} onClose={() => setVoiceOpen(false)} />}
     </div>
   );
 }
