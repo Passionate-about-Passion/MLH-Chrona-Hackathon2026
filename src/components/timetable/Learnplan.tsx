@@ -22,13 +22,13 @@ interface LearnplanProps {
 export function Learnplan({ title, onExport, google, summary }: LearnplanProps) {
   const [collapsed, setCollapsed] = useState(false);
   return (
-    <section className="tt-plan" aria-label="Lernplan">
+    <section className="tt-plan" aria-label="Lernziel">
       <div className="tt-plan-scroll" onScroll={(e) => setCollapsed(e.currentTarget.scrollTop > 24)}>
         {summary}
       </div>
       <header className="tt-plan-top glass" data-collapsed={collapsed || undefined}>
         <div className="tt-plan-titles">
-          <h1 className="tt-plan-title">Lernplan</h1>
+          <h1 className="tt-plan-title">Lernziel</h1>
           <p className="tt-plan-program">{title}</p>
         </div>
         <div className="tt-plan-actions">

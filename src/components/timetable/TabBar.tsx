@@ -50,7 +50,7 @@ export function TabBar({ tab, onTab, onVoice, voiceActive = false }: TabBarProps
         onClick={() => onTab("plan")}
       >
         <BookIcon />
-        <span>Lernplan</span>
+        <span>Lernziel</span>
       </button>
     </nav>
   );
