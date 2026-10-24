@@ -1,4 +1,5 @@
 import type { Course, Entry, Group } from "@/types";
+import type { ReactNode } from "react";
 import { WD_SHORT, range } from "./logic";
 
 const KIND_NAME = { V: "Vorlesung", U: "Übung", T: "Tutorium" } as const;
@@ -8,9 +9,11 @@ interface LearnplanProps {
   groups: Group[];
   entries: Entry[];
   onExport: () => void;
+  /** optional block above the course list, e.g. the study-time table */
+  summary?: ReactNode;
 }
 
-export function Learnplan({ courses, groups, entries, onExport }: LearnplanProps) {
+export function Learnplan({ courses, groups, entries, onExport, summary }: LearnplanProps) {
   return (
     <section className="tt-plan" aria-label="Lernplan">
       <div className="tt-plan-head">
@@ -21,6 +24,7 @@ export function Learnplan({ courses, groups, entries, onExport }: LearnplanProps
         </button>
       </div>
       <ul className="tt-courses">
+        {summary && <li style={{ listStyle: "none" }}>{summary}</li>}
         {courses.map((c) => {
           const mine = entries.filter((e) => e.courseId === c.id);
           return (
