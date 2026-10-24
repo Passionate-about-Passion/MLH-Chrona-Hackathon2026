@@ -1,12 +1,12 @@
 /*
  * Clear Liquid Glass – tune here.
- * Started from the reference photo (very clear, bright rim top-left). After feedback: more opacity (42 % white,
- * blur 16px) and a stronger edge: thicker gradient rim, a bevel of light and shadow inside the edge and a faint
- * blue/orange fringe that imitates the refraction at the rim of real glass.
+ * Started from the reference photo (very clear, bright rim top-left). Feedback rounds: 42 % white was too milky,
+ * now 22 % white with 12px blur. The edge stays strong: thicker gradient rim, a bevel of light and shadow inside
+ * the edge and a faint blue/orange fringe that imitates the refraction at the rim of real glass.
  */
 :root {
-  --glass-fill: rgba(255, 255, 255, 0.42);
-  --glass-blur: 16px;
+  --glass-fill: rgba(255, 255, 255, 0.22);
+  --glass-blur: 12px;
   --glass-tint: rgba(214, 224, 238, 0.1);
   --glass-rim-width: 1.5px;
   --glass-rim: linear-gradient(
