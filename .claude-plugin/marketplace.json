@@ -1,0 +1,16 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "hacktober26",
+  "description": "Plugins for the Hacktober26 hackathon team",
+  "owner": {
+    "name": "Passionate-about-Passion"
+  },
+  "plugins": [
+    {
+      "name": "hacktober26-team",
+      "description": "Team skills for the Hacktober26 hackathon project (modern web guidance for frontend work).",
+      "source": "./plugins/hacktober26-team",
+      "category": "development"
+    }
+  ]
+}

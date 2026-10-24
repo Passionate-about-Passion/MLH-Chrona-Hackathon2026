@@ -1,5 +1,7 @@
 # Plugins für Claude Code
 
+> **Schnellweg:** `bash setup.sh` im Repo installiert das Pflicht-Set unten und das Team-Plugin automatisch (Liste steht in `.claude/settings.json`).
+
 Plugins installiert jeder **einmal auf seinem eigenen Rechner** (sie liegen nicht im Repo). Befehle mit `/plugin …` tippt ihr **in Claude Code** ein, Befehle mit `npx …` im **Terminal**.
 Nach dem Installieren Claude Code neu starten und mit `/plugin list` prüfen.
 
@@ -49,7 +51,7 @@ Falls `superpowers@claude-plugins-official` nicht gefunden wird:
 
 ## Bereits im Repo (nichts zu tun)
 
-`.claude/skills/`: frontend-design, modern-web-guidance, systematic-debugging, verification-before-completion, writing-plans, dispatching-parallel-agents – siehe [SKILLS.md](SKILLS.md).
+`.claude/skills/`: frontend-design, systematic-debugging, verification-before-completion, writing-plans, dispatching-parallel-agents · Team-Plugin `plugins/hacktober26-team/`: modern-web-guidance – siehe [SKILLS.md](SKILLS.md).
 `.claude/agents/` und `.claude/commands/`: Routinen und Modellstufen – siehe [CLAUDE.md](CLAUDE.md).
 
 ## Quellen
