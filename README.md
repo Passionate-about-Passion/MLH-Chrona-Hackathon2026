@@ -29,6 +29,36 @@ cp .env.example .env.local   # MOCK=1 works without any keys
 - Solange der Branch noch nicht auf `main` ist: `bash setup.sh --local`.
 - Für typescript-lsp einmalig: `npm i -g typescript-language-server typescript`.
 
+## Mit Gemma arbeiten
+
+1. Key holen: https://aistudio.google.com/apikey → in `.env.local` eintragen: `GEMINI_API_KEY=…` und `MOCK=0`
+2. Testen: `npm run test:gemma` (mit eigenem Foto: `npm run test:gemma -- gemini pfad/zum/foto.jpg`)
+3. Im Code immer über `ask()` aus `src/lib/ai.ts` – nie das SDK direkt:
+
+```ts
+import { ask } from "@/lib/ai";
+const { text } = await ask({ system: "Du bist …", prompt: "Was steht auf dem Foto?", image, json: true });
+```
+
+- **Modelle:** `gemma-4-26b-a4b-it` (Standard, schnell) oder `gemma-4-31b-it` (stärker) über `GEMINI_MODEL`
+- **Anbieter wechseln:** `AI_PROVIDER=gemini | digitalocean | ollama` in `.env.local`, kein Code ändern
+- **Prompts** stehen gesammelt in `src/lib/prompts.ts`
+- Ohne Key: `MOCK=1` liefert Beispielantworten, damit das Frontend trotzdem gebaut werden kann
+
+## Bug-Loop einrichten
+
+Nur **eine Person** (Bereich B) startet ihn, sonst gibt es doppelte Einträge. In Claude Code im Repo-Ordner:
+
+```text
+/loop 30m /bugcheck
+```
+
+- Alle 30 Min.: Lint, Typecheck, Build → neue Bugs in `BUGS.md`, offene P0/P1 als Aufgabe in `PROMPT.md`
+- Ab 15:30 enger: `/loop 15m /bugcheck`
+- Einmalig von Hand: `/bugcheck`
+- Aufgaben abarbeiten: `/next-task A` (bzw. B, C, D) · neue Aufgabe anlegen: `/new-task <text>`
+- Der Loop läuft, solange diese Claude-Code-Session offen ist
+
 ## Project structure
 
 | Path | What |
@@ -59,15 +89,6 @@ cp .env.example .env.local   # MOCK=1 works without any keys
 | Hannes | | | |
 | Emil | | | |
 | Lenny | | | |
-
-**Bereiche** – jeder baut seinen Bereich vom Backend bis zum Frontend (Details: [docs/ROLLEN.md](docs/ROLLEN.md)):
-
-| Bereich | Baut | Zusatzrolle |
-|:-------:|------|-------------|
-| **A** | Erfassen – Foto/Kamera, Upload | Pitch & Teamlead |
-| **B** | Verstehen – Gemma-Analyse, Ergebnis-Karte | Integration & Deployment |
-| **C** | Handeln – Aktionen, Antwort-Entwurf | Demo-Sicherheit |
-| **D** | Sprechen & Lokal – Vorlesen, lokaler Modus | Design & Persona |
 
 Team docs (German): [Rollen](docs/ROLLEN.md) · [Ablauf](docs/ABLAUF.md) · [Git-Workflow](docs/GIT-WORKFLOW.md) · [Scope](docs/scope.md) · [Schnittstellen](docs/interfaces.md) · [Pitch](docs/pitch.md) · [Playbook](docs/playbook.md) · [Entscheidungen](docs/decisions.md)
 
