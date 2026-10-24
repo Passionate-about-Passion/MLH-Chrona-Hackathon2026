@@ -150,6 +150,12 @@ export interface ActResponse {
   meta: { mock?: boolean; calendar?: string; calendarStats?: { created: number; deleted: number; kept: number } };
 }
 
+/** chosen study program; sent with every plan request */
+let selection: { program?: string; term?: number } = {};
+export const setSelection = (s: { program?: string; term?: number }) => {
+  selection = s;
+};
+
 export async function requestPlan(body: {
   constraints?: Constraint[];
   priorities?: Priority[];
@@ -159,7 +165,7 @@ export async function requestPlan(body: {
   const res = await fetch("/api/act", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(body),
+    body: JSON.stringify({ ...selection, ...body }),
   });
   const json = await res.json();
   if (!res.ok) throw new Error(json.error ?? `Planer antwortet mit ${res.status}`);

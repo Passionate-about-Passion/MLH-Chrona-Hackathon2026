@@ -87,12 +87,15 @@ async function askGemini(model: string, system: string, input: AskInput): Promis
       },
     });
 
-  // The API sporadically answers 500 "Internal error" within ~1 s; one retry fixes it.
-  const res = await request().catch((e) => {
-    if (!/"code":\s*5\d\d|INTERNAL|UNAVAILABLE/.test(String(e))) throw e;
-    return request();
-  });
-  return res.text ?? "";
+  // The API sporadically answers 500 "Internal error" within ~1 s, sometimes twice in a row: up to 3 retries.
+  for (let attempt = 0; ; attempt++) {
+    try {
+      return (await request()).text ?? "";
+    } catch (e) {
+      if (attempt >= 3 || !/"code":\s*5\d\d|INTERNAL|UNAVAILABLE/.test(String(e))) throw e;
+      await new Promise((r) => setTimeout(r, 400 * (attempt + 1)));
+    }
+  }
 }
 
 async function askOpenAICompatible(

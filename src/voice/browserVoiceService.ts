@@ -35,7 +35,7 @@ async function analyze(body: { text?: string; audio?: string }): Promise<Underst
   const res = await fetch("/api/analyze", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ ...body, priorities: ctx.priorities, today: DAYS[weekdayOf(ctx.today)] }),
+    body: JSON.stringify({ ...body, priorities: ctx.priorities, today: DAYS[weekdayOf(ctx.today)], program: ctx.program, term: ctx.term }),
   });
   const json = await res.json();
   if (!res.ok) throw new Error(json.error ?? `Analyse antwortet mit ${res.status}`);
