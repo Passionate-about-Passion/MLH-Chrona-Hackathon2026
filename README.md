@@ -14,24 +14,27 @@ Photo / note ──► Capture ──► Understand (Gemma 4) ──► Act (Gem
 - **Runs where you want it:** Gemini API, DigitalOcean Inference, or fully local via Ollama (Gemma 4 E4B) so sensitive data never leaves the device.
 - **Multimodal:** understands photos of real-world documents, not just text.
 
-## Stundenplan-UI-Mockup
+## Stundenplan-App
 
 Die App plant für Studierende den Stundenplan. Vorlesungen, Übungen und Tutorien werden einmal importiert und mit privaten Terminen und Hobbys zu einem Plan ohne Überschneidungen kombiniert. Wichtige Kurse werden bei Konflikten bevorzugt, weil jeder Kurs eine Wichtigkeit von 1 bis 5 hat. Bei einem Konflikt zeigt die App Alternativen nebeneinander und ändert nichts ohne Bestätigung. Spontane Änderungen sagt man per Sprache, die App legt die Woche neu.
 
-Der Prototyp ist ein klickbares Mockup mit erfundenen Beispieldaten, ohne Backend. Er läuft unter `/mockup` und ist für ein iPhone-Format (390 × 844) gebaut.
+Die App läuft unter `/` und ist für ein iPhone-Format (390 × 844) gebaut. Sie liest die Kurse aus `src/data/demo.json`, der Plan kommt vom Solver (`/api/act`), Sprache geht über Gemma (`/api/analyze`) und ElevenLabs (`/api/speak`).
 
 ```bash
 npm install
-npm run dev     # dann http://localhost:3000/mockup öffnen
+cp .env.example .env.local   # MOCK=1: läuft ohne Keys mit festen Antworten
+npm run dev                  # http://localhost:3000
 ```
+
+Für die echte Demo in `.env.local`: `MOCK=0`, dazu `AI_PROVIDER=ollama` (vorher `npm run warmup`) oder `GEMINI_API_KEY`. Optional `ELEVENLABS_API_KEY` (sonst Browser-Stimme) und die Google-Werte aus `docs/backend.md`. Das Mikrofon geht nur über `localhost` oder HTTPS; im Sprach-Overlay kann man den Satz auch tippen.
 
 | Pfad | Inhalt |
 |------|--------|
-| `src/app/mockup/page.tsx` | Route des Mockups |
-| `src/components/timetable/` | Oberfläche: Tagesansicht, Regler, Dialoge, Lernplan, `timetable.css` |
-| `src/types.ts` | Datenmodell (Course, Group, Session, Entry) |
-| `src/data/sample.ts` | Beispielkurse, -gruppen und -termine |
-| `src/voice/` | Schnittstelle `VoiceService` und Mock-Implementierung |
+| `src/app/page.tsx` | Startseite, zeigt die App (`/mockup` zeigt dieselbe App) |
+| `src/components/timetable/` | Oberfläche: Wochenstreifen, Tages- und Monatsansicht, Regler, Dialoge, Lernplan |
+| `src/adapters/backend.ts` | Übersetzt Plan, Kurse und Gewichte des Backends in die UI-Darstellung und ruft `/api/act` |
+| `src/voice/` | Schnittstelle `VoiceService`, echte Umsetzung `browserVoiceService.ts`, `mockVoiceService.ts` |
+| `docs/inventory.md` | Welche Bausteine es gibt, was fehlt, Annahmen |
 
 Die Sprachfunktion (Speech-to-Text, Sprachverständnis, Text-to-Speech) wird nur in `src/voice/` eingebaut: [`docs/voice-integration.md`](docs/voice-integration.md)
 

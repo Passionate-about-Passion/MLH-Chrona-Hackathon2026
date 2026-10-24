@@ -31,6 +31,10 @@ type ParsedIntent =
 
 Passende Komponenten laut Konzept: Speech-to-Text mit IBM Granite Speech, `parseIntent` mit Gemma 4 (über `ask()` aus `src/lib/ai.ts`, mit `json: true`), Text-to-Speech mit ElevenLabs (siehe `src/app/api/speak/route.ts`).
 
+## Aktive Umsetzung
+
+`src/voice/index.ts` nutzt jetzt `browserVoiceService.ts`: Web Speech API (`de-DE`) für Speech-to-Text, `/api/analyze` (Gemma) für `parseIntent`, `/api/speak` (ElevenLabs, sonst Browser-Stimme) für `speak`. Vor jedem Parsen gibt die UI über `setContext({ priorities, today })` die aktuellen Gewichte mit. Zusätzlich gibt es die Varianten `free_wish` (Wunsch wie „dienstags frei", der Solver weicht aus) und `query` („Welche Termine habe ich am Mittwoch?", ohne Bestätigung, weil sich nichts ändert). IBM Granite Speech kann später als eigene Datei hinter derselben Schnittstelle kommen.
+
 ## Mock austauschen
 
 1. Neue Datei anlegen, z. B. `src/voice/realVoiceService.ts`, die `VoiceService` aus `./types` implementiert.
