@@ -1,6 +1,6 @@
 # Hacktober26
 
-> **One sentence: what we solve, for whom.** _(fill in at 11:30)_
+> **An AI timetable assistant for students:** it combines lectures, exercises and tutorials with private appointments and hobbies into a conflict-free schedule and re-plans by voice when things change. Concept: [`docs/konzept.md`](docs/konzept.md)
 
 Built in one day at **Hacktoberfest Hack Day Mannheim x Q-Summit** (24 Oct 2026) with **Gemma 4**, Google's open-weight model.
 
