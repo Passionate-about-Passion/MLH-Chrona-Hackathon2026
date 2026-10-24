@@ -24,6 +24,7 @@ import {
 import { voice, type ParsedIntent } from "@/voice";
 import { AddSheet } from "./AddSheet";
 import { ChangePreview } from "./ChangePreview";
+import { Modal } from "./Modal";
 import { ConflictDialog } from "./ConflictDialog";
 import { DateSlider, type Mode } from "./DateSlider";
 import { PlusIcon } from "./Icons";
@@ -34,11 +35,14 @@ import { Toast, type ToastState } from "./Toast";
 import { VoiceOverlay } from "./VoiceOverlay";
 import { WeekPager } from "./WeekPager";
 import { WeekStrip } from "./WeekStrip";
-import { addDays, conflictIds, entriesOn, moveToSession, nextEntry, weekdayOf, type Alternative } from "./logic";
+import { CampusMap } from "@/features/act/CampusMap";
+import { addDays, conflictIds, range, entriesOn, moveToSession, nextEntry, weekdayOf, type Alternative } from "./logic";
 
 /** room for the overlays: header + week strip on top, tab bar at the bottom */
 const PAD_TOP = 164;
 const PAD_BOTTOM = 112;
+
+const KIND_NAME = { V: "Vorlesung", U: "Übung", T: "Tutorium", P: "Termin" } as const;
 
 const data = getProgram()!;
 const groups = uiGroups(data);
@@ -65,6 +69,7 @@ export function TimetableApp() {
   const [date, setDate] = useState(START_DATE);
   const [conflict, setConflict] = useState<{ entryId: string; alternatives: Alternative[] } | null>(null);
   const [preview, setPreview] = useState<{ entryId: string; alt: Alternative } | null>(null);
+  const [mapEntryId, setMapEntryId] = useState<string | null>(null);
   const [addOpen, setAddOpen] = useState(false);
   const [voiceOpen, setVoiceOpen] = useState(false);
   const [toast, setToast] = useState<ToastState | null>(null);
@@ -130,6 +135,7 @@ export function TimetableApp() {
     setConflict({ entryId: e.id, alternatives });
   };
 
+  const mapEntry = mapEntryId ? entries.find((e) => e.id === mapEntryId) : undefined;
   const conflictEntry = conflict && entries.find((e) => e.id === conflict.entryId);
   const previewEntry = preview && entries.find((e) => e.id === preview.entryId);
   const courseOf = (e: Entry) => courses.find((c) => c.id === e.courseId)!;
@@ -228,6 +234,7 @@ export function TimetableApp() {
                 entries={entries}
                 onDate={setDate}
                 onConflictTap={(e) => void openAlternatives(e)}
+                onEntryTap={(e) => setMapEntryId(e.id)}
                 padTop={PAD_TOP}
                 padBottom={PAD_BOTTOM}
               />
@@ -284,6 +291,14 @@ export function TimetableApp() {
         <Toast toast={toast} onDismiss={dismissToast} />
       </div>
 
+      {mapEntry && (
+        <Modal label="Lageplan zum Termin" onClose={() => setMapEntryId(null)}>
+          <CampusMap room={mapEntry.location} title={mapEntry.title} kind={KIND_NAME[mapEntry.type]} time={range(mapEntry)} />
+          <button type="button" className="tt-btn tt-btn-quiet" onClick={() => setMapEntryId(null)}>
+            Schließen
+          </button>
+        </Modal>
+      )}
       {conflict && conflictEntry && (
         <ConflictDialog
           entry={conflictEntry}

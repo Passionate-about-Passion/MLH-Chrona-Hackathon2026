@@ -21,7 +21,7 @@ export function EntryCard({ entry, col = 0, cols = 1, conflict = false, onTap, s
       data-narrow={cols > 1 || undefined}
       type={onTap ? "button" : undefined}
       onClick={onTap}
-      aria-label={onTap ? `${entry.title}, ${range(entry)}, Konflikt. Tippen zeigt Alternativen.` : undefined}
+      aria-label={onTap ? conflict ? `${entry.title}, ${range(entry)}, Konflikt. Tippen zeigt Alternativen.` : `${entry.title}, ${range(entry)}. Tippen zeigt den Lageplan.` : undefined}
       style={{
         left: `calc(${col} * 100% / ${cols})`,
         width: `calc(100% / ${cols} - 6px)`,

@@ -92,7 +92,7 @@ Nichts löschen: Erledigtes nach unten verschieben. Ab **14:00** nur noch Bugfix
 
 ### TASK-022 · Lageplan beim Klick auf einen Termin
 - Bereich: Frontend (gemeinsam) · Modell: sonnet · Prio: nach Freeze, nur wenn Zeit bleibt (nicht Demo-kritisch) · Wer: Frontend-Person
-- Status: offen
+- Status: erledigt (Lageplan, Lenny)
 > Ziel: Klick auf einen Termin in der Wochenansicht öffnet ein Popup mit einem schlichten Grundriss des Campus (Schloss + Quadrate), ohne Legende. Das Gebäude des Termins ist mit einem blauen Fenster markiert, darin Kurs, Art (Vorlesung/Übung), Uhrzeit, Raum.
 > Vorlage: https://www.uni-mannheim.de/media/Einrichtungen/abteilung_marketing/Dokumente/Corporate_Design/UniMaPlan_Hoersaal_2022_DE.pdf – PDF nicht einbetten, sondern einen eigenen leeren Grundriss als Inline-SVG nachzeichnen (Gebäude grau, keine Legende, keine Logos).
 > Raum → Gebäude über das erste Wort von `room`. In den Daten kommen vor: `O`, `SN`, `EO`, `S`, `Aula` (alle Schloss), `A`, `B`, `C`, `D`, `L`, `001.A`/`001` – Lage jeweils im PDF nachsehen, im Zweifel am vollen Raumtext. `ZOOM-…`, `PC-Pool`, `Sprachenzentrum` und Unbekanntes → Plan ohne Markierung plus Text „Raum: …".

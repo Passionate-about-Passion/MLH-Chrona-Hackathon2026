@@ -11,7 +11,11 @@ const room = (s) => {
   const ch = s.location_changes.find(
     (c) => c.effective_from <= SEM.start && (!c.effective_until || c.effective_until >= SEM.start) && c.room_code,
   );
-  return ch?.room_code || s.location?.room_code || undefined;
+  const loc = ch?.room_code ? ch : s.location;
+  if (!loc?.room_code) return undefined;
+  // Quadrat vorn dran ("A 5, 6 Bauteil B" -> "A 5 B 144"), damit der Lageplan das Gebäude kennt; Schloss bleibt "O 142"
+  const quad = loc.building?.match(/^([A-Z] \d+)/)?.[1];
+  return quad ? `${quad} ${loc.room_code}` : loc.room_code;
 };
 
 const courses = [];
