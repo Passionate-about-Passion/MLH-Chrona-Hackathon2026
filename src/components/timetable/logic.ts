@@ -1,7 +1,9 @@
 import type { Course, Entry, Group, Session } from "@/types";
 
-export const HOUR_START = 8;
-export const HOUR_END = 20;
+export const HOUR_START = 0;
+export const HOUR_END = 24;
+/** where the day view opens when a day has no appointments */
+export const DAY_OPEN_HOUR = 8;
 
 export const WD_SHORT = ["Mo", "Di", "Mi", "Do", "Fr", "Sa", "So"];
 export const WD_LONG = ["Montag", "Dienstag", "Mittwoch", "Donnerstag", "Freitag", "Samstag", "Sonntag"];
