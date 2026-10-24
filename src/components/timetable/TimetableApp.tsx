@@ -15,6 +15,7 @@ import {
   fullPriorities,
   planToEntries,
   requestPlan as apiRequestPlan,
+  setSelection,
   swapChoice,
   toBackendWeight,
   uiCourses,
@@ -34,7 +35,6 @@ import { Toast, type ToastState } from "./Toast";
 import { VoiceOverlay } from "./VoiceOverlay";
 import { WeekPager } from "./WeekPager";
 import { WeekStrip } from "./WeekStrip";
-import { Onboarding, type ProgramChoice } from "./Onboarding";
 import { EditSheet, type EditKind, type EditValues } from "./EditSheet";
 import {
   WD_LONG,
@@ -62,25 +62,9 @@ const START_DATE = weekdayOf(TODAY) >= 5 ? addDays(TODAY, 7 - weekdayOf(TODAY)) 
 type Snapshot = { plan: Plan; constraints: Constraint[]; priorities: Priority[] };
 type GoogleStatus = { configured: boolean; connected: boolean };
 
-/** Asks for Studiengang and Fachsemester first, then shows the planner for that choice. */
-export function TimetableApp() {
-  const [choice, setChoice] = useState<ProgramChoice | null>(null);
-  if (!choice) {
-    return (
-      <div className="tt-root" lang="de">
-        <div className="tt-phone tt-phone-center">
-          <Onboarding onDone={setChoice} />
-        </div>
-      </div>
-    );
-  }
-  return (
-    <Planner key={`${choice.program}-${choice.term}`} {...choice} onChangeProgram={() => setChoice(null)} />
-  );
-}
-
-function Planner({ program, term, onChangeProgram }: ProgramChoice & { onChangeProgram: () => void }) {
-  const data = useMemo(() => selectCourses(getProgram(program)!, { term }), [program, term]);
+export function TimetableApp({ program = "demo", term }: { program?: string; term?: number }) {
+  // chosen study program (page.tsx remounts the app with a new key when it changes)
+  const data = useMemo(() => selectCourses(getProgram(program) ?? getProgram()!, { term }), [program, term]);
   const groups = useMemo(() => uiGroups(data), [data]);
   const range = { min: addDays(TODAY, -60), max: data.semester?.end ?? addDays(TODAY, 180) };
   /** every solver call is for the chosen Studiengang and Fachsemester */
@@ -88,6 +72,10 @@ function Planner({ program, term, onChangeProgram }: ProgramChoice & { onChangeP
     (body: Parameters<typeof apiRequestPlan>[0]) => apiRequestPlan({ ...body, program, term }),
     [program, term],
   );
+  /** back to the start screen (ProgramPicker in page.tsx) */
+  const onChangeProgram = () => {
+    window.location.href = "/";
+  };
 
   const [plan, setPlan] = useState<Plan | null>(null);
   const [constraints, setConstraints] = useState<Constraint[]>([]);
@@ -113,10 +101,11 @@ function Planner({ program, term, onChangeProgram }: ProgramChoice & { onChangeP
 
   // start plan from the solver
   useEffect(() => {
+    setSelection({ program, term });
     requestPlan({})
       .then((r) => setPlan(r.plan))
       .catch((e: Error) => setLoadError(e.message));
-  }, [requestPlan]);
+  }, [requestPlan, program, term]);
 
   // Google calendar: status for the connect button, and the result after the OAuth redirect (/?google=ok|error)
   useEffect(() => {

@@ -25,11 +25,9 @@ Constraints = times the student is NOT available.
 - hard: true for fixed appointments (Termin, Arbeit, Arzt, Training, Hobby). hard: false for wishes ("frei haben", "lieber nicht", "wenn möglich").
 - No time mentioned -> "constraints": [].
 - label: short German name, e.g. "Fester Termin", "Fußball", "Frei".
-Priorities: exactly one entry for EVERY course in the list.
-- Default: required + exam -> 3, required without exam -> 2, elective -> 1.
-- If the student says a course is important or unimportant, override the default ONLY for that course (important -> 3, unimportant -> 1). All other courses keep their default weight.
-- If "Current weights" are given, keep them unless the student changes that course in this sentence.
-- reason: one short German sentence, e.g. "Pflichtmodul mit Prüfung" or "Laut dir besonders wichtig".
+Priorities: ONLY the courses the student talks about in this sentence. Usually [] (the app fills in all other courses itself).
+- important -> 3, unimportant -> 1, "eher wichtig" -> 2.
+- reason: one short German sentence, e.g. "Laut dir besonders wichtig".
 - Only use courseIds from the list. Never invent courses.
 Single dates ("nächsten Donnerstag", "am 5. November") are ALWAYS treated as a weekly block of that weekday. Never ask about it.
 Questions: ALWAYS ask when the student gives only a start or end time ("ab 14 Uhr"). Otherwise only if something could mean several different things. Then add one German question with 2-4 concrete options and still fill everything else with the most likely reading. Typical cases:
