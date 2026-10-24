@@ -32,18 +32,25 @@ function questionFor(intent: ParsedIntent, courses: Course[]): string | null {
   return null;
 }
 
+/** holding the mic longer than this = push-to-talk (release sends); shorter = tap to start, tap stop to send */
+const HOLD_MS = 350;
+
 interface VoiceOverlayProps {
   courses: Course[];
+  /** performance.now() of the press on the mic button; undefined when opened by keyboard */
+  pressedAt?: number;
   /** called only after the user said "Ja" */
   onConfirm: (intent: ParsedIntent) => void;
   onClose: () => void;
 }
 
-export function VoiceOverlay({ courses, onConfirm, onClose }: VoiceOverlayProps) {
+export function VoiceOverlay({ courses, pressedAt, onConfirm, onClose }: VoiceOverlayProps) {
   const [phase, setPhase] = useState<Phase>({ k: "listening" });
   const [speakAnswer, setSpeakAnswer] = useState(true);
   const [typed, setTyped] = useState("");
+  const [holding, setHolding] = useState(pressedAt != null);
   const alive = useRef(true);
+  const finishRef = useRef<() => Promise<void>>(async () => {});
 
   const listen = () => {
     setPhase({ k: "listening" });
@@ -81,6 +88,23 @@ export function VoiceOverlay({ courses, onConfirm, onClose }: VoiceOverlayProps)
     }
   };
 
+  finishRef.current = finish;
+
+  // push-to-talk: the finger is still on the mic button when the overlay opens
+  useEffect(() => {
+    if (pressedAt == null) return;
+    const up = () => {
+      setHolding(false);
+      if (performance.now() - pressedAt > HOLD_MS) void finishRef.current();
+    };
+    window.addEventListener("pointerup", up, { once: true });
+    window.addEventListener("pointercancel", up, { once: true });
+    return () => {
+      window.removeEventListener("pointerup", up);
+      window.removeEventListener("pointercancel", up);
+    };
+  }, [pressedAt]);
+
   const cancel = () => {
     stopWithoutTranscript().catch(() => {});
     onClose();
@@ -99,7 +123,9 @@ export function VoiceOverlay({ courses, onConfirm, onClose }: VoiceOverlayProps)
             <p className="tt-transcript" aria-live="polite">
               Ich höre zu …
             </p>
-            <p className="tt-sub">Zum Beispiel: „Donnerstag 14 bis 16 Uhr habe ich einen festen Termin“</p>
+            <p className="tt-sub">
+              {holding ? "Loslassen zum Senden" : "Zum Beispiel: „Donnerstag 14 bis 16 Uhr habe ich einen festen Termin“"}
+            </p>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
@@ -111,13 +137,22 @@ export function VoiceOverlay({ courses, onConfirm, onClose }: VoiceOverlayProps)
                 <input value={typed} onChange={(e) => setTyped(e.target.value)} placeholder="Was soll sich ändern?" />
               </label>
             </form>
-            <div className="tt-actions">
+            {/* like Voice Memos: one round button that stops the recording and sends it */}
+            <div className="tt-rec-row">
               <button type="button" className="tt-btn tt-btn-quiet" onClick={cancel}>
                 Abbrechen
               </button>
-              <button type="button" className="tt-btn tt-btn-primary" onClick={finish}>
-                Fertig
+              <button
+                type="button"
+                className="tt-rec-stop"
+                aria-label={typed.trim() ? "Senden" : "Aufnahme stoppen und senden"}
+                onClick={() => void finish()}
+              >
+                <span aria-hidden="true" />
               </button>
+              <span className="tt-rec-hint" aria-hidden="true">
+                {typed.trim() ? "Senden" : "Stopp"}
+              </span>
             </div>
           </>
         )}

@@ -5,7 +5,8 @@ export type Tab = "cal" | "plan";
 interface TabBarProps {
   tab: Tab;
   onTab: (t: Tab) => void;
-  onVoice: () => void;
+  /** pressedAt = performance.now() of the press (push-to-talk), undefined for keyboard */
+  onVoice: (pressedAt?: number) => void;
   /** recording is running (voice overlay open) */
   voiceActive?: boolean;
 }
@@ -28,8 +29,14 @@ export function TabBar({ tab, onTab, onVoice, voiceActive = false }: TabBarProps
         type="button"
         className="tt-mic glass"
         data-active={voiceActive || undefined}
-        onClick={onVoice}
-        aria-label={voiceActive ? "Aufnahme läuft" : "Per Sprache planen"}
+        // recording starts on press: hold to talk, or tap and stop in the overlay
+        onPointerDown={(e) => {
+          if (e.button === 0) onVoice(performance.now());
+        }}
+        onClick={(e) => {
+          if (e.detail === 0) onVoice(); // keyboard (Enter/Space)
+        }}
+        aria-label={voiceActive ? "Aufnahme läuft" : "Per Sprache planen, gedrückt halten oder tippen"}
       >
         {voiceActive ? <WaveformIcon /> : <MicIcon size={24} />}
       </button>
