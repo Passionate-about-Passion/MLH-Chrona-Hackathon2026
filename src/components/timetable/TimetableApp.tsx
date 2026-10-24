@@ -6,6 +6,7 @@ import type { Constraint, Plan, Priority } from "@/lib/types";
 import type { Entry } from "@/types";
 import { getProgram, selectCourses } from "@/data";
 import { describeChanges, describeSchedule } from "@/features/voice/describe";
+import { downloadIcs } from "@/features/export/ics";
 import {
   DAYS,
   alternativesFor,
@@ -313,7 +314,10 @@ function Planner({ program, term, onChangeProgram }: ProgramChoice & { onChangeP
             groups={groups}
             entries={entries}
             google={google}
-            onExport={() => showToast("Kalender exportiert (nur im Mockup).")}
+            onExport={() => {
+              const n = downloadIcs(entries, { from: data.semester?.start ?? TODAY, until: range.max });
+              showToast(`Kalender exportiert: ${n} Termine in stundenplan.ics`);
+            }}
             onChangeProgram={onChangeProgram}
           />
         )}
